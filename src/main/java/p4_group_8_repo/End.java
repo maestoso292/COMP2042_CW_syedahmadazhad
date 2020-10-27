@@ -2,6 +2,8 @@ package p4_group_8_repo;
 
 import javafx.scene.image.Image;
 
+import static p4_group_8_repo.Main.RESOURCES_PATH;
+
 public class End extends Actor{
 	boolean activated = false;
 	@Override
@@ -12,11 +14,11 @@ public class End extends Actor{
 	public End(int x, int y) {
 		setX(x);
 		setY(y);
-		setImage(new Image("file:src/p4_group_8_repo/End.png", 60, 60, true, true));
+		setImage(new Image(RESOURCES_PATH + "End.png", 60, 60, true, true));
 	}
 	
 	public void setEnd() {
-		setImage(new Image("file:src/p4_group_8_repo/FrogEnd.png", 70, 70, true, true));
+		setImage(new Image(RESOURCES_PATH + "FrogEnd.png", 70, 70, true, true));
 		activated = true;
 	}
 	

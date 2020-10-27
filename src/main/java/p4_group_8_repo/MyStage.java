@@ -3,8 +3,11 @@ package p4_group_8_repo;
 import java.io.File;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+
+import static p4_group_8_repo.Main.RESOURCES_PATH;
 
 public class MyStage extends World{
 	MediaPlayer mediaPlayer;
@@ -27,13 +30,14 @@ public class MyStage extends World{
 //		});
 //		mediaPlayer.play();
 	}
-	
+
 	public void playMusic() {
-		String musicFile = "src/p4_group_8_repo/Frogger Main Song Theme (loop).mp3";   
+		// Valid URI for Media class is different than Image
+		String musicFile = RESOURCES_PATH.replace("file:", "") + "Frogger Main Song Theme (loop).mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-	    mediaPlayer.play();
+		mediaPlayer.play();
 	}
 	
 	public void stopMusic() {
@@ -41,3 +45,10 @@ public class MyStage extends World{
 	}
 
 }
+
+/*
+C:\Users\saazh\Desktop\UNI\Year 2\G52SWM\Coursework\COMP2042_CW_syedahmadazhad\src\main\resources\Frogger Main Song Theme (loop).mp3
+C:\Users\saazh\Desktop\UNI\Year 2\G52SWM\Coursework\COMP2042_CW_syedahmadazhad\src\main\resources\FrogEnd.png
+ */
+
+
