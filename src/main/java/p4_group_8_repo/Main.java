@@ -18,7 +18,7 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 	    background = new MyStage();
 	    Scene scene  = new Scene(background,600,800);
 
@@ -27,28 +27,28 @@ public class Main extends Application {
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
-		BackgroundImage froggerback = new BackgroundImage(RESOURCES_PATH + "Screen Shot 2017-05-29 at 10.02.14 PM.png");
+		BackgroundImage froggerback = new BackgroundImage(RESOURCES_PATH + "iKogsKW.png");
 	    
 		background.add(froggerback);
 		
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 0, 166, 0.75));
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 220, 166, 0.75));
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 440, 166, 0.75));
+		background.add(new Log(3, 0, 166, 0.75));
+		background.add(new Log(3 , 220, 166, 0.75));
+		background.add(new Log(3, 440, 166, 0.75));
 		//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 0, 166, 0.75));
-		background.add(new Log(RESOURCES_PATH + "logs.png", 300, 0, 276, -2));
-		background.add(new Log(RESOURCES_PATH + "logs.png", 300, 400, 276, -2));
-		//background.add(new Log("file:src/p4_group_8_repo/logs.png", 300, 800, 276, -2));
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 50, 329, 0.75));
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 270, 329, 0.75));
-		background.add(new Log(RESOURCES_PATH + "log3.png", 150, 490, 329, 0.75));
+		background.add(new Log(1, 0, 276, -2));
+		background.add(new Log(1, 400, 276, -2));
+		//background.add(new Log("file:src/p4_group_8_repo/log1.png", 300, 800, 276, -2));
+		background.add(new Log(3, 50, 329, 0.75));
+		background.add(new Log(3, 270, 329, 0.75));
+		background.add(new Log(3, 490, 329, 0.75));
 		//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));
 		
-		background.add(new Turtle(500, 376, -1, 130, 130));
-		background.add(new Turtle(300, 376, -1, 130, 130));
-		background.add(new WetTurtle(700, 376, -1, 130, 130));
-		background.add(new WetTurtle(600, 217, -1, 130, 130));
-		background.add(new WetTurtle(400, 217, -1, 130, 130));
-		background.add(new WetTurtle(200, 217, -1, 130, 130));
+		background.add(new Turtle(500, 376, -1));
+		background.add(new Turtle(300, 376, -1));
+		background.add(new WetTurtle(700, 376, -1));
+		background.add(new WetTurtle(600, 217, -1));
+		background.add(new WetTurtle(400, 217, -1));
+		background.add(new WetTurtle(200, 217, -1));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 100, 1));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 0, 100, 1));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 120, -1));
@@ -73,19 +73,19 @@ public class Main extends Application {
 		background.add(new End(141 + 141-13,96));
 		background.add(new End(141 + 141-13+141-13+1,96));
 		background.add(new End(141 + 141-13+141-13+141-13+3,96));
-		animal = new Animal(RESOURCES_PATH + "froggerUp.png");
+		animal = new Animal();
 		background.add(animal);
-		background.add(new Obstacle(RESOURCES_PATH + "truck1"+"Right.png", 0, 649, 1, 120, 120));
-		background.add(new Obstacle(RESOURCES_PATH + "truck1"+"Right.png", 300, 649, 1, 120, 120));
-		background.add(new Obstacle(RESOURCES_PATH + "truck1"+"Right.png", 600, 649, 1, 120, 120));
+		background.add(new Truck(1, "Right", 0, 649, 1));
+		background.add(new Truck(1, "Right", 300, 649, 1));
+		background.add(new Truck(1, "Right", 600, 649, 1));
 		//background.add(new Obstacle("file:src/p4_group_8_repo/truck1"+"Right.png", 720, 649, 1, 120, 120));
-		background.add(new Obstacle(RESOURCES_PATH + "car1Left.png", 100, 597, -1, 50, 50));
-		background.add(new Obstacle(RESOURCES_PATH + "car1Left.png", 250, 597, -1, 50, 50));
-		background.add(new Obstacle(RESOURCES_PATH + "car1Left.png", 400, 597, -1, 50, 50));
-		background.add(new Obstacle(RESOURCES_PATH + "car1Left.png", 550, 597, -1, 50, 50));
-		background.add(new Obstacle(RESOURCES_PATH + "truck2Right.png", 0, 540, 1, 200, 200));
-		background.add(new Obstacle(RESOURCES_PATH + "truck2Right.png", 500, 540, 1, 200, 200));
-		background.add(new Obstacle(RESOURCES_PATH + "car1Left.png", 500, 490, -5, 50, 50));
+		background.add(new Car(1, "Left", 100, 597, -1));
+		background.add(new Car(1, "Left", 250, 597, -1));
+		background.add(new Car(1, "Left", 400, 597, -1));
+		background.add(new Car(1, "Left", 550, 597, -1));
+		background.add(new Truck(2, "Right", 0, 540, 1));
+		background.add(new Truck(2, "Right", 500, 540, 1));
+		background.add(new Car(1, "Left", 500, 490, -5));
 		background.add(new Digit(0, 30, 360, 25));
 		//background.add(obstacle);
 		//background.add(obstacle1);
@@ -103,7 +103,7 @@ public class Main extends Application {
             		setNumber(animal.getPoints());
             	}
             	if (animal.getStop()) {
-            		System.out.print("STOPP:");
+            		System.out.print("STOP:");
             		background.stopMusic();
             		stop();
             		background.stop();

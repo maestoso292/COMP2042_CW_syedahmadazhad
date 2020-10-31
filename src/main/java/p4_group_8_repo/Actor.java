@@ -1,5 +1,6 @@
 package p4_group_8_repo;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
 
@@ -7,6 +8,19 @@ import java.util.ArrayList;
 
 
 public abstract class Actor extends ImageView{
+
+    public Actor() {
+    }
+
+    public Actor(String imageLink, int width, int height, double xpos, double ypos) {
+        setImage(new Image(imageLink, width, height, true, true));
+        setX(xpos);
+        setY(ypos);
+    }
+
+    public Actor(String imageLink, int width, int height, boolean preserveRatio, boolean smooth) {
+        setImage(new Image(imageLink, width, height, preserveRatio, smooth));
+    }
 
     public void move(double dx, double dy) {
         setX(getX() + dx);

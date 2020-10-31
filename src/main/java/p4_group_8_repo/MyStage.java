@@ -46,9 +46,5 @@ public class MyStage extends World{
 
 }
 
-/*
-C:\Users\saazh\Desktop\UNI\Year 2\G52SWM\Coursework\COMP2042_CW_syedahmadazhad\src\main\resources\Frogger Main Song Theme (loop).mp3
-C:\Users\saazh\Desktop\UNI\Year 2\G52SWM\Coursework\COMP2042_CW_syedahmadazhad\src\main\resources\FrogEnd.png
- */
 
 

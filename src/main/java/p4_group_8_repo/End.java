@@ -12,9 +12,7 @@ public class End extends Actor{
 	}
 	
 	public End(int x, int y) {
-		setX(x);
-		setY(y);
-		setImage(new Image(RESOURCES_PATH + "End.png", 60, 60, true, true));
+		super(RESOURCES_PATH + "End.png", 60, 60, x, y);
 	}
 	
 	public void setEnd() {

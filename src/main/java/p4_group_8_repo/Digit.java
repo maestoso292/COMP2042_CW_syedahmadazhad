@@ -14,10 +14,7 @@ public class Digit extends Actor{
 	}
 	
 	public Digit(int n, int dim, int x, int y) {
-		im1 = new Image(RESOURCES_PATH + n + ".png", dim, dim, true, true);
-		setImage(im1);
-		setX(x);
-		setY(y);
+		super(RESOURCES_PATH + n + ".png", dim, dim, x, y);
 	}
 	
 }
