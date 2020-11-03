@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package frogger.scene;
 
 
 import java.util.ArrayList;
@@ -11,13 +11,14 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import frogger.actor.Actor;
 
 
 public abstract class World extends Pane {
     private AnimationTimer timer;
+    private boolean isRunning;
     
     public World() {
     	
@@ -57,6 +58,21 @@ public abstract class World extends Pane {
 						}
 						
 					});
+
+					newValue.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if (getOnMouseClicked() != null) {
+                                getOnMouseClicked().handle(event);
+                            }
+                            List<Actor> myActors = getObjects(Actor.class);
+                            for (Actor anActor : myActors) {
+                                if (anActor.getOnMouseClicked() != null) {
+                                    anActor.getOnMouseClicked().handle(event);
+                                }
+                            }
+                        }
+                    });
 				}
 				
 			}
@@ -79,12 +95,22 @@ public abstract class World extends Pane {
         };
     }
 
+    public void createTimer(AnimationTimer timer) {
+        this.timer = timer;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     public void start() {
+        isRunning = true;
     	createTimer();
         timer.start();
     }
 
     public void stop() {
+        isRunning = false;
         timer.stop();
     }
     

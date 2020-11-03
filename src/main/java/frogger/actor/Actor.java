@@ -1,8 +1,9 @@
-package p4_group_8_repo;
+package frogger.actor;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
+import frogger.scene.World;
 
 import java.util.ArrayList;
 

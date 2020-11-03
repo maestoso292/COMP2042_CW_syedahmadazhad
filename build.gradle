@@ -21,4 +21,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }
 
-mainClassName = 'p4_group_8_repo.Main'
+mainClassName = 'frogger.Main'
