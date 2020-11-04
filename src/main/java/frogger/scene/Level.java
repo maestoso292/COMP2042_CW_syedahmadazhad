@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static frogger.Main.MISC_PATH;
-import static frogger.Main.RESOURCES_PATH;
 
 public class Level extends World{
     private Animal animal;
@@ -115,7 +114,7 @@ public class Level extends World{
                     anActor.act(now);
                 }
 
-                if (animal.changeScore()) {
+                if (animal.isScoreChanged()) {
                     setNumber(animal.getPoints());
                 }
                 if (animal.getStop()) {
@@ -164,7 +163,7 @@ public class Level extends World{
 
     @Override
     public void start() {
-        animal.reset();
+        animal.initialise();
         setNumber(animal.getPoints());
         ends.forEach(new Consumer<End>() {
             @Override

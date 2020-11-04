@@ -43,6 +43,7 @@ public class Main extends Application {
 	    musicPlayer = new MusicPlayer();
 
 		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
 		primaryStage.show();
 		start();
 	}
