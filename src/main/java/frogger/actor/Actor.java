@@ -2,7 +2,6 @@ package frogger.actor;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import frogger.scene.World;
 
 import java.util.ArrayList;
@@ -35,28 +34,13 @@ public abstract class Actor extends ImageView{
     }
 
     public <A extends Actor> java.util.List<A> getIntersectingObjects(java.lang.Class<A> cls){
-        ArrayList<A> someArray = new ArrayList<A>();
+        ArrayList<A> someArray = new ArrayList<>();
         for (A actor: getWorld().getObjects(cls)) {
             if (actor != this && actor.intersects(this.getBoundsInLocal())) {
                 someArray.add(actor);
             }
         }
         return someArray;
-    }
-    
-    public void manageInput(InputEvent e) {
-        
-    }
-
-    public <A extends Actor> A getOneIntersectingObject(java.lang.Class<A> cls) {
-        ArrayList<A> someArray = new ArrayList<A>();
-        for (A actor: getWorld().getObjects(cls)) {
-            if (actor != this && actor.intersects(this.getBoundsInLocal())) {
-                someArray.add(actor);
-                break;
-            }
-        }
-        return someArray.get(0);
     }
 
     public abstract void act(long now);

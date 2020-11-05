@@ -172,7 +172,7 @@ public class Animal extends Actor {
 	}
 
 	public boolean getStop() {
-		return endsFilled == 5;
+		return endsFilled == 1;
 	}
 
 	public int getPoints() {
@@ -180,11 +180,19 @@ public class Animal extends Actor {
 	}
 
 	public boolean isScoreChanged() {
+		return scoreChanged;
+		/*
 		if (scoreChanged) {
 			scoreChanged = false;
 			return true;
 		}
 		return false;
+
+		 */
+	}
+
+	public void setScoreChanged(boolean scoreChanged) {
+		this.scoreChanged = scoreChanged;
 	}
 
 	public void initialise() {

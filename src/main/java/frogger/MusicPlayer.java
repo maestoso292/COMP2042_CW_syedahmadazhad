@@ -1,12 +1,10 @@
-package frogger.scene;
+package frogger;
+
+import javafx.scene.media.Media;
 
 import java.io.File;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import static frogger.Main.MISC_PATH;
-import static frogger.Main.RESOURCES_PATH;
 
 public class MusicPlayer{
 	javafx.scene.media.MediaPlayer mediaPlayer;

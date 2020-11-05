@@ -2,7 +2,6 @@ package frogger;
 
 import frogger.scene.Level;
 import frogger.scene.MainMenu;
-import frogger.scene.MusicPlayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
