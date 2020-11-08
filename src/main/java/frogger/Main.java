@@ -1,12 +1,10 @@
 package frogger;
 
-import frogger.scene.Level;
-import frogger.scene.MainMenu;
+import frogger.scene.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import frogger.scene.SceneController;
 
 public class Main extends Application {
 	// TODO Maybe store all resource paths to an enum?
@@ -30,7 +28,8 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-	    level1 = new Level();
+	    // level1 = Level.getInstance();
+		level1 = LevelFactory.generateRandomLevel();
 	    mainMenu = new MainMenu();
 	    scene  = new Scene(mainMenu, X_UPPER_BOUND, Y_UPPER_BOUND);
 	    sceneController = new SceneController(2, scene);

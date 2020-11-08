@@ -13,7 +13,7 @@ public class WetTurtle extends Platform{
 	private static ArrayList<Image> turtles;
 	private boolean sunk = false;
 
-	public WetTurtle(int xpos, int ypos, int speed) {
+	public WetTurtle(double xpos, double ypos, double speed) {
 		super(xpos, ypos, speed);
 		if (turtles == null) {
 			turtles = new ArrayList<>(NUM_WET_TURTLE_ANIM);

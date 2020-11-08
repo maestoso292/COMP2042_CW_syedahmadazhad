@@ -6,11 +6,21 @@ import java.util.ArrayList;
 
 public class Truck extends Obstacle {
     public enum TruckTypes{
-        SHORT (0),
-        LONG (1);
+        SHORT (0, 120),
+        LONG (1, 200);
         private int type;
-        TruckTypes(int type) {
+        private int size;
+        TruckTypes(int type, int size) {
             this.type = type;
+            this.size = size;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public int getSize() {
+            return size;
         }
     }
 
@@ -20,7 +30,7 @@ public class Truck extends Obstacle {
 
     private static ArrayList<Image> trucks;
 
-    public Truck(TruckTypes type, int xpos, int ypos, int speed) {
+    public Truck(TruckTypes type, double xpos, double ypos, double speed) {
         super(xpos, ypos, speed);
         if (trucks == null) {
             trucks = new ArrayList<>(NUM_TRUCK_TYPES);

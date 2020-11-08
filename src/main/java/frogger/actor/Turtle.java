@@ -11,7 +11,7 @@ public class Turtle extends Platform{
 
 	private static ArrayList<Image> turtles;
 
-	public Turtle(int xpos, int ypos, int speed) {
+	public Turtle(double xpos, double ypos, double speed) {
 		super(xpos, ypos, speed);
 		if (turtles == null) {
 			turtles = new ArrayList<>(3);

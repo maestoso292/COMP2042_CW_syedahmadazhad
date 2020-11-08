@@ -1,26 +1,15 @@
 package frogger;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
 import static frogger.Main.MISC_PATH;
 
-public class MusicPlayer{
-	javafx.scene.media.MediaPlayer mediaPlayer;
+public class MusicPlayer {
+	MediaPlayer mediaPlayer;
 	public MusicPlayer() {
-		
-//		mediaPlayer.play();
-//		mediaPlayer.setOnEndOfMedia(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				mediaPlayer.seek(Duration.ZERO);
-//				
-//			}
-//			
-//		});
-//		mediaPlayer.play();
 	}
 
 	public void playMusic() {

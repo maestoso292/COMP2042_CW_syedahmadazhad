@@ -16,11 +16,11 @@ public class Car extends Obstacle {
 
     private static final String CAR_PATH = OBSTACLES_PATH + "car";
     private static final int NUM_CAR_TYPES = 2;
-    private static final int CAR_SIZE = 50;
+    public static final int CAR_SIZE = 50;
 
     private static ArrayList<Image> cars;
 
-    public Car(CarTypes type, int xpos, int ypos, double speed) {
+    public Car(CarTypes type, double xpos, double ypos, double speed) {
         super(xpos, ypos, speed);
         if (cars == null) {
             cars = new ArrayList<>(NUM_CAR_TYPES);

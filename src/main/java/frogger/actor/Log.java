@@ -9,25 +9,35 @@ import static frogger.Main.X_UPPER_BOUND;
 
 public class Log extends Platform {
 	public enum LogTypes {
-		LONG (0),
-		MEDIUM (1),
-		SHORT (2);
+		LONG (0, 318),
+		MEDIUM (1, 209),
+		SHORT (2, 150);
+
 		private int type;
-		LogTypes(int type) {
+		private int size;
+		LogTypes(int type, int size) {
 			this.type = type;
+			this.size = size;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public int getSize() {
+			return size;
 		}
 	}
 	private static final String LOG_PATH = PLATFORMS_PATH + "log";
-	private static final int[] LOG_SIZES = {300, 209, 150};
 	// Storing images into static arrays uses less memory as different instances use the same Image(s)
 	private static ArrayList<Image> logs;
 
-	public Log(LogTypes type, int xpos, int ypos, double speed) {
+	public Log(LogTypes type, double xpos, double ypos, double speed) {
 		super(xpos, ypos, speed);
 		if (logs == null) {
 			logs = new ArrayList<>(LogTypes.values().length);
-			for (int i = 0; i < LogTypes.values().length; i++) {
-				logs.add(new Image(LOG_PATH + i + ".png", LOG_SIZES[i], LOG_SIZES[i], true, true));
+			for (LogTypes logType : LogTypes.values()) {
+				logs.add(new Image(LOG_PATH + logType.type + ".png", logType.size, logType.size, true, true));
 			}
 		}
 		setImage(logs.get(type.type));

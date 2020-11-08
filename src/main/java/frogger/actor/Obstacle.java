@@ -2,7 +2,7 @@ package frogger.actor;
 
 import static frogger.Main.RESOURCES_PATH;
 
-public class Obstacle extends Actor {
+public abstract class Obstacle extends Actor {
 	protected static final String OBSTACLES_PATH = RESOURCES_PATH + "obstacles/";
 	private double speed;
 

@@ -1,8 +1,12 @@
 package frogger.actor;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
@@ -23,7 +27,7 @@ public class Animal extends Actor {
 	private static final double MOVEMENT_Y = 13.3333333*2;
 	private static final double MOVEMENT_X = 10.666666*2;
 	private static final double INIT_X_POS = 300;
-	private static final double INIT_Y_POS = 679.8 + (MOVEMENT_Y * 3);
+	private static final double INIT_Y_POS = 800.0 * 14 / 15 + ((800.0 / 15 - FROGGER_SIZE)/2);
 	private static final double WATER_BOUNDARY = 413;
 
 	private Image imgFroggerStill;
@@ -35,12 +39,23 @@ public class Animal extends Actor {
 
 	private boolean noMove;
 	private boolean second;
-	private int points;
-	private boolean scoreChanged;
-	private int endsFilled;
 	private double furthestY;
 
-	public Animal() {
+	private int points;
+	private int endsFilled;
+
+	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+	private static Animal animal;
+
+	public static Animal getInstance() {
+		if (animal == null) {
+			animal = new Animal();
+		}
+		return animal;
+	}
+
+	private Animal() {
 		imgFroggerStill = new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true);
 		imgFroggerJump = new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true);
 
@@ -79,7 +94,7 @@ public class Animal extends Actor {
 				setImage(deathAnim.get(deathAnimCounter));
 			}
 			else {
-				decrementPoints();
+				setPoints(points - 50);
 				reset();
 			}
 		}
@@ -91,7 +106,7 @@ public class Animal extends Actor {
 			switch (event.getCode()) {
 				case W:
 					if (getY() <= furthestY - FROGGER_SIZE) {
-						incrementPoints(10);
+						setPoints(points + 10);
 						furthestY = getY();
 					}
 					move(0, -MOVEMENT_Y);
@@ -143,12 +158,12 @@ public class Animal extends Actor {
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			End currentEnd = getIntersectingObjects(End.class).get(0);
 			if (currentEnd.isActivated()) {
-				endsFilled--;
-				decrementPoints();
+				setEndsFilled(endsFilled - 1);
+				setPoints(points - 50);
 			}
 			else {
-				endsFilled++;
-				incrementPoints(50);
+				setEndsFilled(endsFilled + 1);
+				setPoints(points + 50);
 				furthestY = Y_UPPER_BOUND;
 				currentEnd.setEnd();
 			}
@@ -159,44 +174,8 @@ public class Animal extends Actor {
 		}
 	}
 
-	private void decrementPoints() {
-		if (points > 50) {
-			points -= 50;
-			scoreChanged = true;
-		}
-	}
-
-	private void incrementPoints(int points) {
-		this.points += points;
-		scoreChanged = true;
-	}
-
-	public boolean getStop() {
-		return endsFilled == 1;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public boolean isScoreChanged() {
-		return scoreChanged;
-		/*
-		if (scoreChanged) {
-			scoreChanged = false;
-			return true;
-		}
-		return false;
-
-		 */
-	}
-
-	public void setScoreChanged(boolean scoreChanged) {
-		this.scoreChanged = scoreChanged;
-	}
-
 	public void initialise() {
-		points = 0;
+		setPoints(0);
 		endsFilled = 0;
 		furthestY = Y_UPPER_BOUND;
 		reset();
@@ -205,12 +184,43 @@ public class Animal extends Actor {
 	public void reset() {
 		deathType = DeathType.NONE;
 		deathAnimCounter = 0;
-		scoreChanged = false;
 		second = false;
 		noMove = false;
 		setX(INIT_X_POS);
 		setY(INIT_Y_POS);
 		setImage(imgFroggerStill);
 		setRotate(0);
+	}
+
+	// Getters and setters required for beans property change listeners
+
+	public int getEndsFilled() {
+		return endsFilled;
+	}
+
+	public void setEndsFilled(int endsFilled) {
+		if (endsFilled == 1) {
+			int oldEndsFilled = this.endsFilled;
+			propertyChangeSupport.firePropertyChange("endsFilled", oldEndsFilled, endsFilled);
+		}
+		this.endsFilled = endsFilled;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		int oldPoints = this.points;
+		this.points = (points > 0 ? points : 0);
+		propertyChangeSupport.firePropertyChange("points", oldPoints, this.points);
+	}
+
+	public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 }

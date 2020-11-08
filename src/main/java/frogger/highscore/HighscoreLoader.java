@@ -13,22 +13,17 @@ import java.util.stream.Collectors;
 
 import static frogger.Main.MISC_PATH;
 
-public class HighscoreLoader {
+public abstract class HighscoreLoader {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-    private List<Highscore> highscores;
-    private final Path path;
+    private static List<Highscore> highscores = new ArrayList<>();
+    private static File file = new File(MISC_PATH.replace("file:", "") + "highscores.csv");
+    private static Path path = Path.of(file.toURI());
 
-    private boolean upToDate;
+    private static boolean upToDate;
 
-    public HighscoreLoader() throws IOException {
-        highscores = new ArrayList<>();
-        File file = new File(MISC_PATH.replace("file:", "") + "highscores.csv");
+    public static void loadHighscores() throws IOException {
         file.createNewFile();
-        path = Path.of(file.toURI());
-    }
-
-    public void loadHighscores() {
         try (BufferedReader reader = Files.newBufferedReader(path, CHARSET)) {
             String row;
             while ((row = reader.readLine()) != null) {
@@ -47,13 +42,13 @@ public class HighscoreLoader {
         upToDate = true;
     }
 
-    public boolean isNewHighscore(int score) {
+    public static boolean isNewHighscore(int score) {
         boolean temp = highscores.stream().anyMatch(highscore -> highscore.getScore() < score);
         upToDate = !temp;
         return temp;
     }
 
-    public void updateHighscores(String name, int score) {
+    public static void updateHighscores(String name, int score) {
         highscores.add(new Highscore(name, score));
         highscores.sort(Collections.reverseOrder());
         highscores = highscores.stream().limit(3).collect(Collectors.toList());
@@ -75,7 +70,7 @@ public class HighscoreLoader {
         upToDate = true;
     }
 
-    public String getHighscores() {
+    public static String getHighscores() {
         StringBuilder s = new StringBuilder();
         for (Highscore highscore : highscores) {
             s.append(highscore.getName()).append(": ").append(highscore.getScore()).append("\n");
@@ -83,7 +78,7 @@ public class HighscoreLoader {
         return s.toString();
     }
 
-    public boolean isUpToDate() {
+    public static boolean isUpToDate() {
         return upToDate;
     }
 }
