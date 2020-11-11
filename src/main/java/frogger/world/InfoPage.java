@@ -1,4 +1,4 @@
-package frogger.scene;
+package frogger.world;
 
 public class InfoPage extends World {
     @Override

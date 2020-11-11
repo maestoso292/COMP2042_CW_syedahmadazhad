@@ -2,7 +2,7 @@ package frogger.actor;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import frogger.scene.World;
+import frogger.world.World;
 
 import java.util.ArrayList;
 

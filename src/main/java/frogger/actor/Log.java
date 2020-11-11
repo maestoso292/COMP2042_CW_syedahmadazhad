@@ -37,22 +37,9 @@ public class Log extends Platform {
 		if (logs == null) {
 			logs = new ArrayList<>(LogTypes.values().length);
 			for (LogTypes logType : LogTypes.values()) {
-				logs.add(new Image(LOG_PATH + logType.type + ".png", logType.size, logType.size, true, true));
+				logs.add(new Image(LOG_PATH + logType.type + ".png", logType.getSize(), logType.getSize(), true, true));
 			}
 		}
 		setImage(logs.get(type.type));
-	}
-
-	@Override
-	public void act(long now) {
-		move(super.getSpeed() , 0);
-		// TODO This can be moved to a superclass
-		// TODO Perhaps add randomness to this?
-		if (getX()>X_UPPER_BOUND && getSpeed()>0)
-			setX(X_LOWER_BOUND - getWidth());
-		//setX(-180);
-		if (getX()<X_LOWER_BOUND - getWidth() && getSpeed()<0)
-			setX(X_UPPER_BOUND);
-		//setX(700);
 	}
 }

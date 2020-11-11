@@ -1,7 +1,9 @@
 package frogger;
 
-import frogger.scene.*;
-import javafx.animation.AnimationTimer;
+import frogger.world.*;
+import frogger.world.levels.LevelOne;
+import frogger.world.levels.LevelRandom;
+import frogger.world.levels.LevelTwo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,12 +17,8 @@ public class Main extends Application {
 	public static final int Y_LOWER_BOUND = 0;
 	public static final int Y_UPPER_BOUND = 800;
 
-	Scene scene;
-	SceneController sceneController;
-	MainMenu mainMenu;
-	Level level1;
+	Navigation navController;
 	MusicPlayer musicPlayer;
-	AnimationTimer timer;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -28,15 +26,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-	    // level1 = Level.getInstance();
-		level1 = LevelFactory.generateRandomLevel();
-	    mainMenu = new MainMenu();
-	    scene  = new Scene(mainMenu, X_UPPER_BOUND, Y_UPPER_BOUND);
-	    sceneController = new SceneController(2, scene);
-	    sceneController.addPane("Game", level1);
-	    sceneController.addPane("Main", mainMenu);
-	    sceneController.switchPane("Main");
-	    sceneController.startPane();
+		// Create an empty scene.
+	    Scene scene  = new Scene(new MainMenu(), X_UPPER_BOUND, Y_UPPER_BOUND);
+	    navController = Navigation.getNavigationController(scene);
+
+	    navController.addDestination(MainMenu.class);
+		navController.addDestination(LevelOne.class);
+		navController.addDestination(LevelTwo.class);
+	    navController.addDestination(LevelRandom.class);
 
 	    musicPlayer = new MusicPlayer();
 
@@ -46,32 +43,13 @@ public class Main extends Application {
 		start();
 	}
 
-	public void createTimer() {
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-            	if (scene.getRoot() == mainMenu && !mainMenu.isRunning()) {
-            		System.out.println("Game started");
-            		sceneController.switchPane("Game");
-            		sceneController.startPane();
-				}
-            	else if (scene.getRoot() == level1 && !level1.isRunning()) {
-					System.out.println("Game ended");
-            		sceneController.switchPane("Main");
-            		sceneController.startPane();
-				}
-            }
-        };
-    }
 
 	public void start() {
+		navController.navigateTo(MainMenu.class);
 		musicPlayer.playMusic();
-    	createTimer();
-        timer.start();
     }
 
     public void stop() {
 		musicPlayer.stopMusic();
-        timer.stop();
     }
 }

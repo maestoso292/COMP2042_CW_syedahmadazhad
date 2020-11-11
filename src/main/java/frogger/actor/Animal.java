@@ -5,8 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import frogger.world.Level;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 
@@ -27,26 +26,25 @@ public class Animal extends Actor {
 	private static final double MOVEMENT_Y = 13.3333333*2;
 	private static final double MOVEMENT_X = 10.666666*2;
 	private static final double INIT_X_POS = 300;
-	private static final double INIT_Y_POS = 800.0 * 14 / 15 + ((800.0 / 15 - FROGGER_SIZE)/2);
+	private static final double INIT_Y_POS = Level.Section.THIRTEEN.getY() + Level.ActorType.FROGGER.getPadding();
 	private static final double WATER_BOUNDARY = 413;
 
-	private Image imgFroggerStill;
-	private Image imgFroggerJump;
+	private static Animal animal;
+
+	private int froggerAnimCounter;
+	private ArrayList<Image> froggerAnim;
 
 	private int deathAnimCounter;
 	private DeathType deathType;
-	private HashMap<DeathType, ArrayList<Image>> deathAnim;
+	private HashMap<DeathType, ArrayList<Image>> deathAnimHashMap;
 
 	private boolean noMove;
-	private boolean second;
 	private double furthestY;
 
 	private int points;
 	private int endsFilled;
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-	private static Animal animal;
 
 	public static Animal getInstance() {
 		if (animal == null) {
@@ -56,8 +54,10 @@ public class Animal extends Actor {
 	}
 
 	private Animal() {
-		imgFroggerStill = new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true);
-		imgFroggerJump = new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true);
+		setImage(new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+		froggerAnim = new ArrayList<>(2);
+		froggerAnim.add(new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+		froggerAnim.add(new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
 
 		ArrayList<Image> waterDeathAnim = new ArrayList<>(NUM_WATER_DEATH_ANIM);
 		for (int i = 0; i < NUM_WATER_DEATH_ANIM; i++) {
@@ -70,12 +70,12 @@ public class Animal extends Actor {
 		}
 
 		// Store all death animations in a HashMap to avoid duplicate code for each animation
-		deathAnim = new HashMap<>(2);
-		deathAnim.put(DeathType.WATER, waterDeathAnim);
-		deathAnim.put(DeathType.CAR, carDeathAnim);
+		deathAnimHashMap = new HashMap<>(2);
+		deathAnimHashMap.put(DeathType.WATER, waterDeathAnim);
+		deathAnimHashMap.put(DeathType.CAR, carDeathAnim);
 
-		setOnKeyPressed(event -> handleMovement(event, second));
-		setOnKeyReleased(event -> handleMovement(event, true));
+		setOnKeyPressed(event -> handleMovement(event));
+		setOnKeyReleased(event -> handleMovement(event));
 	}
 	
 	@Override
@@ -85,7 +85,7 @@ public class Animal extends Actor {
 		// Death animation, if any
 		if (deathType != DeathType.NONE) {
 			noMove = true;
-			ArrayList<Image> deathAnim = this.deathAnim.get(deathType);
+			ArrayList<Image> deathAnim = deathAnimHashMap.get(deathType);
 			if ((now) % 11 == 0) {
 				deathAnimCounter++;
 			}
@@ -100,9 +100,9 @@ public class Animal extends Actor {
 		}
 	}
 
-	private void handleMovement(KeyEvent event, boolean second) {
+	private void handleMovement(KeyEvent event) {
 		if (!noMove) {
-			setImage(second ? imgFroggerStill : imgFroggerJump);
+			setImage(froggerAnim.get(froggerAnimCounter));
 			switch (event.getCode()) {
 				case W:
 					if (getY() <= furthestY - FROGGER_SIZE) {
@@ -126,7 +126,7 @@ public class Animal extends Actor {
 					break;
 				default:
 			}
-			this.second = !second;
+			froggerAnimCounter = (++froggerAnimCounter) % froggerAnim.size();
 		}
 	}
 
@@ -149,10 +149,8 @@ public class Animal extends Actor {
 		else if (getIntersectingObjects(Platform.class).size() >= 1 && !noMove) {
 			Platform currentPlatform = getIntersectingObjects(Platform.class).get(0);
 			move(currentPlatform.getSpeed(), 0);
-			if (currentPlatform.getClass() == WetTurtle.class) {
-				if (((WetTurtle) currentPlatform).isSunk()) {
-					deathType = DeathType.WATER;
-				}
+			if (currentPlatform.getClass() == WetTurtle.class && ((WetTurtle) currentPlatform).isSunk()) {
+				deathType = DeathType.WATER;
 			}
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
@@ -175,20 +173,27 @@ public class Animal extends Actor {
 	}
 
 	public void initialise() {
+		/*
+		for (PropertyChangeListener listener : propertyChangeSupport.getPropertyChangeListeners()) {
+			propertyChangeSupport.removePropertyChangeListener(listener);
+		}
+
+		 */
 		setPoints(0);
 		endsFilled = 0;
 		furthestY = Y_UPPER_BOUND;
+		toFront();
 		reset();
 	}
 
 	public void reset() {
-		deathType = DeathType.NONE;
+		froggerAnimCounter = 0;
 		deathAnimCounter = 0;
-		second = false;
+		deathType = DeathType.NONE;
 		noMove = false;
 		setX(INIT_X_POS);
 		setY(INIT_Y_POS);
-		setImage(imgFroggerStill);
+		setImage(froggerAnim.get(froggerAnimCounter));
 		setRotate(0);
 	}
 

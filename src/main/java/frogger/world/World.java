@@ -1,4 +1,4 @@
-package frogger.scene;
+package frogger.world;
 
 
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import frogger.actor.Actor;
 
 public abstract class World extends Pane {
     private AnimationTimer timer;
-    private boolean isRunning;
     
     public World() {
     	
@@ -79,18 +78,12 @@ public abstract class World extends Pane {
         };
     }
 
-    public boolean isRunning() {
-        return isRunning;
-    }
-
     public void start() {
-        isRunning = true;
     	createTimer();
         timer.start();
     }
 
     public void stop() {
-        isRunning = false;
         timer.stop();
     }
     

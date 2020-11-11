@@ -12,10 +12,13 @@ public class Car extends Obstacle {
         CarTypes(int type) {
             this.type = type;
         }
+
+        public int getType() {
+            return type;
+        }
     }
 
     private static final String CAR_PATH = OBSTACLES_PATH + "car";
-    private static final int NUM_CAR_TYPES = 2;
     public static final int CAR_SIZE = 50;
 
     private static ArrayList<Image> cars;
@@ -23,9 +26,9 @@ public class Car extends Obstacle {
     public Car(CarTypes type, double xpos, double ypos, double speed) {
         super(xpos, ypos, speed);
         if (cars == null) {
-            cars = new ArrayList<>(NUM_CAR_TYPES);
-            for (int i = 0; i < NUM_CAR_TYPES; i++) {
-                cars.add(new Image(CAR_PATH + i + ".png", CAR_SIZE, CAR_SIZE, true, true));
+            cars = new ArrayList<>(CarTypes.values().length);
+            for (CarTypes carType : CarTypes.values()) {
+                cars.add(new Image(CAR_PATH + carType.getType() + ".png", CAR_SIZE, CAR_SIZE, true, true));
             }
         }
         setImage(cars.get(type.type));

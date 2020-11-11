@@ -1,12 +1,15 @@
-package frogger.scene;
+package frogger.world;
 
-import frogger.actor.*;
+import frogger.Navigation;
+import frogger.actor.Animal;
+import frogger.actor.BackgroundImage;
+import frogger.actor.Digit;
+import frogger.actor.End;
 import frogger.highscore.HighscoreLoader;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,11 +18,56 @@ import java.util.ArrayList;
 
 import static frogger.Main.MISC_PATH;
 
-public class Level extends World implements PropertyChangeListener {
-    private static Level uniqueInstance;
+public abstract class Level extends World implements PropertyChangeListener {
+    public static final double SECTION_HEIGHT = 800.0 / 15;
 
-    private int score;
+    public enum ActorType {
+        LOG (8),
+        TURTLE (1.7),
+        WET_TURTLE (1.7),
+        CAR (9.5),
+        TRUCK (7),
+        FROGGER (6.67);
+        // How padding is calculated: Padding = (Section height - Ingame image height) / 2
+        private final double padding;
+        ActorType(double padding) {
+            this.padding = padding;
+        }
+
+        public double getPadding() {
+            return padding;
+        }
+    }
+
+    public enum Section {
+        ZERO (0),
+        ONE (SECTION_HEIGHT),
+        TWO (SECTION_HEIGHT * 2),
+        THREE (SECTION_HEIGHT * 3),
+        FOUR (SECTION_HEIGHT * 4),
+        FIVE (SECTION_HEIGHT * 5),
+        SIX (SECTION_HEIGHT * 6),
+        SEVEN (SECTION_HEIGHT * 7),
+        EIGHT (SECTION_HEIGHT * 8),
+        NINE (SECTION_HEIGHT * 9),
+        TEN (SECTION_HEIGHT * 10),
+        ELEVEN (SECTION_HEIGHT * 11),
+        TWELVE (SECTION_HEIGHT * 12),
+        THIRTEEN (SECTION_HEIGHT * 13),
+        FOURTEEN (SECTION_HEIGHT * 14);
+
+        private double y;
+        Section(double y) {
+            this.y = y;
+        }
+
+        public double getY() {
+            return y;
+        }
+    }
+
     private Animal animal;
+
     private ArrayList<End> ends = new ArrayList<>(5);
     private ArrayList<Digit> digits = new ArrayList<>();
 
@@ -41,80 +89,33 @@ public class Level extends World implements PropertyChangeListener {
         ends.add(new End(141 + 141-13+141-13+141-13+3,96));
         ends.forEach(this::add);
 
-        /*
-        add(new Log(Log.LogTypes.SHORT, 0, 166, 0.75));
-        add(new Log(Log.LogTypes.SHORT , 220, 166, 0.75));
-        add(new Log(Log.LogTypes.SHORT, 440, 166, 0.75));
-        add(new Log(Log.LogTypes.LONG, 0, 276, -2));
-        add(new Log(Log.LogTypes.LONG, 400, 276, -2));
-        add(new Log(Log.LogTypes.SHORT, 50, 329, 0.75));
-        add(new Log(Log.LogTypes.SHORT, 270, 329, 0.75));
-        add(new Log(Log.LogTypes.SHORT, 490, (800 * 6 / 15) + 8, 0.75));
-
-        add(new Turtle(500, (800 * 7 / 15) + 1.7, -1));
-        add(new Turtle(300, 376, -1));
-        add(new WetTurtle(700, 376, -1));
-        add(new WetTurtle(600, 217, -1));
-        add(new WetTurtle(400, 217, -1));
-        add(new WetTurtle(200, 217, -1));
-
-        add(new Car(Car.CarTypes.WHITE, 500, 490, -2));
-        add(new Car(Car.CarTypes.WHITE, 300, 490, -2));
-
-        add(new Car(Car.CarTypes.WHITE, 0, 540, 5));
-
-        add(new Truck(Truck.TruckTypes.LONG, 0, 597, 1));
-        add(new Truck(Truck.TruckTypes.LONG, 500, 597, 1));
-
-        add(new Car(Car.CarTypes.RED, 100, (800 * 12 / 15) + 9.5, -1));
-        add(new Car(Car.CarTypes.RED, 250, 649, -1));
-        add(new Car(Car.CarTypes.RED, 400, 649, -1));
-        add(new Car(Car.CarTypes.RED, 550, 649, -1));
-
-        add(new Truck(Truck.TruckTypes.SHORT, 0, (800 * 13 / 15) + 7, 1));
-        add(new Truck(Truck.TruckTypes.SHORT, 300, 706, 1));
-        add(new Truck(Truck.TruckTypes.SHORT, 600, 706, 1));
-
-         */
-
-        animal = Animal.getInstance();
-        add(animal);
-        animal.addPropertyChangeListener("points", this);
-        animal.addPropertyChangeListener("endsFilled", this);
-
-        class Temp extends Actor {
-            public Temp(double x, double y) {
-                setImage(new Image(MISC_PATH + "line.png", 600, 1, true, true));
-                setX(x);
-                setY(y);
+        setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ESCAPE:
+                    Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
+                    break;
+                default:
             }
-            @Override
-            public void act(long now) {
-
-            }
-        }
-
-        for (int i = 0; i < 15; i++) {
-            add(new Temp(0, 800 * i /15));
-        }
-    }
-
-    public static Level getInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new Level();
-        }
-        return uniqueInstance;
+        });
     }
 
     @Override
     public void act(long now) {
+
+    }
+
+    public void addAnimal() {
+        animal = Animal.getInstance();
+        add(animal);
+        animal.addPropertyChangeListener("points", this);
+        animal.addPropertyChangeListener("endsFilled", this);
     }
 
     public void setNumber(int n) {
         digits.forEach(this::remove);
         digits.clear();
         int shift = 0;
-         do {
+        do {
             int d = n / 10;
             int k = n - d * 10;
             n = d;
@@ -127,8 +128,7 @@ public class Level extends World implements PropertyChangeListener {
     @Override
     public void start() {
         animal.initialise();
-        score = animal.getPoints();
-        setNumber(score);
+        setNumber(animal.getPoints());
         ends.forEach(End::reset);
         super.start();
     }
@@ -163,6 +163,7 @@ public class Level extends World implements PropertyChangeListener {
                     alert.setContentText("Current Highscores\n" + HighscoreLoader.getHighscores());
                     alert.show();
                     System.out.println(HighscoreLoader.getHighscores());
+                    Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
                 }
             }
         }.start();
@@ -178,4 +179,5 @@ public class Level extends World implements PropertyChangeListener {
             stop();
         }
     }
+
 }

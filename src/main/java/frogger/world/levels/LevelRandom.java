@@ -1,37 +1,19 @@
-package frogger.scene;
+package frogger.world.levels;
 
 import frogger.actor.*;
+import frogger.world.Level;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static frogger.Main.X_UPPER_BOUND;
 import static frogger.actor.Car.CAR_SIZE;
 
-public abstract class LevelFactory {
-    private enum ActorType {
-        LOG (8),
-        TURTLE (1.7),
-        WET_TURTLE (1.7),
-        CAR (9.5),
-        TRUCK (7);
-        // How padding is calculated: Padding = (Section height - Ingame image height) / 2
-        private final double padding;
-        ActorType(double padding) {
-            this.padding = padding;
-        }
-    }
-
-    private static final double sectionHeight = 800 / 15.0;
+public class LevelRandom extends Level {
     private static final int[] WATER_SECTIONS = {3, 4, 5, 6, 7};
     private static final int[] ROAD_SECTIONS = {9, 10, 11, 12, 13};
     private static final int MIN_SPACE = 40;
     private static final int MAX_SPACE = 80;
 
-    private static Level level;
-
-    public static Level generateRandomLevel() {
-        level = new Level();
+    public LevelRandom() {
         ActorType[] types = ActorType.values();
 
         // TODO Make this all more efficient and neater
@@ -47,7 +29,7 @@ public abstract class LevelFactory {
             }
             while (type.equals(ActorType.CAR) || type.equals(ActorType.TRUCK));
 
-            double ypos = (800.0 * i / 15) + type.padding;
+            double ypos = i * SECTION_HEIGHT + type.getPadding();
 
             switch (type) {
                 case LOG:
@@ -75,7 +57,7 @@ public abstract class LevelFactory {
             }
             while (!type.equals(ActorType.CAR) && !type.equals(ActorType.TRUCK));
 
-            double ypos = (800.0 * i / 15) + type.padding;
+            double ypos = (800.0 * i / 15) + type.getPadding();
 
             switch (type) {
                 case CAR:
@@ -87,10 +69,11 @@ public abstract class LevelFactory {
                 default:
             }
         }
-        return level;
+
+        addAnimal();
     }
 
-    private static void generateLogsInSection(double ypos, double speed) {
+    private void generateLogsInSection(double ypos, double speed) {
         Log.LogTypes[] logTypes = Log.LogTypes.values();
         Log.LogTypes logType = logTypes[ThreadLocalRandom.current().nextInt(0, logTypes.length)];
 
@@ -98,29 +81,29 @@ public abstract class LevelFactory {
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(logType.getSize() + 80, logType.getSize() + 160);
-            level.add(new Log(logType, xpos, ypos, speed));
+            add(new Log(logType, xpos, ypos, speed));
         }
     }
 
-    private static void generateTurtlesInSection(double ypos, double speed) {
+    private void generateTurtlesInSection(double ypos, double speed) {
         int count = ThreadLocalRandom.current().nextInt(2, 4);
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(Turtle.TURTLE_SIZE + MIN_SPACE,Turtle.TURTLE_SIZE + MAX_SPACE);
-            level.add(new Turtle(xpos, ypos, speed));
+            add(new Turtle(xpos, ypos, speed));
         }
     }
 
-    private static void generateWetTurtlesInSection(double ypos, double speed) {
+    private void generateWetTurtlesInSection(double ypos, double speed) {
         int count = ThreadLocalRandom.current().nextInt(2, 4);
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(Turtle.TURTLE_SIZE + MIN_SPACE,Turtle.TURTLE_SIZE + MAX_SPACE);
-            level.add(new WetTurtle(xpos, ypos, speed));
+            add(new WetTurtle(xpos, ypos, speed));
         }
     }
 
-    private static void generateTrucksInSection(double ypos, double speed) {
+    private void generateTrucksInSection(double ypos, double speed) {
         Truck.TruckTypes[] truckTypes = Truck.TruckTypes.values();
         Truck.TruckTypes truckType = truckTypes[ThreadLocalRandom.current().nextInt(0, truckTypes.length)];
 
@@ -128,11 +111,11 @@ public abstract class LevelFactory {
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(truckType.getSize() + MIN_SPACE, truckType.getSize() + MAX_SPACE );
-            level.add(new Truck(truckType, xpos, ypos, speed));
+            add(new Truck(truckType, xpos, ypos, speed));
         }
     }
 
-    private static void generateCarsInSection(double ypos, double speed) {
+    private void generateCarsInSection(double ypos, double speed) {
         Car.CarTypes[] carTypes = Car.CarTypes.values();
         Car.CarTypes carType = carTypes[ThreadLocalRandom.current().nextInt(0, carTypes.length)];
 
@@ -140,7 +123,7 @@ public abstract class LevelFactory {
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(CAR_SIZE + MIN_SPACE, CAR_SIZE + MAX_SPACE);
-            level.add(new Car(carType, xpos, ypos, speed));
+            add(new Car(carType, xpos, ypos, speed));
         }
     }
 }
