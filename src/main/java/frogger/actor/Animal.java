@@ -26,17 +26,15 @@ public class Animal extends Actor {
 	private static final double MOVEMENT_Y = 13.3333333*2;
 	private static final double MOVEMENT_X = 10.666666*2;
 	private static final double INIT_X_POS = 300;
-	private static final double INIT_Y_POS = Level.Section.THIRTEEN.getY() + Level.ActorType.FROGGER.getPadding();
+	private static final double INIT_Y_POS = Level.Section.FOURTEEN.getY() + Level.ActorType.FROGGER.getPadding();
 	private static final double WATER_BOUNDARY = 413;
 
-	private static Animal animal;
+	private static ArrayList<Image> froggerAnim;
+	private static HashMap<DeathType, ArrayList<Image>> deathAnimHashMap;
 
 	private int froggerAnimCounter;
-	private ArrayList<Image> froggerAnim;
-
 	private int deathAnimCounter;
 	private DeathType deathType;
-	private HashMap<DeathType, ArrayList<Image>> deathAnimHashMap;
 
 	private boolean noMove;
 	private double furthestY;
@@ -46,33 +44,29 @@ public class Animal extends Actor {
 
 	private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-	public static Animal getInstance() {
-		if (animal == null) {
-			animal = new Animal();
-		}
-		return animal;
-	}
-
-	private Animal() {
-		setImage(new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
-		froggerAnim = new ArrayList<>(2);
-		froggerAnim.add(new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
-		froggerAnim.add(new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
-
-		ArrayList<Image> waterDeathAnim = new ArrayList<>(NUM_WATER_DEATH_ANIM);
-		for (int i = 0; i < NUM_WATER_DEATH_ANIM; i++) {
-			waterDeathAnim.add(new Image(DEATH_PATH + "waterdeath" + i + ".png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+	public Animal() {
+		if (froggerAnim == null) {
+			froggerAnim = new ArrayList<>(2);
+			froggerAnim.add(new Image(FROGGER_PATH + "froggerStill.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+			froggerAnim.add(new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
 		}
 
-		ArrayList<Image> carDeathAnim = new ArrayList<>(NUM_CAR_DEATH_ANIM);
-		for (int i = 0; i < NUM_CAR_DEATH_ANIM; i++) {
-			carDeathAnim.add(new Image(DEATH_PATH + "cardeath" + i + ".png", FROGGER_SIZE, FROGGER_SIZE, true, true));
-		}
+		if (deathAnimHashMap == null) {
+			ArrayList<Image> waterDeathAnim = new ArrayList<>(NUM_WATER_DEATH_ANIM);
+			for (int i = 0; i < NUM_WATER_DEATH_ANIM; i++) {
+				waterDeathAnim.add(new Image(DEATH_PATH + "waterdeath" + i + ".png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+			}
 
-		// Store all death animations in a HashMap to avoid duplicate code for each animation
-		deathAnimHashMap = new HashMap<>(2);
-		deathAnimHashMap.put(DeathType.WATER, waterDeathAnim);
-		deathAnimHashMap.put(DeathType.CAR, carDeathAnim);
+			ArrayList<Image> carDeathAnim = new ArrayList<>(NUM_CAR_DEATH_ANIM);
+			for (int i = 0; i < NUM_CAR_DEATH_ANIM; i++) {
+				carDeathAnim.add(new Image(DEATH_PATH + "cardeath" + i + ".png", FROGGER_SIZE, FROGGER_SIZE, true, true));
+			}
+
+			// Store all death animations in a HashMap to avoid duplicate code for each animation
+			deathAnimHashMap = new HashMap<>(2);
+			deathAnimHashMap.put(DeathType.WATER, waterDeathAnim);
+			deathAnimHashMap.put(DeathType.CAR, carDeathAnim);
+		}
 
 		setOnKeyPressed(event -> handleMovement(event));
 		setOnKeyReleased(event -> handleMovement(event));
@@ -102,6 +96,7 @@ public class Animal extends Actor {
 
 	private void handleMovement(KeyEvent event) {
 		if (!noMove) {
+			froggerAnimCounter = event.getEventType() == KeyEvent.KEY_RELEASED ? 0 : (++froggerAnimCounter) % froggerAnim.size();
 			setImage(froggerAnim.get(froggerAnimCounter));
 			switch (event.getCode()) {
 				case W:
@@ -126,7 +121,7 @@ public class Animal extends Actor {
 					break;
 				default:
 			}
-			froggerAnimCounter = (++froggerAnimCounter) % froggerAnim.size();
+			froggerAnimCounter %= froggerAnim.size();
 		}
 	}
 
@@ -156,12 +151,12 @@ public class Animal extends Actor {
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			End currentEnd = getIntersectingObjects(End.class).get(0);
 			if (currentEnd.isActivated()) {
-				setEndsFilled(endsFilled - 1);
 				setPoints(points - 50);
+				setEndsFilled(endsFilled - 1);
 			}
 			else {
-				setEndsFilled(endsFilled + 1);
 				setPoints(points + 50);
+				setEndsFilled(endsFilled + 1);
 				furthestY = Y_UPPER_BOUND;
 				currentEnd.setEnd();
 			}
@@ -173,12 +168,6 @@ public class Animal extends Actor {
 	}
 
 	public void initialise() {
-		/*
-		for (PropertyChangeListener listener : propertyChangeSupport.getPropertyChangeListeners()) {
-			propertyChangeSupport.removePropertyChangeListener(listener);
-		}
-
-		 */
 		setPoints(0);
 		endsFilled = 0;
 		furthestY = Y_UPPER_BOUND;

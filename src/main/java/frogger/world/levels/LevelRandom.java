@@ -14,6 +14,7 @@ public class LevelRandom extends Level {
     private static final int MAX_SPACE = 80;
 
     public LevelRandom() {
+        super(0);
         ActorType[] types = ActorType.values();
 
         // TODO Make this all more efficient and neater
@@ -69,8 +70,6 @@ public class LevelRandom extends Level {
                 default:
             }
         }
-
-        addAnimal();
     }
 
     private void generateLogsInSection(double ypos, double speed) {

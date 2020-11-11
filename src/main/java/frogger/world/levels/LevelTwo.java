@@ -5,7 +5,7 @@ import frogger.world.Level;
 
 public class LevelTwo extends Level {
     public LevelTwo() {
-        super();
+        super(2);
 
         add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY() + ActorType.LOG.getPadding(), 0.75));
         add(new Log(Log.LogTypes.SHORT , 220, Section.THREE.getY() + ActorType.LOG.getPadding(), 0.75));
@@ -42,8 +42,6 @@ public class LevelTwo extends Level {
         add(new Truck(Truck.TruckTypes.SHORT, 0, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
         add(new Truck(Truck.TruckTypes.SHORT, 300, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
         add(new Truck(Truck.TruckTypes.SHORT, 600, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
-
-        addAnimal();
     }
 
     @Override

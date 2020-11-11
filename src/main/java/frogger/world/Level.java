@@ -5,6 +5,7 @@ import frogger.actor.Animal;
 import frogger.actor.BackgroundImage;
 import frogger.actor.Digit;
 import frogger.actor.End;
+import frogger.highscore.HighscoreController;
 import frogger.highscore.HighscoreLoader;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -70,15 +71,11 @@ public abstract class Level extends World implements PropertyChangeListener {
 
     private ArrayList<End> ends = new ArrayList<>(5);
     private ArrayList<Digit> digits = new ArrayList<>();
+    private HighscoreController highscoreController;
+    private int levelNumber;
 
-    public Level() {
-        new Thread(() -> {
-            try {
-                HighscoreLoader.loadHighscores();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+    public Level(int levelNumber) {
+        this.levelNumber = levelNumber;
 
         add(new BackgroundImage(MISC_PATH + "background_level1.png"));
 
@@ -97,6 +94,11 @@ public abstract class Level extends World implements PropertyChangeListener {
                 default:
             }
         });
+
+        animal = new Animal();
+        add(animal);
+        animal.addPropertyChangeListener("points", this);
+        animal.addPropertyChangeListener("endsFilled", this);
     }
 
     @Override
@@ -105,10 +107,7 @@ public abstract class Level extends World implements PropertyChangeListener {
     }
 
     public void addAnimal() {
-        animal = Animal.getInstance();
-        add(animal);
-        animal.addPropertyChangeListener("points", this);
-        animal.addPropertyChangeListener("endsFilled", this);
+
     }
 
     public void setNumber(int n) {
@@ -130,6 +129,8 @@ public abstract class Level extends World implements PropertyChangeListener {
         animal.initialise();
         setNumber(animal.getPoints());
         ends.forEach(End::reset);
+        highscoreController = new HighscoreController(levelNumber);
+        highscoreController.addPropertyChangeListener("highscores", this);
         super.start();
     }
 
@@ -137,14 +138,14 @@ public abstract class Level extends World implements PropertyChangeListener {
     public void stop() {
         super.stop();
 
-        if (HighscoreLoader.isNewHighscore(animal.getPoints())) {
+        if (highscoreController.isNewHighscore(animal.getPoints())) {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("NEW HIGHSCORE!");
             dialog.setHeaderText("Your Score: " + animal.getPoints());
             dialog.setContentText("Name: ");
-            dialog.setOnHidden(event -> displayHighscores());
+            //dialog.setOnHidden(event -> displayHighscores());
             Platform.runLater(() -> dialog.showAndWait()
-                    .ifPresent(s -> HighscoreLoader.updateHighscores(s, animal.getPoints())));
+                    .ifPresent(name -> highscoreController.updateHighscores(name, animal.getPoints())));
         }
         else {
             displayHighscores();
@@ -152,31 +153,28 @@ public abstract class Level extends World implements PropertyChangeListener {
     }
 
     private void displayHighscores() {
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (HighscoreLoader.isUpToDate()) {
-                    stop();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("YOU WON!");
-                    alert.setHeaderText("Your Score: " + animal.getPoints());
-                    alert.setContentText("Current Highscores\n" + HighscoreLoader.getHighscores());
-                    alert.show();
-                    System.out.println(HighscoreLoader.getHighscores());
-                    Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
-                }
-            }
-        }.start();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("YOU WON!");
+        alert.setHeaderText("Your Score: " + animal.getPoints());
+        alert.setContentText("Current Highscores\n" + highscoreController.getHighscores());
+        alert.show();
+        System.out.println(highscoreController.getHighscores());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();
-        if (propertyName.equals("points")) {
-            setNumber(animal.getPoints());
-        }
-        else if (propertyName.equals("endsFilled")) {
-            stop();
+        switch(propertyName) {
+            case "points" :
+                setNumber(animal.getPoints());
+                break;
+            case "endsFilled":
+                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
+                break;
+            case "highscores":
+                displayHighscores();
+                break;
+            default:
         }
     }
 

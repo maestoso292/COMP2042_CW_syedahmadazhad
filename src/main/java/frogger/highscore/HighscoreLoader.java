@@ -9,22 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static frogger.Main.MISC_PATH;
 
 public abstract class HighscoreLoader {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-    private static List<Highscore> highscores = new ArrayList<>();
-    private static File file = new File(MISC_PATH.replace("file:", "") + "highscores.csv");
-    private static Path path = Path.of(file.toURI());
-
-    private static boolean upToDate;
-
-    public static void loadHighscores() throws IOException {
-        file.createNewFile();
-        try (BufferedReader reader = Files.newBufferedReader(path, CHARSET)) {
+    public static List<Highscore> readHighscores(int levelNumber) {
+        List<Highscore> highscores = new ArrayList<>();
+        File file = new File(MISC_PATH.replace("file:", "") + "highscores" + levelNumber + ".csv");
+        Path path = Path.of(file.toURI());
+        try {
+            file.createNewFile();
+            BufferedReader reader = Files.newBufferedReader(path, CHARSET);
             String row;
             while ((row = reader.readLine()) != null) {
                 String[] temp = row.split(",");
@@ -39,20 +36,19 @@ public abstract class HighscoreLoader {
             highscores.add(new Highscore());
         }
 
-        upToDate = true;
+        return highscores;
     }
-
+    /*
     public static boolean isNewHighscore(int score) {
         boolean temp = highscores.stream().anyMatch(highscore -> highscore.getScore() < score);
         upToDate = !temp;
         return temp;
     }
+     */
 
-    public static void updateHighscores(String name, int score) {
-        highscores.add(new Highscore(name, score));
-        highscores.sort(Collections.reverseOrder());
-        highscores = highscores.stream().limit(3).collect(Collectors.toList());
-
+    public static void writeHighscores(int levelNumber, List<Highscore> highscores) {
+        File file = new File(MISC_PATH.replace("file:", "") + "highscores" + levelNumber + ".csv");
+        Path path = Path.of(file.toURI());
         try (BufferedWriter writer = Files.newBufferedWriter(path, CHARSET)) {
             highscores.forEach(highscore -> {
                 try {
@@ -66,19 +62,5 @@ public abstract class HighscoreLoader {
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        upToDate = true;
-    }
-
-    public static String getHighscores() {
-        StringBuilder s = new StringBuilder();
-        for (Highscore highscore : highscores) {
-            s.append(highscore.getName()).append(": ").append(highscore.getScore()).append("\n");
-        }
-        return s.toString();
-    }
-
-    public static boolean isUpToDate() {
-        return upToDate;
     }
 }
