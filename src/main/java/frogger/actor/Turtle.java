@@ -5,16 +5,18 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public class Turtle extends Platform{
+	public static final int TURTLE_SIZE = 130;
+
+	private static final double TURTLE_PADDING = 1.7;
 	private static final String TURTLE_PATH = PLATFORMS_PATH + "TurtleAnimation";
 	private static final int NUM_TURTLE_ANIM = 3;
-	public static final int TURTLE_SIZE = 130;
 
 	private static ArrayList<Image> turtles;
 
 	public Turtle(double xpos, double ypos, double speed) {
-		super(xpos, ypos, speed);
+		super(xpos, ypos + TURTLE_PADDING, speed);
 		if (turtles == null) {
-			turtles = new ArrayList<>(3);
+			turtles = new ArrayList<>(NUM_TURTLE_ANIM);
 			for (int i = 0; i < NUM_TURTLE_ANIM; i++) {
 				turtles.add(new Image(TURTLE_PATH + i + ".png", TURTLE_SIZE, TURTLE_SIZE, true, true));
 			}

@@ -5,43 +5,39 @@ import frogger.world.Level;
 
 public class LevelTwo extends Level {
     public LevelTwo() {
-        super(2);
+        super(LevelType.TWO);
 
-        add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY() + ActorType.LOG.getPadding(), 0.75));
-        add(new Log(Log.LogTypes.SHORT , 220, Section.THREE.getY() + ActorType.LOG.getPadding(), 0.75));
-        add(new Log(Log.LogTypes.SHORT, 440, Section.THREE.getY() + ActorType.LOG.getPadding(), 0.75));
+        add(new Log(Log.LogTypes.LONG, 250, Section.THREE.getY(), -2.5));
 
-        add(new WetTurtle(600, Section.FOUR.getY() + ActorType.TURTLE.getPadding(), -1));
-        add(new WetTurtle(400, Section.FOUR.getY() + ActorType.TURTLE.getPadding(), -1));
-        add(new WetTurtle(200, Section.FOUR.getY() + ActorType.TURTLE.getPadding(), -1));
+        add(new Turtle(0, Section.FOUR.getY(), 1));
+        add(new Turtle(300, Section.FOUR.getY(), 1));
+        add(new WetTurtle(500, Section.FOUR.getY(), 1));
 
-        add(new Log(Log.LogTypes.LONG, 0, Section.FIVE.getY() + ActorType.LOG.getPadding(), -2));
-        add(new Log(Log.LogTypes.LONG, 400, Section.FIVE.getY() + ActorType.LOG.getPadding(), -2));
+        add(new Turtle(100, Section.FIVE.getY(), -1.75));
+        add(new Turtle(400, Section.FIVE.getY(), -1.75));
 
-        add(new Log(Log.LogTypes.SHORT, 50, Section.SIX.getY() + ActorType.LOG.getPadding(), 0.75));
-        add(new Log(Log.LogTypes.SHORT, 270, Section.SIX.getY() + ActorType.LOG.getPadding(), 0.75));
-        add(new Log(Log.LogTypes.SHORT, 490, Section.SIX.getY() + ActorType.LOG.getPadding(), 0.75));
+        add(new WetTurtle(150, Section.SIX.getY(), 2));
+        add(new WetTurtle(350, Section.SIX.getY(), 2));
+        add(new WetTurtle(550, Section.SIX.getY(), 2));
 
-        add(new Turtle(500, Section.SEVEN.getY() + ActorType.TURTLE.getPadding(), -1));
-        add(new Turtle(300, Section.SEVEN.getY() + ActorType.TURTLE.getPadding(), -1));
-        add(new WetTurtle(700, Section.SEVEN.getY() + ActorType.TURTLE.getPadding(), -1));
+        add(new Log(Log.LogTypes.MEDIUM, 0, Section.SEVEN.getY(), -3));
+        add(new Log(Log.LogTypes.MEDIUM, 300, Section.SEVEN.getY(), -3));
 
-        add(new Car(Car.CarTypes.WHITE, 500, Section.NINE.getY() + ActorType.CAR.getPadding(), -2));
-        add(new Car(Car.CarTypes.WHITE, 300, Section.NINE.getY() + ActorType.CAR.getPadding(), -2));
+        add(new Turtle(-200, Section.EIGHT.getY(), 2));
+        add(new Turtle(100, Section.EIGHT.getY(), 2));
+        add(new WetTurtle(400, Section.EIGHT.getY(), 2));
 
-        add(new Car(Car.CarTypes.WHITE, 0, Section.TEN.getY() + ActorType.CAR.getPadding(), 5));
+        add(new Car(Car.CarTypes.RED, 0, Section.TEN.getY(), 1));
+        add(new Car(Car.CarTypes.RED, 200, Section.TEN.getY(), 1));
+        add(new Car(Car.CarTypes.WHITE, 500, Section.TEN.getY(), 1));
 
-        add(new Truck(Truck.TruckTypes.LONG, 0, Section.ELEVEN.getY() + ActorType.TRUCK.getPadding(), 1));
-        add(new Truck(Truck.TruckTypes.LONG, 500, Section.ELEVEN.getY() + ActorType.TRUCK.getPadding(), 1));
+        add(new Car(Car.CarTypes.WHITE, 100, Section.ELEVEN.getY(), 4));
+        add(new Car(Car.CarTypes.WHITE, 450, Section.ELEVEN.getY(), 4));
 
-        add(new Car(Car.CarTypes.RED, 100, Section.TWELVE.getY() + ActorType.CAR.getPadding(), -1));
-        add(new Car(Car.CarTypes.RED, 250, Section.TWELVE.getY() + ActorType.CAR.getPadding(), -1));
-        add(new Car(Car.CarTypes.RED, 400, Section.TWELVE.getY() + ActorType.CAR.getPadding(), -1));
-        add(new Car(Car.CarTypes.RED, 550, Section.TWELVE.getY() + ActorType.CAR.getPadding(), -1));
+        add(new Truck(Truck.TruckTypes.SHORT, 0, Section.TWELVE.getY(), -2));
+        add(new Truck(Truck.TruckTypes.SHORT, 300, Section.TWELVE.getY(), -2));
 
-        add(new Truck(Truck.TruckTypes.SHORT, 0, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
-        add(new Truck(Truck.TruckTypes.SHORT, 300, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
-        add(new Truck(Truck.TruckTypes.SHORT, 600, Section.THIRTEEN.getY() + ActorType.TRUCK.getPadding(), 1));
+        add(new Car(Car.CarTypes.WHITE, 250, Section.THIRTEEN.getY(), -6));
     }
 
     @Override

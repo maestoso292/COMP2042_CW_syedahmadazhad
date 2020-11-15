@@ -15,10 +15,10 @@ public abstract class Obstacle extends Actor {
 
 	@Override
 	public void act(long now) {
-		move(speed , 0);
-		if (getX()>X_UPPER_BOUND && speed > 0)
+		move(speed, 0);
+		if (getX() > X_UPPER_BOUND && speed > 0)
 			setX(X_LOWER_BOUND - getWidth());
-		if (getX()<X_LOWER_BOUND - getWidth() && speed <0)
+		if (getX() < X_LOWER_BOUND - getWidth() && speed <0)
 			setX(X_UPPER_BOUND);
 	}
 }

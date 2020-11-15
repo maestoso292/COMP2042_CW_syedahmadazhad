@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Navigation {
     private static HashMap<Scene, Navigation> controllerHashMap = new HashMap<>();
-    private HashMap<Class<?>, World> worldHashMap;
+    private HashMap<Class<? extends World>, World> worldHashMap;
     private final Scene scene;
 
     private Navigation(Scene scene) {

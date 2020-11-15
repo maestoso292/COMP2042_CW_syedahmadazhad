@@ -8,18 +8,13 @@ import java.util.stream.Collectors;
 
 public class HighscoreController {
     private List<Highscore> highscores;
-    private int levelNumber;
 
+    private final int levelNumber;
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     public HighscoreController(int levelNumber) {
         this.levelNumber = levelNumber;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                highscores = HighscoreLoader.readHighscores(levelNumber);
-            }
-        }).start();
+        new Thread(() -> highscores = HighscoreLoader.readHighscores(levelNumber)).start();
     }
 
     public void updateHighscores(String name, int score) {
@@ -32,15 +27,15 @@ public class HighscoreController {
     }
 
     public boolean isNewHighscore(int score) {
-        return  highscores.stream().anyMatch(highscore -> highscore.getScore() < score) ? true : false;
+        return highscores.stream().anyMatch(highscore -> highscore.getScore() < score);
     }
 
-    public List<Highscore> getHighscores() {
-        return highscores;
-    }
-
-    public void setHighscores(List<Highscore> highscores) {
-        this.highscores = highscores;
+    public String getHighscoresFormattedDisplay() {
+        String displayText = "";
+        for (Highscore highscore : highscores) {
+            displayText = displayText.concat(highscore.getName() + ": " + highscore.getScore() + "\n");
+        }
+        return displayText;
     }
 
     public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {

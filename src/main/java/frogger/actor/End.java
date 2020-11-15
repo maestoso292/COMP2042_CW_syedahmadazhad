@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static frogger.Main.MISC_PATH;
 
 public class End extends Actor{
-	private static final int[] END_SIZES = {60, 60};
+	private static final int[] END_SIZES = {60, 70};
 	private static ArrayList<Image> ends;
 
 	boolean activated = false;
@@ -28,9 +28,9 @@ public class End extends Actor{
 		}
 	}
 	
-	public void setEnd() {
-		setImage(ends.get(1));
-		activated = true;
+	public void setEnd(boolean activated) {
+		setImage(ends.get(activated ? 1 : 0));
+		this.activated = activated;
 	}
 	
 	public boolean isActivated() {

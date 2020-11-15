@@ -44,18 +44,6 @@ public abstract class World extends Pane {
                             }
                         }
                     });
-
-					newValue.setOnMouseClicked(event -> {
-                        if (getOnMouseClicked() != null) {
-                            getOnMouseClicked().handle(event);
-                        }
-                        List<Actor> myActors = getObjects(Actor.class);
-                        for (Actor anActor : myActors) {
-                            if (anActor.getOnMouseClicked() != null) {
-                                anActor.getOnMouseClicked().handle(event);
-                            }
-                        }
-                    });
 				}
 
 			}

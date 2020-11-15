@@ -1,42 +1,37 @@
 package frogger.world;
 
 import frogger.Navigation;
-import frogger.actor.Animal;
-import frogger.actor.BackgroundImage;
-import frogger.actor.Digit;
-import frogger.actor.End;
+import frogger.actor.*;
 import frogger.highscore.HighscoreController;
-import frogger.highscore.HighscoreLoader;
-import javafx.animation.AnimationTimer;
+import frogger.world.levels.*;
+import frogger.world.misc.MainMenu;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static frogger.Main.MISC_PATH;
 
 public abstract class Level extends World implements PropertyChangeListener {
     public static final double SECTION_HEIGHT = 800.0 / 15;
 
-    public enum ActorType {
-        LOG (8),
-        TURTLE (1.7),
-        WET_TURTLE (1.7),
-        CAR (9.5),
-        TRUCK (7),
-        FROGGER (6.67);
-        // How padding is calculated: Padding = (Section height - Ingame image height) / 2
-        private final double padding;
-        ActorType(double padding) {
-            this.padding = padding;
-        }
+    public enum LevelType {
+        RANDOM (0, LevelRandom.class, Section.EIGHT.getY()),
+        ONE (1, LevelOne.class, Section.EIGHT.getY()),
+        TWO (2, LevelTwo.class, Section.NINE.getY()),
+        THREE (3, LevelThree.class, Section.SIX.getY()),
+        FOUR (4, LevelFour.class, Section.FOUR.getY()),
+        FIVE (5, LevelFive.class, Section.FOURTEEN.getY());
+        public final int number;
+        public final Class<? extends Level> cls;
+        public final double waterBoundary;
 
-        public double getPadding() {
-            return padding;
+        LevelType(int number, Class<? extends Level> cls, double waterBoundary) {
+            this.number = number;
+            this.cls = cls;
+            this.waterBoundary = waterBoundary;
         }
     }
 
@@ -57,7 +52,7 @@ public abstract class Level extends World implements PropertyChangeListener {
         THIRTEEN (SECTION_HEIGHT * 13),
         FOURTEEN (SECTION_HEIGHT * 14);
 
-        private double y;
+        private final double y;
         Section(double y) {
             this.y = y;
         }
@@ -72,18 +67,16 @@ public abstract class Level extends World implements PropertyChangeListener {
     private ArrayList<End> ends = new ArrayList<>(5);
     private ArrayList<Digit> digits = new ArrayList<>();
     private HighscoreController highscoreController;
-    private int levelNumber;
+    private LevelType levelType;
 
-    public Level(int levelNumber) {
-        this.levelNumber = levelNumber;
+    public Level(LevelType levelType) {
+        this.levelType = levelType;
 
-        add(new BackgroundImage(MISC_PATH + "background_level1.png"));
+        add(new BackgroundImage("background_level" + levelType.number + ".png"));
 
-        ends.add(new End(10,92));
-        ends.add(new End(141,96));
-        ends.add(new End(141 + 141-13,96));
-        ends.add(new End(141 + 141-13+141-13+1,96));
-        ends.add(new End(141 + 141-13+141-13+141-13+3,96));
+        for(int i = 0; i < 5; i++) {
+            ends.add(new End(10 + 128 * i, 92));
+        }
         ends.forEach(this::add);
 
         setOnKeyPressed(event -> {
@@ -95,10 +88,35 @@ public abstract class Level extends World implements PropertyChangeListener {
             }
         });
 
-        animal = new Animal();
+        animal = new Animal(levelType.waterBoundary);
         add(animal);
         animal.addPropertyChangeListener("points", this);
         animal.addPropertyChangeListener("endsFilled", this);
+
+        /*
+        class Temp extends Actor {
+            public Temp(double x, double y) {
+                setImage(new Image(MISC_PATH + "line.png", 600, 1, true, true));
+                setX(x);
+                setY(y);
+            }
+            @Override
+            public void act(long now) {
+
+            }
+        }
+
+        for (int i = 0; i < 15; i++) {
+            add(new Temp(0, 800 * i /15));
+        }
+         */
+
+
+        setOnKeyPressed((event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
+            }
+        }));
     }
 
     @Override
@@ -106,8 +124,8 @@ public abstract class Level extends World implements PropertyChangeListener {
 
     }
 
-    public void addAnimal() {
-
+    public Animal getAnimal() {
+        return animal;
     }
 
     public void setNumber(int n) {
@@ -118,7 +136,7 @@ public abstract class Level extends World implements PropertyChangeListener {
             int d = n / 10;
             int k = n - d * 10;
             n = d;
-            digits.add(new Digit(k, 360 - shift, 25));
+            digits.add(new Digit(k, 540 - shift, 30));
             shift+=30;
         } while (n > 0);
         digits.forEach(this::add);
@@ -129,21 +147,18 @@ public abstract class Level extends World implements PropertyChangeListener {
         animal.initialise();
         setNumber(animal.getPoints());
         ends.forEach(End::reset);
-        highscoreController = new HighscoreController(levelNumber);
+        highscoreController = new HighscoreController(levelType.number);
         highscoreController.addPropertyChangeListener("highscores", this);
         super.start();
     }
 
-    @Override
-    public void stop() {
-        super.stop();
-
+    public void win() {
+        stop();
         if (highscoreController.isNewHighscore(animal.getPoints())) {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("NEW HIGHSCORE!");
             dialog.setHeaderText("Your Score: " + animal.getPoints());
             dialog.setContentText("Name: ");
-            //dialog.setOnHidden(event -> displayHighscores());
             Platform.runLater(() -> dialog.showAndWait()
                     .ifPresent(name -> highscoreController.updateHighscores(name, animal.getPoints())));
         }
@@ -156,9 +171,9 @@ public abstract class Level extends World implements PropertyChangeListener {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOU WON!");
         alert.setHeaderText("Your Score: " + animal.getPoints());
-        alert.setContentText("Current Highscores\n" + highscoreController.getHighscores());
+        alert.setContentText("Current Highscores\n" + highscoreController.getHighscoresFormattedDisplay());
+        alert.setOnHidden(event -> Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class));
         alert.show();
-        System.out.println(highscoreController.getHighscores());
     }
 
     @Override
@@ -169,7 +184,9 @@ public abstract class Level extends World implements PropertyChangeListener {
                 setNumber(animal.getPoints());
                 break;
             case "endsFilled":
-                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
+                if ((int) evt.getNewValue() == 5) {
+                    win();
+                }
                 break;
             case "highscores":
                 displayHighscores();

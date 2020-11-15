@@ -10,14 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static frogger.Main.MISC_PATH;
+import static frogger.Main.RESOURCES_PATH;
 
 public abstract class HighscoreLoader {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
+    private static final String HIGHSCORES_PATH = RESOURCES_PATH.replace("file:", "") + "highscores/highscores";
 
     public static List<Highscore> readHighscores(int levelNumber) {
         List<Highscore> highscores = new ArrayList<>();
-        File file = new File(MISC_PATH.replace("file:", "") + "highscores" + levelNumber + ".csv");
+        File file = new File(HIGHSCORES_PATH + levelNumber + ".csv");
         Path path = Path.of(file.toURI());
         try {
             file.createNewFile();
@@ -38,16 +39,9 @@ public abstract class HighscoreLoader {
 
         return highscores;
     }
-    /*
-    public static boolean isNewHighscore(int score) {
-        boolean temp = highscores.stream().anyMatch(highscore -> highscore.getScore() < score);
-        upToDate = !temp;
-        return temp;
-    }
-     */
 
     public static void writeHighscores(int levelNumber, List<Highscore> highscores) {
-        File file = new File(MISC_PATH.replace("file:", "") + "highscores" + levelNumber + ".csv");
+        File file = new File(HIGHSCORES_PATH + levelNumber + ".csv");
         Path path = Path.of(file.toURI());
         try (BufferedWriter writer = Files.newBufferedWriter(path, CHARSET)) {
             highscores.forEach(highscore -> {

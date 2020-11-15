@@ -1,9 +1,9 @@
 package frogger;
 
-import frogger.world.*;
-import frogger.world.levels.LevelOne;
-import frogger.world.levels.LevelRandom;
-import frogger.world.levels.LevelTwo;
+import frogger.world.levels.*;
+import frogger.world.misc.InfoPage;
+import frogger.world.misc.LevelSelect;
+import frogger.world.misc.MainMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -31,8 +31,13 @@ public class Main extends Application {
 	    navController = Navigation.getNavigationController(scene);
 
 	    navController.addDestination(MainMenu.class);
+	    navController.addDestination(InfoPage.class);
+	    navController.addDestination(LevelSelect.class);
 		navController.addDestination(LevelOne.class);
 		navController.addDestination(LevelTwo.class);
+		navController.addDestination(LevelThree.class);
+		navController.addDestination(LevelFour.class);
+		navController.addDestination(LevelFive.class);
 	    navController.addDestination(LevelRandom.class);
 
 	    musicPlayer = new MusicPlayer();
