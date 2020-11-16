@@ -14,6 +14,9 @@ public class HighscoreController {
 
     public HighscoreController(int levelNumber) {
         this.levelNumber = levelNumber;
+    }
+
+    public void loadHighscores() {
         new Thread(() -> highscores = HighscoreLoader.readHighscores(levelNumber)).start();
     }
 

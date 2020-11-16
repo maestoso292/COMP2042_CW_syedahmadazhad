@@ -4,9 +4,6 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import static frogger.Main.X_LOWER_BOUND;
-import static frogger.Main.X_UPPER_BOUND;
-
 public class Log extends Platform {
 	public enum LogTypes {
 		LONG (0, 318),

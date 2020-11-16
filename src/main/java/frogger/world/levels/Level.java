@@ -1,9 +1,9 @@
-package frogger.world;
+package frogger.world.levels;
 
-import frogger.Navigation;
+import frogger.navigation.Navigation;
 import frogger.actor.*;
 import frogger.highscore.HighscoreController;
-import frogger.world.levels.*;
+import frogger.world.World;
 import frogger.world.misc.MainMenu;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -14,27 +14,23 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**
+ * Level is the base abstract class which all Frogger levels must be a subclass of. Each instance of Level may act as
+ * the root node of the JavaFX scene graph. Level provides the generation of all child nodes that must exist in all
+ * Frogger levels such as {@link Animal} and {@link BackgroundImage}. Level also contains a
+ * {@link HighscoreController} that will handle keeping track of highscores for each level. Level implements
+ * Java Beans {@link PropertyChangeListener} to listen to changes in highscore and the number of end goals reached by
+ * the user.
+ */
 public abstract class Level extends World implements PropertyChangeListener {
+    /**
+     * A constant that specifies the height of every row in the Frogger game.
+     */
     public static final double SECTION_HEIGHT = 800.0 / 15;
 
-    public enum LevelType {
-        RANDOM (0, LevelRandom.class, Section.EIGHT.getY()),
-        ONE (1, LevelOne.class, Section.EIGHT.getY()),
-        TWO (2, LevelTwo.class, Section.NINE.getY()),
-        THREE (3, LevelThree.class, Section.SIX.getY()),
-        FOUR (4, LevelFour.class, Section.FOUR.getY()),
-        FIVE (5, LevelFive.class, Section.FOURTEEN.getY());
-        public final int number;
-        public final Class<? extends Level> cls;
-        public final double waterBoundary;
-
-        LevelType(int number, Class<? extends Level> cls, double waterBoundary) {
-            this.number = number;
-            this.cls = cls;
-            this.waterBoundary = waterBoundary;
-        }
-    }
-
+    /**
+     * An enumeration that specifies each row of the Frogger level and its corresponding y-coordinate.
+     */
     public enum Section {
         ZERO (0),
         ONE (SECTION_HEIGHT),
@@ -62,17 +58,40 @@ public abstract class Level extends World implements PropertyChangeListener {
         }
     }
 
-    private Animal animal;
+    /**
+     * A reference to the Animal instance. This is the character the player controls. Only one should exists per level.
+     */
+    private final Animal animal;
 
-    private ArrayList<End> ends = new ArrayList<>(5);
-    private ArrayList<Digit> digits = new ArrayList<>();
-    private HighscoreController highscoreController;
-    private LevelType levelType;
+    /**
+     * An ArrayList of all the end goals in the level. Exactly five must exist per level.
+     */
+    private final ArrayList<End> ends = new ArrayList<>(5);
 
-    public Level(LevelType levelType) {
-        this.levelType = levelType;
+    /**
+     * An ArrayList storing the digits to be displayed as the score.
+     */
+    private final ArrayList<Digit> digits = new ArrayList<>();
 
-        add(new BackgroundImage("background_level" + levelType.number + ".png"));
+    /**
+     * A reference to the HighscoreController instance that handles all logic regarding player highscores.
+     */
+    private final HighscoreController highscoreController;
+
+    /**
+     * Creates a Level with a HighscoreController. A BackgroundImage is created based on the levelNumber parameter.
+     * Images for level backgrounds must be name "background_level[levelNumber].png" in the background
+     * images directory. An Animal instance is also created which uses the waterBoundary parameter for it's
+     * collision checking. A Level instance listens to a user pressing the ESC key and will call
+     * {@link frogger.navigation.NavController#navigateTo(Class)} to navigate to {@link MainMenu}.
+     * @param levelNumber Specifies the level number corresponding to the level.
+     * @param waterBoundary Specifies the y-coordinate where the water region begins in the level.
+     */
+    public Level(int levelNumber, double waterBoundary) {
+        highscoreController = new HighscoreController(levelNumber);
+        highscoreController.addPropertyChangeListener("highscores", this);
+
+        add(new BackgroundImage("background_level" + levelNumber + ".png"));
 
         for(int i = 0; i < 5; i++) {
             ends.add(new End(10 + 128 * i, 92));
@@ -80,19 +99,17 @@ public abstract class Level extends World implements PropertyChangeListener {
         ends.forEach(this::add);
 
         setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ESCAPE:
-                    Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
-                    break;
-                default:
+            if (event.getCode() == KeyCode.ESCAPE) {
+                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
             }
         });
 
-        animal = new Animal(levelType.waterBoundary);
+        animal = new Animal(waterBoundary);
         add(animal);
         animal.addPropertyChangeListener("points", this);
         animal.addPropertyChangeListener("endsFilled", this);
 
+        // Generate guiding lines for every row.
         /*
         class Temp extends Actor {
             public Temp(double x, double y) {
@@ -119,15 +136,27 @@ public abstract class Level extends World implements PropertyChangeListener {
         }));
     }
 
+    /**
+     * Empty act method. Called every frame by AnimationTimer.
+     * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
+     */
     @Override
     public void act(long now) {
 
     }
 
+    /**
+     * Obtain the instance of Animal in the Level.
+     * @return The instance of Animal.
+     */
     public Animal getAnimal() {
         return animal;
     }
 
+    /**
+     * Changes the score display to match the parameter.
+     * @param n Specifies the value to display as the score.
+     */
     public void setNumber(int n) {
         digits.forEach(this::remove);
         digits.clear();
@@ -142,17 +171,23 @@ public abstract class Level extends World implements PropertyChangeListener {
         digits.forEach(this::add);
     }
 
+    /**
+     * Resets the level and calls {@link super#start()}. Resets instances of Animal and End. Sets score to display 0.
+     */
     @Override
     public void start() {
         animal.initialise();
         setNumber(animal.getPoints());
         ends.forEach(End::reset);
-        highscoreController = new HighscoreController(levelType.number);
-        highscoreController.addPropertyChangeListener("highscores", this);
+        highscoreController.loadHighscores();
         super.start();
     }
 
-    public void win() {
+    /**
+     * Stops the timer and calls a dialog popup regarding highscores. Called when all instances of End have been
+     * activated. Called by Java Beans PropertyChangeListener.
+     */
+    private void win() {
         stop();
         if (highscoreController.isNewHighscore(animal.getPoints())) {
             TextInputDialog dialog = new TextInputDialog();
@@ -176,6 +211,11 @@ public abstract class Level extends World implements PropertyChangeListener {
         alert.show();
     }
 
+    /**
+     * Method from Beans PropertyChangeListener which is called when observed property is modified. Called when
+     * a PropertyChangeSupport fires an event.
+     * @param evt Specifies the event fired by the PropertyChangeSupport
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String propertyName = evt.getPropertyName();

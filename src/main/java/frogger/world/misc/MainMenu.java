@@ -2,7 +2,7 @@ package frogger.world.misc;
 
 import frogger.actor.BackgroundImage;
 import frogger.actor.NavButton;
-import frogger.world.Level;
+import frogger.world.levels.Level;
 import frogger.world.World;
 
 import static frogger.Main.X_UPPER_BOUND;

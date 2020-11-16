@@ -1,10 +1,8 @@
 package frogger.world.misc;
 
-import frogger.Navigation;
+import frogger.navigation.Navigation;
 import frogger.actor.BackgroundImage;
 import frogger.world.World;
-
-import static frogger.Main.MISC_PATH;
 
 public class InfoPage extends World {
     public InfoPage() {

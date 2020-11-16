@@ -3,11 +3,10 @@ package frogger.world.levels;
 import frogger.actor.Log;
 import frogger.actor.Turtle;
 import frogger.actor.WetTurtle;
-import frogger.world.Level;
 
 public class LevelFive extends Level {
-    public LevelFive() {
-        super(LevelType.FIVE);
+    protected LevelFive(int levelNumber, double waterBoundary) {
+        super(levelNumber, waterBoundary);
 
         add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY(), 7));
 

@@ -1,7 +1,6 @@
 package frogger.world.levels;
 
 import frogger.actor.*;
-import frogger.world.Level;
 
 import java.beans.PropertyChangeEvent;
 import java.util.LinkedList;
@@ -19,8 +18,8 @@ public class LevelRandom extends Level {
 
     private final List<Actor> generatedActors = new LinkedList<>();
 
-    public LevelRandom() {
-        super(LevelType.RANDOM);
+    protected LevelRandom(int levelNumber, double waterBoundary) {
+        super(levelNumber, waterBoundary);
     }
 
     @Override

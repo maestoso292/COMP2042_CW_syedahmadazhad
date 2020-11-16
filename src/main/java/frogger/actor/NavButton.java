@@ -1,6 +1,6 @@
 package frogger.actor;
 
-import frogger.Navigation;
+import frogger.navigation.Navigation;
 import frogger.world.World;
 import javafx.scene.image.Image;
 

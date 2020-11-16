@@ -1,13 +1,10 @@
 package frogger.world.levels;
 
 import frogger.actor.*;
-import frogger.world.Level;
-
-import static frogger.Main.MISC_PATH;
 
 public class LevelThree extends Level {
-    public LevelThree() {
-        super(LevelType.THREE);
+    protected LevelThree(int levelNumber, double waterBoundary) {
+        super(levelNumber, waterBoundary);
 
         add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY(), 1));
         add(new Log(Log.LogTypes.SHORT, 350, Section.THREE.getY(), 1));
@@ -41,9 +38,5 @@ public class LevelThree extends Level {
 
         add(new Truck(Truck.TruckTypes.SHORT, 0, Section.THIRTEEN.getY(), 2));
         add(new Truck(Truck.TruckTypes.SHORT, 300, Section.THIRTEEN.getY(), 2));
-    }
-    @Override
-    public void act(long now) {
-        super.act(now);
     }
 }

@@ -1,5 +1,7 @@
 package frogger;
 
+import frogger.navigation.NavController;
+import frogger.navigation.Navigation;
 import frogger.world.levels.*;
 import frogger.world.misc.InfoPage;
 import frogger.world.misc.LevelSelect;
@@ -17,7 +19,7 @@ public class Main extends Application {
 	public static final int Y_LOWER_BOUND = 0;
 	public static final int Y_UPPER_BOUND = 800;
 
-	Navigation navController;
+	NavController navController;
 	MusicPlayer musicPlayer;
 
 	public static void main(String[] args) {
@@ -33,12 +35,12 @@ public class Main extends Application {
 	    navController.addDestination(MainMenu.class);
 	    navController.addDestination(InfoPage.class);
 	    navController.addDestination(LevelSelect.class);
-		navController.addDestination(LevelOne.class);
-		navController.addDestination(LevelTwo.class);
-		navController.addDestination(LevelThree.class);
-		navController.addDestination(LevelFour.class);
-		navController.addDestination(LevelFive.class);
-	    navController.addDestination(LevelRandom.class);
+		navController.addDestination(LevelFactory.provideLevel(LevelOne.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelTwo.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelThree.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelFour.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelFive.class));
+	    navController.addDestination(LevelFactory.provideLevel(LevelRandom.class));
 
 	    musicPlayer = new MusicPlayer();
 
@@ -51,7 +53,7 @@ public class Main extends Application {
 
 	public void start() {
 		navController.navigateTo(MainMenu.class);
-		musicPlayer.playMusic();
+		musicPlayer.playMusic( MISC_PATH.replace("file:", "") + "Frogger Main Song Theme (loop).mp3");
     }
 
     public void stop() {
