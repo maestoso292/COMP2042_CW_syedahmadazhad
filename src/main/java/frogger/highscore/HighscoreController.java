@@ -84,7 +84,7 @@ public class HighscoreController {
     }
 
     /**
-     * Adds a Listener to a list of Listeners.
+     * Adds a Listener to a list of PropertyChagneListeners.
      * @param propertyName A String object representing the name of the property that the Listener is listening to.
      * @param listener The Listener object.
      */
@@ -93,11 +93,10 @@ public class HighscoreController {
     }
 
     /**
-     * Removes a Listener from the list of Listeners.
-     * @param propertyName A String object representing the name of the property that the Listener is listening to.
+     * Removes a Listener from the list of PropertyChangeListeners.
      * @param listener The Listener object.
      */
-    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }

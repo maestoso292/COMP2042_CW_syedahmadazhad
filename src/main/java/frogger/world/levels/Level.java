@@ -229,20 +229,20 @@ public abstract class Level extends World implements PropertyChangeListener {
     }
 
     /**
-     * Resets the level and calls {@link Level#start()}. Resets instances of Animal and End. Sets score to display 0.
+     * Resets the level and calls {@link World#start()}. Resets instances of Animal and End. Sets score to display 0.
      */
     @Override
     public void start() {
         animal.initialise();
         setNumber(animal.getPoints());
-        ends.forEach(End::reset);
+        ends.forEach(end -> end.setEnd(false));
         highscoreController.loadHighscores();
         super.start();
     }
 
     /**
-     * Stops the timer and calls a dialog popup regarding highscores. Called when all instances of End have been
-     * activated. Called by Java Beans PropertyChangeListener.
+     * Stops the timer and calls a dialog popup which either prompts for user input or displays the current highscores.
+     * Called when all instances of End have been activated. Called by Java Beans PropertyChangeListener.
      */
     private void win() {
         stop();
@@ -259,6 +259,9 @@ public abstract class Level extends World implements PropertyChangeListener {
         }
     }
 
+    /**
+     * Displays the current highscores as an Alert.
+     */
     private void displayHighscores() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("YOU WON!");

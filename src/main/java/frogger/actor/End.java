@@ -6,19 +6,36 @@ import java.util.ArrayList;
 
 import static frogger.Main.MISC_PATH;
 
+/**
+ * The End class provides a displayable image of the end goal of the Frogger game. The instance can be toggled to
+ * display an empty or filled in end goal.
+ */
 public class End extends Actor{
+	/**
+	 * Specifies different sizes for the images of the end goal
+	 */
 	private static final int[] END_SIZES = {60, 70};
+
+	/**
+	 * A List to store references to the Images of the empty and filled in end goals.
+	 */
 	private static ArrayList<Image> ends;
 
-	boolean activated = false;
-	@Override
-	public void act(long now) {
-	}
-	
-	public End(int x, int y) {
+	/**
+	 * Specifies the activation state of the instance.
+	 */
+	private boolean activated = false;
+
+	/**
+	 * Creates an End at the specified coordinates with a default activation state of false. This means the displayed
+	 * image is of the empty end goal.
+	 * @param xpos Specifies the x-coordinate. Measured in pixels.
+	 * @param ypos Specifies the y-coordinate. Measured in pixels.
+	 */
+	public End(int xpos, int ypos) {
 		super();
-		setX(x);
-		setY(y);
+		setX(xpos);
+		setY(ypos);
 		if (ends == null) {
 			ends = new ArrayList<>(END_SIZES.length);
 			for (int i = 0; i < END_SIZES.length; i++) {
@@ -26,19 +43,30 @@ public class End extends Actor{
 			}
 		}
 	}
-	
+
+	/**
+	 * Sets the activation state of the instance and switch the display to the corresponding Image.
+	 * @param activated Specifies the new value for the activation state.
+	 */
 	public void setEnd(boolean activated) {
 		setImage(ends.get(activated ? 1 : 0));
 		this.activated = activated;
 	}
-	
+
+	/**
+	 * Check whether the instance is activated.
+	 * @return The activation state.
+	 */
 	public boolean isActivated() {
 		return activated;
 	}
 
-	public void reset() {
-		setImage(ends.get(0));
-		activated = false;
+	/**
+	 * Empty act method.
+	 * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
+	 */
+	@Override
+	public void act(long now) {
 	}
 
 }

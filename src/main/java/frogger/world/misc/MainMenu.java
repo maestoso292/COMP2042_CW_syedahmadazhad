@@ -17,8 +17,8 @@ public class MainMenu extends World {
      */
     public MainMenu() {
         add(new BackgroundImage("background_main_menu.png"));
-        add(new NavButton("buttonPlay", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.EIGHT.getY(), LevelSelect.class));
-        add(new NavButton("buttonInfo", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.NINE.getY(), InfoPage.class));
+        add(new NavButton("buttonPlay.png", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.EIGHT.getY(), LevelSelect.class));
+        add(new NavButton("buttonInfo.png", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.NINE.getY(), InfoPage.class));
     }
 
     /**

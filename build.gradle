@@ -26,7 +26,5 @@ mainClassName = 'frogger.Main'
 javadoc {
     source = sourceSets.main.allJava
     classpath = sourceSets.main.runtimeClasspath
-    include 'frogger/world/**/*'
-    include 'frogger/MusicPlayer.java'
-    include 'frogger/navigation/*'
+    options.memberLevel = JavadocMemberLevel.PRIVATE
 }

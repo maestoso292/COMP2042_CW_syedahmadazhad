@@ -99,7 +99,7 @@ public class LevelRandom extends Level {
         Log.LogTypes[] logTypes = Log.LogTypes.values();
         Log.LogTypes logType = logTypes[ThreadLocalRandom.current().nextInt(0, logTypes.length)];
 
-        int count = ThreadLocalRandom.current().nextInt( 1, 2 + logType.type);
+        int count = ThreadLocalRandom.current().nextInt( 1, 2 + logType.label);
         double xpos = 0;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(logType.size + MIN_SPACE, logType.size + MAX_SPACE);
