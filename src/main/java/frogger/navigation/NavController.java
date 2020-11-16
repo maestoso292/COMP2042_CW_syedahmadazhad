@@ -86,6 +86,11 @@ public class NavController {
         }
     }
 
+    /**
+     * Adds a destination to the list of potential root nodes. This only adds the destination if it is not part of
+     * the current list of destinations.
+     * @param world The instance of World to added as a destination.
+     */
     public void addDestination(World world) {
         addDestination(world.getClass(), world);
     }

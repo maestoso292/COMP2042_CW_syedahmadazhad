@@ -2,8 +2,18 @@ package frogger.world.levels;
 
 import frogger.actor.*;
 
+/**
+ * LevelTwo is a class that creates a custom Level for the Frogger game to use.
+ * @see Level
+ * @see LevelFactory
+ */
 public class LevelTwo extends Level {
-    public LevelTwo(int levelNumber, double waterBoundary) {
+    /**
+     * Creates a new instance of LevelTwo with preset child nodes. Called by LevelFactory.
+     * @param levelNumber Specifies the level number.
+     * @param waterBoundary Specifies the y-coordinate where the water region begins in the level.
+     */
+    protected LevelTwo(int levelNumber, double waterBoundary) {
         super(levelNumber, waterBoundary);
 
         add(new Log(Log.LogTypes.LONG, 250, Section.THREE.getY(), -2.5));

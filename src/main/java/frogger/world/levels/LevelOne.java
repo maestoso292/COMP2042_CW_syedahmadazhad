@@ -2,8 +2,17 @@ package frogger.world.levels;
 
 import frogger.actor.*;
 
-
+/**
+ * LevelOne is a class that creates a custom Level for the Frogger game to use.
+ * @see Level
+ * @see LevelFactory
+ */
 public class LevelOne extends Level {
+    /**
+     * Creates a new instance of LevelOne with preset child nodes. Called by LevelFactory.
+     * @param levelNumber Specifies the level number.
+     * @param waterBoundary Specifies the y-coordinate where the water region begins in the level.
+     */
     protected LevelOne(int levelNumber, double waterBoundary) {
         super(levelNumber, waterBoundary);
 

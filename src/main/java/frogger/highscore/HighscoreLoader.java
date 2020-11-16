@@ -12,10 +12,26 @@ import java.util.*;
 
 import static frogger.Main.RESOURCES_PATH;
 
+/**
+ * The HighscoreLoader class provides the utilities of reading and writing a list of Highscores to a .csv file in the
+ * highscores directory.
+ */
 public abstract class HighscoreLoader {
+    /**
+     * Specifies the how the .csv is encoded.
+     */
     private static final Charset CHARSET = StandardCharsets.UTF_8;
+
+    /**
+     * Specifies the path to the highscores directory.
+     */
     private static final String HIGHSCORES_PATH = RESOURCES_PATH.replace("file:", "") + "highscores/highscores";
 
+    /**
+     * Reads a .csv file corresponding to the level number and returns a list of all Highscore values inside the file.
+     * @param levelNumber Specifies the level number of the Level.
+     * @return A List of Highscores that were in the file.
+     */
     public static List<Highscore> readHighscores(int levelNumber) {
         List<Highscore> highscores = new ArrayList<>();
         File file = new File(HIGHSCORES_PATH + levelNumber + ".csv");
@@ -40,6 +56,11 @@ public abstract class HighscoreLoader {
         return highscores;
     }
 
+    /**
+     * Writes a List of Highscores to a .csv file.
+     * @param levelNumber Specifies the level number of the Level.
+     * @param highscores The List of Highscores to be written into the .csv file.
+     */
     public static void writeHighscores(int levelNumber, List<Highscore> highscores) {
         File file = new File(HIGHSCORES_PATH + levelNumber + ".csv");
         Path path = Path.of(file.toURI());

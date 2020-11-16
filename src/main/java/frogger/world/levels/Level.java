@@ -32,27 +32,84 @@ public abstract class Level extends World implements PropertyChangeListener {
      * An enumeration that specifies each row of the Frogger level and its corresponding y-coordinate.
      */
     public enum Section {
+        /**
+         * Specifies the zeroth row with y-coordinate of 0
+         */
         ZERO (0),
+        /**
+         * Specifies the first row with y-coordinate of Level.SECTION_HEIGHT
+         */
         ONE (SECTION_HEIGHT),
+        /**
+         * Specifies the second row with y-coordinate of 2 multiplied by Level.SECTION_HEIGHT
+         */
         TWO (SECTION_HEIGHT * 2),
+        /**
+         * Specifies the third row with y-coordinate of 3 multiplied by Level.SECTION_HEIGHT
+         */
         THREE (SECTION_HEIGHT * 3),
+        /**
+         * Specifies the fourth row with y-coordinate of 4 multiplied by Level.SECTION_HEIGHT
+         */
         FOUR (SECTION_HEIGHT * 4),
+        /**
+         * Specifies the fifth row with y-coordinate of 5 multiplied by Level.SECTION_HEIGHT
+         */
         FIVE (SECTION_HEIGHT * 5),
+        /**
+         * Specifies the sixth row with y-coordinate of 6 multiplied by Level.SECTION_HEIGHT
+         */
         SIX (SECTION_HEIGHT * 6),
+        /**
+         * Specifies the seventh row with y-coordinate of 7 multiplied by Level.SECTION_HEIGHT
+         */
         SEVEN (SECTION_HEIGHT * 7),
+        /**
+         * Specifies the eighth row with y-coordinate of 8 multiplied by Level.SECTION_HEIGHT
+         */
         EIGHT (SECTION_HEIGHT * 8),
+        /**
+         * Specifies the ninth row with y-coordinate of 9 multiplied by Level.SECTION_HEIGHT
+         */
         NINE (SECTION_HEIGHT * 9),
+        /**
+         * Specifies the tenth row with y-coordinate of 10 multiplied by Level.SECTION_HEIGHT
+         */
         TEN (SECTION_HEIGHT * 10),
+        /**
+         * Specifies the eleventh row with y-coordinate of 11 multiplied by Level.SECTION_HEIGHT
+         */
         ELEVEN (SECTION_HEIGHT * 11),
+        /**
+         * Specifies the twelfth row with y-coordinate of 12 multiplied by Level.SECTION_HEIGHT
+         */
         TWELVE (SECTION_HEIGHT * 12),
+        /**
+         * Specifies the thirteenth row with y-coordinate of 13 multiplied by Level.SECTION_HEIGHT
+         */
         THIRTEEN (SECTION_HEIGHT * 13),
+        /**
+         * Specifies the fourteenth row with y-coordinate of 14 multiplied by Level.SECTION_HEIGHT
+         */
         FOURTEEN (SECTION_HEIGHT * 14);
 
+        /**
+         * Field used to store the associated y-coordinate.
+         */
         private final double y;
+
+        /**
+         * Stores the y-coordinate of the enumeration values.
+         * @param y Specifies the y-coordinate of the row. Measured in pixels.
+         */
         Section(double y) {
             this.y = y;
         }
 
+        /**
+         * Obtain the y-coordinate of the current Section value.
+         * @return Specifies the y-coordinate of the row. Measured in pixels.
+         */
         public double getY() {
             return y;
         }
@@ -172,7 +229,7 @@ public abstract class Level extends World implements PropertyChangeListener {
     }
 
     /**
-     * Resets the level and calls {@link super#start()}. Resets instances of Animal and End. Sets score to display 0.
+     * Resets the level and calls {@link Level#start()}. Resets instances of Animal and End. Sets score to display 0.
      */
     @Override
     public void start() {

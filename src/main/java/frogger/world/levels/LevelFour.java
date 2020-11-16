@@ -2,7 +2,17 @@ package frogger.world.levels;
 
 import frogger.actor.*;
 
+/**
+ * LevelFour is a class that creates a custom Level for the Frogger game to use.
+ * @see Level
+ * @see LevelFactory
+ */
 public class LevelFour extends Level {
+    /**
+     * Creates a new instance of LevelFour with preset child nodes. Called by LevelFactory.
+     * @param levelNumber Specifies the level number.
+     * @param waterBoundary Specifies the y-coordinate where the water region begins in the level.
+     */
     protected LevelFour(int levelNumber, double waterBoundary) {
         super(levelNumber, waterBoundary);
 
