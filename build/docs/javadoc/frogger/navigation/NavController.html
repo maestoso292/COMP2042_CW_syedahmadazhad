@@ -75,13 +75,13 @@ loadScripts(document, 'script');</script>
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">frogger.navigation</a></div>
 <h1 title="Class NavController" class="title">Class NavController</h1>
 </div>
-<div class="inheritance" title="Inheritance Tree">java.lang.Object
+<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance">frogger.navigation.NavController</div>
 </div>
 <section class="description">
 <hr>
 <pre>public class <span class="type-name-label">NavController</span>
-extends java.lang.Object</pre>
+extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></pre>
 <div class="block">The NavController is a controller class used for manipulating a JavaFX scene graph. The NavController cannot
  be directly instantiated and is instead provided by <a href="Navigation.html" title="class in frogger.navigation"><code>Navigation</code></a>. The NavController is attached to only one
  scene, and stores references to all possible destinations (potential root nodes of the scene graph) in a HashMap.
@@ -110,14 +110,14 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="alt-color">
-<td class="col-first"><code>private javafx.scene.Scene</code></td>
+<td class="col-first"><code>private <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#scene">scene</a></span></code></th>
 <td class="col-last">
 <div class="block">A reference to the Scene that the controller is attached to.</div>
 </td>
 </tr>
 <tr class="row-color">
-<td class="col-first"><code>private java.util.HashMap&lt;java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;,&#8203;<a href="../world/World.html" title="class in frogger.world">World</a>&gt;</code></td>
+<td class="col-first"><code>private <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;,&#8203;<a href="../world/World.html" title="class in frogger.world">World</a>&gt;</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#worldHashMap">worldHashMap</a></span></code></th>
 <td class="col-last">
 <div class="block">A HashMap to store all current destinations (potential root nodes) associated with the current scene.</div>
@@ -145,7 +145,7 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="alt-color">
 <td class="col-first"><code>protected </code></td>
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(javafx.scene.Scene)">NavController</a></span>&#8203;(javafx.scene.Scene&nbsp;scene)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(javafx.scene.Scene)">NavController</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a>&nbsp;scene)</code></th>
 <td class="col-last">
 <div class="block">Creates a NavController that can manipulate a scene graph and attach it to a Scene.</div>
 </td>
@@ -180,14 +180,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDestination(java.lang.Class)">addDestination</a></span>&#8203;(java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDestination(java.lang.Class)">addDestination</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
 <td class="col-last">
 <div class="block">Adds a destination to the list of potential root nodes by calling the default constructor of the class passed in.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDestination(java.lang.Class,frogger.world.World)">addDestination</a></span>&#8203;(java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls,
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addDestination(java.lang.Class,frogger.world.World)">addDestination</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls,
 <a href="../world/World.html" title="class in frogger.world">World</a>&nbsp;world)</code></th>
 <td class="col-last">
 <div class="block">Adds a destination to the list of potential root nodes.</div>
@@ -195,14 +195,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="row-color" id="i3">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#navigateTo(java.lang.Class)">navigateTo</a></span>&#8203;(java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#navigateTo(java.lang.Class)">navigateTo</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
 <td class="col-last">
 <div class="block">Changes to root node of the scene graph to the desired node.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i4">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#removeDestination(java.lang.Class)">removeDestination</a></span>&#8203;(java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#removeDestination(java.lang.Class)">removeDestination</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
 <td class="col-last">
 <div class="block">Removes a destination from the list of potential root nodes.</div>
 </td>
@@ -226,8 +226,8 @@ extends java.lang.Object</pre>
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></div>
+<h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 </section>
 </li>
 </ul>
@@ -242,14 +242,14 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="worldHashMap">
 <h3>worldHashMap</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">java.util.HashMap&lt;java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;,&#8203;<a href="../world/World.html" title="class in frogger.world">World</a>&gt;</span>&nbsp;<span class="member-name">worldHashMap</span></div>
+<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;,&#8203;<a href="../world/World.html" title="class in frogger.world">World</a>&gt;</span>&nbsp;<span class="member-name">worldHashMap</span></div>
 <div class="block">A HashMap to store all current destinations (potential root nodes) associated with the current scene.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="scene">
 <h3>scene</h3>
-<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type">javafx.scene.Scene</span>&nbsp;<span class="member-name">scene</span></div>
+<div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a></span>&nbsp;<span class="member-name">scene</span></div>
 <div class="block">A reference to the Scene that the controller is attached to.</div>
 </section>
 </li>
@@ -264,7 +264,7 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="&lt;init&gt;(javafx.scene.Scene)">
 <h3>NavController</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">NavController</span>&#8203;(<span class="parameters">javafx.scene.Scene&nbsp;scene)</span></div>
+<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="member-name">NavController</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a>&nbsp;scene)</span></div>
 <div class="block">Creates a NavController that can manipulate a scene graph and attach it to a Scene. Can only be called by the
  Navigation class. Creates an empty list of destinations stored in the controller.</div>
 <dl class="notes">
@@ -284,7 +284,7 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="removeDestination(java.lang.Class)">
 <h3>removeDestination</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">removeDestination</span>&#8203;(<span class="parameters">java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">removeDestination</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
 <div class="block">Removes a destination from the list of potential root nodes.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -295,7 +295,7 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="navigateTo(java.lang.Class)">
 <h3>navigateTo</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">navigateTo</span>&#8203;(<span class="parameters">java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">navigateTo</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
 <div class="block">Changes to root node of the scene graph to the desired node. The previous root node's stop() method is called
  and the new root node's <a href="../world/World.html#start()"><code>World.start()</code></a> method is called.</div>
 <dl class="notes">
@@ -307,7 +307,7 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="addDestination(java.lang.Class,frogger.world.World)">
 <h3>addDestination</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDestination</span>&#8203;(<span class="parameters">java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDestination</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls,
 <a href="../world/World.html" title="class in frogger.world">World</a>&nbsp;world)</span></div>
 <div class="block">Adds a destination to the list of potential root nodes. This only adds the destination if it is not part
  of the current list of destinations.</div>
@@ -321,7 +321,7 @@ extends java.lang.Object</pre>
 <li>
 <section class="detail" id="addDestination(java.lang.Class)">
 <h3>addDestination</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDestination</span>&#8203;(<span class="parameters">java.lang.Class&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">addDestination</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</span></div>
 <div class="block">Adds a destination to the list of potential root nodes by calling the default constructor of the class passed in.
  This only adds the destination if it is not part of the current list of destinations.</div>
 <dl class="notes">

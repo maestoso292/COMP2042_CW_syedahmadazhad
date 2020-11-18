@@ -27,4 +27,8 @@ javadoc {
     source = sourceSets.main.allJava
     classpath = sourceSets.main.runtimeClasspath
     options.memberLevel = JavadocMemberLevel.PRIVATE
+    options {
+        links 'https://docs.oracle.com/en/java/javase/15/docs/api/'
+        links 'https://docs.oracle.com/javase/8/javafx/api/'
+    }
 }
