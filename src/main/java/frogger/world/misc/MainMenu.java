@@ -4,6 +4,7 @@ import frogger.actor.BackgroundImage;
 import frogger.actor.NavButton;
 import frogger.world.levels.Level;
 import frogger.world.World;
+import javafx.application.Platform;
 
 import static frogger.Main.X_UPPER_BOUND;
 
@@ -19,6 +20,7 @@ public class MainMenu extends World {
         add(new BackgroundImage("background_main_menu.png"));
         add(new NavButton("buttonPlay.png", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.EIGHT.getY(), LevelSelect.class));
         add(new NavButton("buttonInfo.png", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.NINE.getY(), InfoPage.class));
+        add(new NavButton("buttonExit.png", 100, X_UPPER_BOUND / 2.0 - 100 / 2.0, Level.Section.TEN.getY(), event -> Platform.exit()));
     }
 
     /**

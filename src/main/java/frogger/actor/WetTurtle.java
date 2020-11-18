@@ -3,11 +3,12 @@ package frogger.actor;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The WetTurtle class provides a WetTurtle platform that has a diving animation in the Frogger game.
  */
-public class WetTurtle extends Platform{
+public class WetTurtle extends SinkingPlatform{
 	/**
 	 * Specifies the width of the Image to be displayed
 	 */
@@ -34,18 +35,21 @@ public class WetTurtle extends Platform{
 	private static ArrayList<Image> turtles;
 
 	/**
-	 * Instance variable specifying the whether the instance has 'sunk' below the water.
+	 * Specifies the index, in the List of Images, of initial Image to display.
 	 */
-	private boolean sunk = false;
+	private final int initialImageNumber;
 
 	/**
-	 * Creates a WetTurtle at the specified coordinates, sets it's speed, and displays the corresponding Image.
+	 * Creates a WetTurtle at the specified coordinates, sets it's speed, and displays the corresponding Image. If
+	 * Images have not been loaded, load the images for the animation into a static List.
 	 * @param xpos Specifies the x-coordinate. Measured in pixels.
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.
 	 * @param speed Specifies the speed at which the instance should move across the screen. Measured in
 	 *              pixels per frame.
+	 * @param synchronised Specifies whether the animation for this instance is synchronised with other instances.
+	 *                     Other instances must all be synchronised as well.
 	 */
-	public WetTurtle(double xpos, double ypos, double speed) {
+	public WetTurtle(double xpos, double ypos, double speed, boolean synchronised) {
 		super(xpos, ypos + WET_TURTLE_PADDING, speed);
 		if (turtles == null) {
 			turtles = new ArrayList<>(NUM_WET_TURTLE_ANIM);
@@ -53,26 +57,19 @@ public class WetTurtle extends Platform{
 				turtles.add(new Image(WET_TURTLE_PATH + i + ".png", WET_TURTLE_SIZE, WET_TURTLE_SIZE, true, true));
 			}
 		}
-		setImage(turtles.get(1));
+		initialImageNumber = synchronised ? 0 : ThreadLocalRandom.current().nextInt(0, NUM_WET_TURTLE_ANIM);
+		setImage(turtles.get(initialImageNumber));
 	}
 
 	/**
 	 * Plays the animation for WetTurtle instances by switching the displayed Image with those stored in a List. Sets
-	 * the instance's sunk value depending on Image displayed.
+	 * the instance's sunk value depending on Image displayed. Called every frame.
 	 * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
 	 */
 	@Override
 	public void act(long now) {
 		super.act(now);
-		setImage(turtles.get((int) (now / 900000000 % 4)));
-		sunk = getImage() == turtles.get(3);
-	}
-
-	/**
-	 * Checks whether the WetTurtle is sunk.
-	 * @return The sunk state of the WetTurtle
-	 */
-	public boolean isSunk() {
-		return sunk;
+		setImage(turtles.get((int) ((initialImageNumber + now / 900000000) % NUM_WET_TURTLE_ANIM)));
+		setSunk(getImage() == turtles.get(3));
 	}
 }

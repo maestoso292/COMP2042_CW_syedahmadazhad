@@ -28,7 +28,8 @@ public class End extends Actor{
 
 	/**
 	 * Creates an End at the specified coordinates with a default activation state of false. This means the displayed
-	 * image is of the empty end goal.
+	 * image is of the empty end goal. If Images have not been loaded, load the images of all End types
+	 * into a static List.
 	 * @param xpos Specifies the x-coordinate. Measured in pixels.
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.
 	 */

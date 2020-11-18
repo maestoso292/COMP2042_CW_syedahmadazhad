@@ -17,7 +17,7 @@ public class Highscore implements Comparable<Highscore> {
      * Creates an empty Highscore with empty String as a name and 0 as default score value.
      */
     public Highscore() {
-        this("", 0);
+        this("AAA", 0);
     }
 
     /**

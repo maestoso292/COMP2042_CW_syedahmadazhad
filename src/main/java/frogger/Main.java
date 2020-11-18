@@ -60,11 +60,16 @@ public class Main extends Application {
 	    navController.addDestination(mainMenu);
 	    navController.addDestination(InfoPage.class);
 	    navController.addDestination(LevelSelect.class);
+
 		navController.addDestination(LevelFactory.provideLevel(LevelOne.class));
 		navController.addDestination(LevelFactory.provideLevel(LevelTwo.class));
 		navController.addDestination(LevelFactory.provideLevel(LevelThree.class));
 		navController.addDestination(LevelFactory.provideLevel(LevelFour.class));
 		navController.addDestination(LevelFactory.provideLevel(LevelFive.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelSix.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelSeven.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelEight.class));
+		navController.addDestination(LevelFactory.provideLevel(LevelNine.class));
 	    navController.addDestination(LevelFactory.provideLevel(LevelRandom.class));
 
 	    musicPlayer = new MusicPlayer();
@@ -76,18 +81,15 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Navigate to MainMenu destination and plays the Frooger Main Song Theme.
+	 * Navigate to MainMenu destination and plays the Frogger Main Song Theme.
 	 */
 	public void start() {
-		navController.navigateTo(MainMenu.class);
+		navController.startCurrentDestination();
 		musicPlayer.playMusic( MISC_PATH.replace("file:", "") + "Frogger Main Song Theme (loop).mp3");
     }
 
-	/**
-	 * Stops playing music.
-	 */
+	/** Stops playing music. */
 	public void stop() {
 		musicPlayer.stopMusic();
-
     }
 }

@@ -11,18 +11,14 @@ import java.util.HashMap;
  * be directly instantiated and is instead provided by {@link Navigation}. The NavController is attached to only one
  * scene, and stores references to all possible destinations (potential root nodes of the scene graph) in a HashMap.
  * The NavController currently only supports destinations that are subclasses of {@link World}.
- *
  * @see Navigation
  * @see World
  */
 public class NavController {
-    /**
-     * A HashMap to store all current destinations (potential root nodes) associated with the current scene.
-     */
+    /** A HashMap to store all current destinations (potential root nodes) associated with the current scene. */
     private HashMap<Class<? extends World>, World> worldHashMap;
-    /**
-     * A reference to the Scene that the controller is attached to.
-     */
+
+    /** A reference to the Scene that the controller is attached to. */
     private final Scene scene;
 
     /**
@@ -51,13 +47,13 @@ public class NavController {
     public void navigateTo(Class<? extends World> cls) {
         if (worldHashMap.containsKey(cls)) {
             try {
-                ((World) scene.getRoot()).stop();
+                stopCurrentDestination();
             }
             catch (NullPointerException e) {
                 e.printStackTrace();
             }
             scene.setRoot(worldHashMap.get(cls));
-            ((World) scene.getRoot()).start();
+            startCurrentDestination();
         }
     }
 
@@ -95,9 +91,12 @@ public class NavController {
         addDestination(world.getClass(), world);
     }
 
-    /**
-     * Calls the {@link World#stop()} method of the current destination (root node)
-     */
+    /** Calls the {@link World#start()} method of the current destination (root node of scene graph) */
+    public void startCurrentDestination() {
+        ((World) scene.getRoot()).start();
+    }
+
+    /** Calls the World.stop() method of the current destination (root node of scene graph) */
     public void stopCurrentDestination() {
         ((World) scene.getRoot()).stop();
     }

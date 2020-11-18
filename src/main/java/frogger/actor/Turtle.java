@@ -8,33 +8,24 @@ import java.util.ArrayList;
  * The Turtle class provides a Turtle platform that has a swimming animation in the Frogger game.
  */
 public class Turtle extends Platform{
-	/**
-	 * Specifies the width of the Image to be displayed
-	 */
+	/** Specifies the width of the Image to be displayed */
 	public static final int TURTLE_SIZE = 130;
 
-	/**
-	 * Specifies how much vertical padding to use when instantiating. Measured in pixels.
-	 */
+	/** Specifies how much vertical padding to use when instantiating. Measured in pixels. */
 	private static final double TURTLE_PADDING = 1.7;
 
-	/**
-	 * Specifies the path of the image files to use for the Turtle instances.
-	 */
+	/** Specifies the path of the image files to use for the Turtle instances. */
 	private static final String TURTLE_PATH = PLATFORMS_PATH + "TurtleAnimation";
 
-	/**
-	 * Specifies the number of Images in the animation of Turtle instances.
-	 */
+	/** Specifies the number of Images in the animation of Turtle instances. */
 	private static final int NUM_TURTLE_ANIM = 3;
 
-	/**
-	 * A List to store references to all Images in the Turtle animation.
-	 */
+	/** A List to store references to all Images in the Turtle animation. */
 	private static ArrayList<Image> turtles;
 
 	/**
-	 * Creates a Turtle at the specified coordinates, sets it's speed, and displays the corresponding Image.
+	 * Creates a Turtle at the specified coordinates, sets it's speed, and displays the corresponding Image. If
+	 * Images have not been loaded, load the images for the animation into a static List.
 	 * @param xpos Specifies the x-coordinate. Measured in pixels.
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.
 	 * @param speed Specifies the speed at which the instance should move across the screen. Measured in
@@ -53,11 +44,12 @@ public class Turtle extends Platform{
 
 	/**
 	 * Plays the animation for Turtle instances by switching the displayed Image with those stored in a List.
+	 * Called every frame.
 	 * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
 	 */
 	@Override
 	public void act(long now) {
 		super.act(now);
-		setImage(turtles.get((int) (now / 900000000  % 3)));
+		setImage(turtles.get((int) (now / 900000000  % NUM_TURTLE_ANIM)));
 	}
 }

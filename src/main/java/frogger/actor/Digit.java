@@ -26,7 +26,8 @@ public class Digit extends Actor{
 	private static ArrayList<Image> digits;
 
 	/**
-	 * Creates a Digit and displays the corresponding Image at the specified coordinates.
+	 * Creates a Digit and displays the corresponding Image at the specified coordinates. If
+	 * Images have not been loaded, load the images for all Digit types into a static List.
 	 * @param number Specifies the digit to display.
 	 * @param xpos Specifies the x-coordinate. Measured in pixels.
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.

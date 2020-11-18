@@ -12,14 +12,12 @@ public class Car extends Obstacle {
      * An enumeration of different types of Cars and their corresponding labels.
      */
     public enum CarTypes {
-        /**
-         * Specifies a red car with label 0.
-         */
+        /** Specifies a red car with label 0. */
         RED (0),
-        /**
-         * Specifies a white car with label 1.
-         */
-        WHITE (1);
+        /** Specifies a white car with label 1. */
+        WHITE (1),
+        /** Specifies a racecar with label 2. */
+        RACECAR (2);
         /**
          * Specifies the label of the car to use in the name of the corresponding image file.
          */
@@ -55,7 +53,8 @@ public class Car extends Obstacle {
     private static ArrayList<Image> cars;
 
     /**
-     * Creates a Car at the specified coordinates, sets it's speed, and displays the corresponding Image.
+     * Creates a Car at the specified coordinates, sets it's speed, and displays the corresponding Image. If
+     * Images have not been loaded, load the images of all Car types into a static List.
      * @param type Specifies the type of Car to instance.
      * @param xpos Specifies the x-coordinate. Measured in pixels.
      * @param ypos Specifies the y-coordinate. Measured in pixels.

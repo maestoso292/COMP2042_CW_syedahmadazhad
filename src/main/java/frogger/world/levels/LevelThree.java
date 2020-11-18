@@ -19,13 +19,16 @@ public class LevelThree extends Level {
         add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY(), 1));
         add(new Log(Log.LogTypes.SHORT, 350, Section.THREE.getY(), 1));
 
-        add(new WetTurtle(500, Section.FOUR.getY(), -1.25));
+        add(new WetTurtle(500, Section.FOUR.getY(), -1.25, true));
         add(new Turtle(300, Section.FOUR.getY(), -1.25));
-        add(new WetTurtle(100, Section.FOUR.getY(), -1.25));
+        add(new WetTurtle(100, Section.FOUR.getY(), -1.25, true));
 
         add(new Turtle(150, Section.FIVE.getY(), 0.75));
-        add(new WetTurtle(350, Section.FIVE.getY(), 0.75));
-        add(new WetTurtle(550, Section.FIVE.getY(), 0.75));
+        add(new WetTurtle(350, Section.FIVE.getY(), 0.75, true));
+        add(new WetTurtle(550, Section.FIVE.getY(), 0.75, true));
+
+        // Ensures that animal is above platforms but below obstacles
+        getAnimal().toFront();
 
         add(new Car(Car.CarTypes.RED, 0, Section.SEVEN.getY(), -5));
 

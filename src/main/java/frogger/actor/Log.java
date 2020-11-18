@@ -61,7 +61,8 @@ public class Log extends Platform {
 	private static ArrayList<Image> logs;
 
 	/**
-	 * Creates a Log at the specified coordinates, sets it's speed, and displays the corresponding Image.
+	 * Creates a Log at the specified coordinates, sets it's speed, and displays the corresponding Image. If
+	 * Images have not been loaded, load the images of all Log types into a static List.
 	 * @param type Specifies the type of Log to instance.
 	 * @param xpos Specifies the x-coordinate. Measured in pixels.
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.

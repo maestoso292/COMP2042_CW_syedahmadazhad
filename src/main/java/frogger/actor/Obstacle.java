@@ -36,7 +36,7 @@ public abstract class Obstacle extends Actor {
 	/**
 	 * Moves the instance according to it's speed every frame. If the instance is completely out of bounds of the
 	 * application window (Entire node not visible), the x-coordinate is reset to the one side of the window depending
-	 * on it's speed.
+	 * on it's speed. Called every frame.
 	 * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
 	 */
 	@Override

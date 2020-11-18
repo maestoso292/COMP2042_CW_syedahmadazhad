@@ -18,6 +18,9 @@ public class LevelFour extends Level {
 
         add(new Log(Log.LogTypes.SHORT, 0, Section.THREE.getY(), 7));
 
+        // Ensures that animal is above platforms but below obstacles
+        getAnimal().toFront();
+
         add(new Car(Car.CarTypes.WHITE, 100, Section.FIVE.getY(), -1.25));
         add(new Car(Car.CarTypes.WHITE, 250, Section.FIVE.getY(), -1.25));
         add(new Car(Car.CarTypes.RED, 400, Section.FIVE.getY(), -1.25));

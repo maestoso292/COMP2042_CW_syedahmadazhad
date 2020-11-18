@@ -56,7 +56,8 @@ public class Truck extends Obstacle {
     private static ArrayList<Image> trucks;
 
     /**
-     * Creates a Truck at the specified coordinates, sets it's speed, and displays the corresponding Image.
+     * Creates a Truck at the specified coordinates, sets it's speed, and displays the corresponding Image. If
+     * Images have not been loaded, load the images of all Truck types into a static List.
      * @param type Specifies the type of Truck to instance.
      * @param xpos Specifies the x-coordinate. Measured in pixels.
      * @param ypos Specifies the y-coordinate. Measured in pixels.

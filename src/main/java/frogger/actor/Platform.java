@@ -19,7 +19,7 @@ public abstract class Platform extends Actor {
     private double speed;
 
     /**
-     * Creates an Obstacle at the specified coordinates and displays the image of the Platform depending on the
+     * Creates a Platform at the specified coordinates and displays the image of the Platform depending on the
      * sign of the speed value. The image will face left if speed is negative, right otherwise.
      * @param xpos Specifies the x-coordinate. Measured in pixels.
      * @param ypos Specifies the y-coordinate. Measured in pixels.
@@ -43,7 +43,7 @@ public abstract class Platform extends Actor {
     /**
      * Moves the instance according to it's speed every frame. If the instance is completely out of bounds of the
      * application window (Entire node not visible), the x-coordinate is reset to the one side of the window depending
-     * on it's speed.
+     * on it's speed. Called every frame.
      * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
      */
     @Override

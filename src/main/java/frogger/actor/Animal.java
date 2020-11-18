@@ -103,8 +103,9 @@ public class Animal extends Actor {
 	private int endsFilled;
 
 	/**
-	 * Creates an Animal while loading all required images and sets EventHandlers for onKeyPressed and onKeyReleased.
-	 * @param waterBoundary y-coordinate of where the water region begins in the Level this instance belongs to
+	 * Creates an Animal while loading all required images(still and jumping frog along with all images required for
+	 * death animations) and sets onKeyPressed and onKeyReleased EventHandlers.
+	 * @param waterBoundary y-coordinate of where the water region begins in the Level this instance is a child of.
 	 */
 	public Animal(double waterBoundary) {
 		this.waterBoundary = waterBoundary;
@@ -136,7 +137,8 @@ public class Animal extends Actor {
 	}
 
 	/**
-	 * Calls {@link #outOfBoundsCheck()} and {@link #collisionCheck()} and plays a death animation, if any.
+	 * Calls {@link #outOfBoundsCheck()} and {@link #collisionCheck()} and plays a death animation, if any. Called
+	 * every frame.
 	 * @param now Time in nanoseconds. Passed as argument from AnimationTimer.handle().
 	 */
 	@Override
@@ -163,7 +165,7 @@ public class Animal extends Actor {
 	}
 
 	/**
-	 * Moves instance corresponding to key pressed and plays jump animation. Method called by EventHandlers for
+	 * Moves instance corresponding to key pressed and plays jump animation. EventHandlers called for
 	 * KeyPressed and KeyReleased events.
 	 * @param event The KeyEvent that is fired.
 	 */
@@ -214,8 +216,11 @@ public class Animal extends Actor {
 	}
 
 	/**
-	 * Checks whether this instance's bounds intersect with other Actor objects and handles it if so. Checking for
-	 * whether the instance has reached one of the end goals is done here.
+	 * Checks whether this instance's bounds intersect with other Actor objects and handles it if so. If intersecting
+	 * with an Obstacle instance, {@link #deathType} is set to DeathType.CAR. If intersecting with a Platform instance,
+	 * move the Animal instance at the same speed as the Plaform instance. If intersected Platform is a SinkingPlatform
+	 * and isSunk(), deathType is set to DeathType.WATER. Checking for whether this instance has reached one of the
+	 * end goals is done here.
 	 */
 	private void collisionCheck() {
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
@@ -224,7 +229,7 @@ public class Animal extends Actor {
 		else if (getIntersectingObjects(Platform.class).size() >= 1 && !noMove) {
 			Platform currentPlatform = getIntersectingObjects(Platform.class).get(0);
 			move(currentPlatform.getSpeed(), 0);
-			if (currentPlatform.getClass() == WetTurtle.class && ((WetTurtle) currentPlatform).isSunk()) {
+			if (currentPlatform instanceof SinkingPlatform && ((SinkingPlatform) currentPlatform).isSunk()) {
 				deathType = DeathType.WATER;
 			}
 		}
@@ -248,11 +253,10 @@ public class Animal extends Actor {
 		}
 	}
 
-	/**
-	 * Initialises the default values for the instance.
+	/** Initialises the default values for the instance. Resets points to 0. Resets end goals reached to 0. Reset
+	 * furthest y-position reached to application window y-coordinate upper bound. Calls {@link #reset()}
 	 */
 	public void initialise() {
-		toFront();
 		setPoints(0);
 		endsFilled = 0;
 		furthestY = Y_UPPER_BOUND;
@@ -260,21 +264,22 @@ public class Animal extends Actor {
 	}
 
 	/**
-	 * Resets the state and position of the instance.
+	 * Resets the state and position of the instance. Resets animation counters. Resets deathType to DeathType.NONE.
+	 * Resets x and y positions. Resets image displayed to a still Frogger image. Sets rotate to 0.
 	 */
 	public void reset() {
 		froggerAnimCounter = 0;
 		deathAnimCounter = 0;
 		deathType = DeathType.NONE;
-		noMove = false;
 		setX(INIT_X_POS);
 		setY(INIT_Y_POS);
 		setImage(froggerAnim.get(froggerAnimCounter));
 		setRotate(0);
+		noMove = false;
 	}
 
 	/**
-	 * Sets the number of endsFilled to a specified number and fires a PropertyChangeEvent.
+	 * Sets the number of endsFilled to a specified number and fires a PropertyChangeEvent to Listeners.
 	 * @param endsFilled The new number of end goals reached.
 	 */
 	public void setEndsFilled(int endsFilled) {
@@ -292,7 +297,7 @@ public class Animal extends Actor {
 	}
 
 	/**
-	 * Sets the current score to a specified value and fires a PropertyChangeEvent.
+	 * Sets the current score to a specified value and fires a PropertyChangeEvent to Listeners.
 	 * @param points The new score value.
 	 */
 	public void setPoints(int points) {

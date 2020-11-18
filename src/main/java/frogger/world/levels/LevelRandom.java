@@ -76,6 +76,7 @@ public class LevelRandom extends Level {
                 case 2 -> generateWetTurtlesInSection(ypos, speed);
             }
         }
+        getAnimal().toFront();
         for (int i : ROAD_SECTIONS) {
             double ypos = i * SECTION_HEIGHT;
             double speed = 0;
@@ -87,7 +88,6 @@ public class LevelRandom extends Level {
                 case 1 -> generateTrucksInSection(ypos, speed);
             }
         }
-        getAnimal().toFront();
     }
 
     /**
@@ -138,7 +138,7 @@ public class LevelRandom extends Level {
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(WetTurtle.WET_TURTLE_SIZE + MIN_SPACE,WetTurtle.WET_TURTLE_SIZE + MAX_SPACE);
 
-            WetTurtle wetTurtle = new WetTurtle(xpos, ypos, speed);
+            WetTurtle wetTurtle = new WetTurtle(xpos, ypos, speed, false);
             generatedActors.add(wetTurtle);
             add(wetTurtle);
         }
@@ -171,14 +171,13 @@ public class LevelRandom extends Level {
      */
     private void generateCarsInSection(double ypos, double speed) {
         Car.CarTypes[] carTypes = Car.CarTypes.values();
-        Car.CarTypes carType = carTypes[ThreadLocalRandom.current().nextInt(0, carTypes.length)];
 
         int count = ThreadLocalRandom.current().nextInt(speed > 1.5 ? 1 : 3, speed > 1.5 ? 3 : 5);
         double xpos = speed > 0 ? 0 : X_LOWER_BOUND - CAR_SIZE;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(CAR_SIZE + MIN_SPACE, CAR_SIZE + MAX_SPACE);
 
-            Car car = new Car(carType, xpos, ypos, speed);
+            Car car = new Car(carTypes[ThreadLocalRandom.current().nextInt(0, carTypes.length)], xpos, ypos, speed);
             generatedActors.add(car);
             add(car);
         }

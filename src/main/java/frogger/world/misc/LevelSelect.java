@@ -25,7 +25,11 @@ public class LevelSelect extends World {
         add(new NavButton("3.png", 400, 100, Level.Section.SIX.getY(), LevelThree.class));
         add(new NavButton("4.png", 400, 100, Level.Section.SEVEN.getY(), LevelFour.class));
         add(new NavButton("5.png", 400, 100, Level.Section.EIGHT.getY(), LevelFive.class));
-        add(new NavButton("0.png", 400, 100, Level.Section.NINE.getY(), LevelRandom.class));
+        add(new NavButton("6.png", 400, 100, Level.Section.NINE.getY(), LevelSix.class));
+        add(new NavButton("7.png", 400, 100, Level.Section.TEN.getY(), LevelSeven.class));
+        add(new NavButton("8.png", 400, 100, Level.Section.ELEVEN.getY(), LevelEight.class));
+        add(new NavButton("9.png", 400, 100, Level.Section.TWELVE.getY(), LevelNine.class));
+        add(new NavButton("0.png", 400, 100, Level.Section.THIRTEEN.getY(), LevelRandom.class));
     }
 
     /**

@@ -20,9 +20,9 @@ public class LevelOne extends Level {
         add(new Log(Log.LogTypes.SHORT , 220, Section.THREE.getY(), 0.75));
         add(new Log(Log.LogTypes.SHORT, 440, Section.THREE.getY(), 0.75));
 
-        add(new WetTurtle(600, Section.FOUR.getY(), -1));
-        add(new WetTurtle(400, Section.FOUR.getY(), -1));
-        add(new WetTurtle(200, Section.FOUR.getY(), -1));
+        add(new WetTurtle(600, Section.FOUR.getY(), -1, true));
+        add(new WetTurtle(400, Section.FOUR.getY(), -1, true));
+        add(new WetTurtle(200, Section.FOUR.getY(), -1, true));
 
         add(new Log(Log.LogTypes.LONG, 0, Section.FIVE.getY(), -2));
         add(new Log(Log.LogTypes.LONG, 400, Section.FIVE.getY(), -2));
@@ -33,7 +33,10 @@ public class LevelOne extends Level {
 
         add(new Turtle(500, Section.SEVEN.getY(), -1));
         add(new Turtle(300, Section.SEVEN.getY(), -1));
-        add(new WetTurtle(700, Section.SEVEN.getY(), -1));
+        add(new WetTurtle(700, Section.SEVEN.getY(), -1, true));
+
+        // Ensures that animal is above platforms but below obstacles
+        getAnimal().toFront();
 
         add(new Car(Car.CarTypes.RED, 0, Section.TEN.getY(), -5));
 

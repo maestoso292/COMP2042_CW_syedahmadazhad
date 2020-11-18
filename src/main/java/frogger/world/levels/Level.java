@@ -32,29 +32,17 @@ public abstract class Level extends World implements PropertyChangeListener {
      * An enumeration that specifies each row of the Frogger level and its corresponding y-coordinate.
      */
     public enum Section {
-        /**
-         * Specifies the zeroth row with y-coordinate of 0
-         */
+        /** Specifies the zeroth row with y-coordinate of 0 */
         ZERO (0),
-        /**
-         * Specifies the first row with y-coordinate of Level.SECTION_HEIGHT
-         */
+        /** Specifies the first row with y-coordinate of Level.SECTION_HEIGHT */
         ONE (SECTION_HEIGHT),
-        /**
-         * Specifies the second row with y-coordinate of 2 multiplied by Level.SECTION_HEIGHT
-         */
+        /** Specifies the second row with y-coordinate of 2 multiplied by Level.SECTION_HEIGHT */
         TWO (SECTION_HEIGHT * 2),
-        /**
-         * Specifies the third row with y-coordinate of 3 multiplied by Level.SECTION_HEIGHT
-         */
+        /** Specifies the third row with y-coordinate of 3 multiplied by Level.SECTION_HEIGHT */
         THREE (SECTION_HEIGHT * 3),
-        /**
-         * Specifies the fourth row with y-coordinate of 4 multiplied by Level.SECTION_HEIGHT
-         */
+        /** Specifies the fourth row with y-coordinate of 4 multiplied by Level.SECTION_HEIGHT */
         FOUR (SECTION_HEIGHT * 4),
-        /**
-         * Specifies the fifth row with y-coordinate of 5 multiplied by Level.SECTION_HEIGHT
-         */
+        /** Specifies the fifth row with y-coordinate of 5 multiplied by Level.SECTION_HEIGHT */
         FIVE (SECTION_HEIGHT * 5),
         /**
          * Specifies the sixth row with y-coordinate of 6 multiplied by Level.SECTION_HEIGHT
@@ -284,7 +272,7 @@ public abstract class Level extends World implements PropertyChangeListener {
                 setNumber(animal.getPoints());
                 break;
             case "endsFilled":
-                if ((int) evt.getNewValue() == 5) {
+                if ((int) evt.getNewValue() == 1) {
                     win();
                 }
                 break;
