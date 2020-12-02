@@ -12,7 +12,7 @@ public abstract class Obstacle extends Actor {
 	/**
 	 * Specifies the path to the directory containing images for all obstacles.
 	 */
-	protected static final String OBSTACLES_PATH = RESOURCES_PATH + "obstacles/";
+	protected static final String OBSTACLES_PATH =  "file:src/main/resources/obstacles/";
 
 	/**
 	 * Specifies the speed at which the instance moves. Measured in pixels per frame.

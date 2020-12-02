@@ -11,7 +11,7 @@ public abstract class Platform extends Actor {
     /**
      * Specifies the path to the directory containing image files for all platforms.
      */
-    protected static final String PLATFORMS_PATH = RESOURCES_PATH + "platforms/";
+    protected static final String PLATFORMS_PATH = "file:src/main/resources/platforms/";
 
     /**
      * Specifies the speed at which the instance moves. Measured in pixels per frame.

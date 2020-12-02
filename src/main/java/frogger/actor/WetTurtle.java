@@ -10,12 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class WetTurtle extends SinkingPlatform{
 	/**
-	 * Specifies the width of the Image to be displayed
+	 * Value of {@value #WET_TURTLE_SIZE} which specifies the width of the Image to be displayed
 	 */
 	public static final int WET_TURTLE_SIZE = 130;
 
 	/**
-	 * Specifies how much vertical padding to use when instantiating. Measured in pixels.
+	 * Value of {@value #WET_TURTLE_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels.
 	 */
 	private static final double WET_TURTLE_PADDING = 1.7;
 
@@ -25,7 +25,7 @@ public class WetTurtle extends SinkingPlatform{
 	private static final String WET_TURTLE_PATH = PLATFORMS_PATH + "WetTurtleAnimation";
 
 	/**
-	 * Specifies the number of Images in the animation of WetTurtle instances.
+	 * Value of {@value #NUM_WET_TURTLE_ANIM} which specifies the number of Images in the animation of WetTurtle instances.
 	 */
 	private static final int NUM_WET_TURTLE_ANIM = 4;
 

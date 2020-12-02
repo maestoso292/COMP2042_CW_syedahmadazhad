@@ -13,10 +13,10 @@ public class Digit extends Actor{
 	/**
 	 * Specifies the path to the directory containing the images of digits.
 	 */
-	private static final String DIGITS_PATH = RESOURCES_PATH + "digits/";
+	private static final String DIGITS_PATH = "file:src/main/resources/digits/";
 
 	/**
-	 * Specifies the width of the image. Measured in pixels.
+	 * Values of {@value #DIGIT_SIZE} which specifies the width of the image. Measured in pixels.
 	 */
 	private static final int DIGIT_SIZE = 30;
 

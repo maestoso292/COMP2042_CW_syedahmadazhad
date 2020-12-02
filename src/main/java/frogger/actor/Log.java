@@ -46,7 +46,7 @@ public class Log extends Platform {
 	}
 
 	/**
-	 * Specifies how much vertical padding to use when instantiating. Measured in pixels.
+	 * Value of {@value #LOG_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels.
 	 */
 	private static final double LOG_PADDING = 8;
 

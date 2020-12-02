@@ -8,16 +8,16 @@ import java.util.ArrayList;
  * The Turtle class provides a Turtle platform that has a swimming animation in the Frogger game.
  */
 public class Turtle extends Platform{
-	/** Specifies the width of the Image to be displayed */
+	/** Value of {@value #TURTLE_SIZE} which specifies the width of the Image to be displayed */
 	public static final int TURTLE_SIZE = 130;
 
-	/** Specifies how much vertical padding to use when instantiating. Measured in pixels. */
+	/** Value of {@value #TURTLE_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels. */
 	private static final double TURTLE_PADDING = 1.7;
 
 	/** Specifies the path of the image files to use for the Turtle instances. */
 	private static final String TURTLE_PATH = PLATFORMS_PATH + "TurtleAnimation";
 
-	/** Specifies the number of Images in the animation of Turtle instances. */
+	/** Value of {@value #NUM_TURTLE_ANIM} which specifies the number of Images in the animation of Turtle instances. */
 	private static final int NUM_TURTLE_ANIM = 3;
 
 	/** A List to store references to all Images in the Turtle animation. */

@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * The Main class is the entry point the Frogger application lifecylce and performs what a JavaFX Application does.
+ * The Main class is the entry point the Frogger application lifecycle and performs what a JavaFX Application does.
  */
 public class Main extends Application {
 	/** Specifies a path to the resources directory. */
@@ -20,16 +20,16 @@ public class Main extends Application {
 	/** Specifies a path to the miscellaneous resources directory. */
 	public static final String MISC_PATH = RESOURCES_PATH + "misc/";
 
-	/** Specifies the minimum x-coordinate in the application window. Measured in pixels */
+	/** Value of {@value #X_LOWER_BOUND} which specifies the minimum x-coordinate in the application window. Measured in pixels */
 	public static final int X_LOWER_BOUND = 0;
 
-	/** Specifies the maximum x-coordinate in the application window. Measured in pixels */
+	/** Value of {@value #X_UPPER_BOUND} which specifies the maximum x-coordinate in the application window. Measured in pixels */
 	public static final int X_UPPER_BOUND = 600;
 
-	/** Specifies the minimum y-coordinate in the application window. Measured in pixels */
+	/** Value of {@value #Y_LOWER_BOUND} which specifies the minimum y-coordinate in the application window. Measured in pixels */
 	public static final int Y_LOWER_BOUND = 0;
 
-	/** Specifies the maximum y-coordinate in the application window. Measured in pixels */
+	/** Value of {@value #Y_UPPER_BOUND} which specifies the maximum y-coordinate in the application window. Measured in pixels */
 	public static final int Y_UPPER_BOUND = 800;
 
 	/** Instance of NavController for adding and navigating to destinations. */

@@ -13,12 +13,7 @@ public abstract class Navigation {
     /**
      * A static HashMap to store all controllers, each of them attached to a JavaFX scene
      */
-    private static final HashMap<Scene, NavController> controllerHashMap = new HashMap<>();
-
-    /**
-     * Private constructor to prevent the class from being instantiated.
-     */
-    private Navigation() {}
+    private static HashMap<Scene, NavController> controllerHashMap = new HashMap<>();
 
     /**
      * Obtain the NavController attached to a Scene. If it doesn't exist, instantiate a new NavController

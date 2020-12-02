@@ -12,7 +12,7 @@ public class BackgroundImage extends Actor{
 	/**
 	 * A String to store the path to the directory containing the background images.
 	 */
-	private static final String BACKGROUNDS_PATH = RESOURCES_PATH + "backgrounds/";
+	private static final String BACKGROUNDS_PATH = "file:src/main/resources/backgrounds/";
 
 	/**
 	 * Creates a new BackgroundImage and displays the image specified by the label. The image's aspect ratio is not

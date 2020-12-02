@@ -14,7 +14,7 @@ import static frogger.Main.RESOURCES_PATH;
  */
 public class NavButton extends Actor{
     /** Specifies the path to the directory containing the images to be displayed. */
-    private static final String BUTTON_PATH = RESOURCES_PATH + "buttons/";
+    private static final String BUTTON_PATH = "file:src/main/resources/buttons/";
 
     /**
      * Creates a NavButton which when clicked, calls Navigation to navigate to a specified destination.

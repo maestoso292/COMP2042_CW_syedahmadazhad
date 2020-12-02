@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import frogger.world.levels.Level;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -51,19 +52,19 @@ public class Animal extends Actor {
 	/** Specifies the path to the directory containing images for death animations. */
 	private static final String DEATH_PATH = FROGGER_PATH + "deathAnim/";
 
-	/** Specifies the size of the image to display. */
+	/** Value of {@value #FROGGER_SIZE} which specifies the size of the image to display. */
 	private static final int FROGGER_SIZE = 40;
 
-	/** Specifies how much vertical padding to use when instantiating. Measured in pixels. */
+	/** Value of {@value #FROGGER_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels. */
 	private static final double FROGGER_PADDING = 6.67;
 
-	/** Specifies how much an Animal instance will move in the vertical direction. Measured in pixels. */
+	/** Value of {@value #MOVEMENT_Y} which specifies how much an Animal instance will move in the vertical direction. Measured in pixels. */
 	private static final double MOVEMENT_Y = 13.3333333*2;
 
-	/** Specifies how much an Animal instance will move in the horizontal direction. Measured in pixels. */
+	/** Value of {@value #MOVEMENT_X} which specifies how much an Animal instance will move in the horizontal direction. Measured in pixels. */
 	private static final double MOVEMENT_X = 10.666666*2;
 
-	/** Specifies the initial x-coordinate of an Animal instance. */
+	/** Value of {@value #INIT_X_POS} which specifies the initial x-coordinate of an Animal instance. */
 	private static final double INIT_X_POS = 300;
 
 	/** Specifies the initial y-coordinate of an Animal instance. */
@@ -223,29 +224,30 @@ public class Animal extends Actor {
 	 * end goals is done here.
 	 */
 	private void collisionCheck() {
-		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
-			deathType = DeathType.CAR;
-		}
-		else if (getIntersectingObjects(Platform.class).size() >= 1 && !noMove) {
-			Platform currentPlatform = getIntersectingObjects(Platform.class).get(0);
-			move(currentPlatform.getSpeed(), 0);
-			if (currentPlatform instanceof SinkingPlatform && ((SinkingPlatform) currentPlatform).isSunk()) {
-				deathType = DeathType.WATER;
+		if (getIntersectingObjects(Actor.class).size() >= 1) {
+			if (getIntersectingObjects(Obstacle.class).size() >= 1) {
+				deathType = DeathType.CAR;
 			}
-		}
-		else if (getIntersectingObjects(End.class).size() >= 1) {
-			End currentEnd = getIntersectingObjects(End.class).get(0);
-			reset();
-			if (currentEnd.isActivated()) {
-				setPoints(points - 50);
-				setEndsFilled(endsFilled - 1);
-				currentEnd.setEnd(false);
+			else if (getIntersectingObjects(Platform.class).size() >= 1 && !noMove) {
+				Platform currentPlatform = getIntersectingObjects(Platform.class).get(0);
+				move(currentPlatform.getSpeed(), 0);
+				if (currentPlatform instanceof SinkingPlatform && ((SinkingPlatform) currentPlatform).isSunk()) {
+					deathType = DeathType.WATER;
+				}
 			}
-			else {
-				setPoints(points + 50);
-				setEndsFilled(endsFilled + 1);
-				furthestY = Y_UPPER_BOUND;
-				currentEnd.setEnd(true);
+			else if (getIntersectingObjects(End.class).size() >= 1) {
+				End currentEnd = getIntersectingObjects(End.class).get(0);
+				reset();
+				if (currentEnd.isActivated()) {
+					setPoints(points - 50);
+					setEndsFilled(endsFilled - 1);
+					currentEnd.setEnd(false);
+				} else {
+					setPoints(points + 50);
+					setEndsFilled(endsFilled + 1);
+					furthestY = Y_UPPER_BOUND;
+					currentEnd.setEnd(true);
+				}
 			}
 		}
 		else if (getY() + FROGGER_SIZE < waterBoundary){

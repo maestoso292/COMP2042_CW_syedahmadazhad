@@ -25,11 +25,11 @@ public class LevelRandom extends Level {
      */
     private static final int[] ROAD_SECTIONS = {9, 10, 11, 12, 13};
     /**
-     * Specifies the minimum space between two child nodes. Measured in pixels.
+     * Value of {@value #MIN_SPACE} which specifies the minimum space between two child nodes. Measured in pixels.
      */
     private static final int MIN_SPACE = 40;
     /**
-     * Specifies the maximum space between two child nodes. Measured in pixels.
+     * Value of {@value #MAX_SPACE} which pecifies the maximum space between two child nodes. Measured in pixels.
      */
     private static final int MAX_SPACE = 80;
 

@@ -38,12 +38,12 @@ public class Car extends Obstacle {
     private static final String CAR_PATH = OBSTACLES_PATH + "car";
 
     /**
-     * Specifies the size(width) of all Car instances. Measured in pixels.
+     * Value of {@value #CAR_SIZE} which specifies the size(width) of all Car instances. Measured in pixels.
      */
     public static final int CAR_SIZE = 50;
 
     /**
-     * Specifies how much vertical padding to use when instantiating. Measured in pixels.
+     * Value of {@value #CAR_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels.
      */
     private static final double CAR_PADDING = 9.5;
 

@@ -22,7 +22,7 @@ public abstract class HighscoreLoader {
     /**
      * Specifies the path to the highscores directory.
      */
-    private static final String HIGHSCORES_PATH = RESOURCES_PATH.replace("file:", "") + "highscores/highscores";
+    private static final String HIGHSCORES_PATH = "src/main/resources/highscores/highscores";
 
     /**
      * Reads a .csv file corresponding to the level number and returns a list of all Highscore values inside the file.

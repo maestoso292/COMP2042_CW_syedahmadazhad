@@ -11,19 +11,16 @@ import static frogger.Main.MISC_PATH;
  * display an empty or filled in end goal.
  */
 public class End extends Actor{
-	/**
-	 * Specifies different sizes for the images of the end goal
-	 */
+	/** Specifies the path to the directory containing the images of end **/
+	private static final String END_PATH = "file:src/main/resources/misc";
+
+	/** Specifies different sizes for the images of the end goal */
 	private static final int[] END_SIZES = {60, 70};
 
-	/**
-	 * A List to store references to the Images of the empty and filled in end goals.
-	 */
+	/** A List to store references to the Images of the empty and filled in end goals. */
 	private static ArrayList<Image> ends;
 
-	/**
-	 * Specifies the activation state of the instance.
-	 */
+	/** Specifies the activation state of the instance.*/
 	private boolean activated = false;
 
 	/**
@@ -40,7 +37,7 @@ public class End extends Actor{
 		if (ends == null) {
 			ends = new ArrayList<>(END_SIZES.length);
 			for (int i = 0; i < END_SIZES.length; i++) {
-				ends.add(new Image(MISC_PATH + "end" + i + ".png", END_SIZES[i], END_SIZES[i], true, true));
+				ends.add(new Image(END_PATH + "end" + i + ".png", END_SIZES[i], END_SIZES[i], true, true));
 			}
 		}
 	}

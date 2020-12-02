@@ -12,16 +12,16 @@ public class Fireball extends Obstacle {
     private static final String FIREBALL_PATH = OBSTACLES_PATH + "fireball/fireball";
 
     /**
-     * Specifies how much vertical padding to use when instantiating. Measured in pixels.
+     * Value of {@value #FIREBALL_PADDING} which specifies how much vertical padding to use when instantiating. Measured in pixels.
      */
     private static final double FIREBALL_PADDING = 7;
 
     /**
-     * Specifies the size(width) of all Fireball instances. Measured in pixels.
+     * Value of {@value #FIREBALL_SIZE} which specifies the size(width) of all Fireball instances. Measured in pixels.
      */
     private static final int FIREBALL_SIZE = 80;
 
-    /** Specifies the number of Images in the animation of Fireball instances. */
+    /** Value of {@value #NUM_FIREBALL_ANIM} which specifies the number of Images in the animation of Fireball instances. */
     private static final int NUM_FIREBALL_ANIM = 5;
 
     /** A List to store references to all Images in the Fireball animation. */

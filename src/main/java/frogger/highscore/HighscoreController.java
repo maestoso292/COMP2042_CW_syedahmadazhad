@@ -1,5 +1,7 @@
 package frogger.highscore;
 
+import frogger.world.levels.Level;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collections;

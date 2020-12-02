@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public abstract class Level extends World implements PropertyChangeListener {
     /**
-     * A constant that specifies the height of every row in the Frogger game.
+     * A constant with value {@value #SECTION_HEIGHT} that specifies the height of every row in the Frogger game.
      */
     public static final double SECTION_HEIGHT = 800.0 / 15;
 
