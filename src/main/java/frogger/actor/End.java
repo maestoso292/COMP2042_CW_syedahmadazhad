@@ -10,9 +10,9 @@ import static frogger.Main.MISC_PATH;
  * The End class provides a displayable image of the end goal of the Frogger game. The instance can be toggled to
  * display an empty or filled in end goal.
  */
-public class End extends Actor{
+public class End extends InteractiveActor{
 	/** Specifies the path to the directory containing the images of end **/
-	private static final String END_PATH = "file:src/main/resources/misc";
+	private static final String END_PATH = "file:src/main/resources/misc/";
 
 	/** Specifies different sizes for the images of the end goal */
 	private static final int[] END_SIZES = {60, 70};
@@ -31,9 +31,7 @@ public class End extends Actor{
 	 * @param ypos Specifies the y-coordinate. Measured in pixels.
 	 */
 	public End(int xpos, int ypos) {
-		super();
-		setX(xpos);
-		setY(ypos);
+		super(xpos, ypos);
 		if (ends == null) {
 			ends = new ArrayList<>(END_SIZES.length);
 			for (int i = 0; i < END_SIZES.length; i++) {

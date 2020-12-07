@@ -7,7 +7,7 @@ import static frogger.Main.*;
  * must be a subclass of. All images files of Platforms must face the right direction (East).
  * @see Animal
  */
-public abstract class Platform extends Actor {
+public abstract class Platform extends InteractiveActor {
     /**
      * Specifies the path to the directory containing image files for all platforms.
      */
@@ -26,8 +26,7 @@ public abstract class Platform extends Actor {
      * @param speed Specifies the speed at which the instance moves. Measured in pixels per frame.
      */
     public Platform(double xpos, double ypos, double speed) {
-        setX(xpos);
-        setY(ypos);
+        super(xpos, ypos);
         this.speed = speed;
         setScaleX(this.speed >= 0 ? 1 : -1);
     }

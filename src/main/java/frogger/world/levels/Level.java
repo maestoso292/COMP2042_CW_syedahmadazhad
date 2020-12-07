@@ -6,7 +6,9 @@ import frogger.highscore.HighscoreController;
 import frogger.world.World;
 import frogger.world.misc.MainMenu;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 
@@ -272,7 +274,7 @@ public abstract class Level extends World implements PropertyChangeListener {
                 setNumber(animal.getPoints());
                 break;
             case "endsFilled":
-                if ((int) evt.getNewValue() == 1) {
+                if ((int) evt.getNewValue() == 5) {
                     win();
                 }
                 break;

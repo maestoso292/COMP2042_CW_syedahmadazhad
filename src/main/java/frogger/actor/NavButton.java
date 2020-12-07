@@ -49,7 +49,7 @@ public class NavButton extends Actor{
      * @param xpos Specifies the x-coordinate to display the image. Measured in pixels.
      * @param ypos Specifies the y-coordinate to display the image. Measured in pixels.
      */
-    private NavButton(String filename, double size, double xpos, double ypos) {
+    public NavButton(String filename, double size, double xpos, double ypos) {
         setImage(new Image(BUTTON_PATH + filename, size, size, true, true));
         setX(xpos);
         setY(ypos);

@@ -1,25 +1,27 @@
 package frogger.actor;
 
+import frogger.world.levels.Level;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import frogger.world.levels.Level;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
 import static frogger.Main.*;
-//TODO Might want to touch up on javadoc
 /**
  * The Animal class provides a playable character that can handle key inputs from the user. The Animal instance will
  * interact with other nodes that it's bounds intersect with. The Animal instance also keeps track of level
  * progress(how many end goals reached) and the current score.
  */
-public class Animal extends Actor {
+public class Animal extends Actor{
 	/** An enumeration describing various death types and the number of unique images in the corresponding animation. */
 	private enum DeathType{
 		/** Specifies a null death type with no animations. */
@@ -70,11 +72,14 @@ public class Animal extends Actor {
 	/** Specifies the initial y-coordinate of an Animal instance. */
 	private static final double INIT_Y_POS = Level.Section.FOURTEEN.getY() + FROGGER_PADDING;
 
+	/** Value of {@value #ANIMATION_FRAMERATE} which specifies the number of frames per second. Used in death animation timeline */
+	private static final double ANIMATION_FRAMERATE = 5;
+
 	/** A List to store references to images in standard Frogger animation */
 	private static ArrayList<Image> froggerAnim;
 
-	/** A HashMap storing references to a List of Images for the corresponding death animations */
-	private static HashMap<DeathType, ArrayList<Image>> deathAnimHashMap;
+	/** A HashMap to store Animation {@linkplain Timeline Timelines} for frogger death animations */
+	private static HashMap<DeathType, Timeline> deathTimelineMap;
 
 	/** Specifies the y-coordinate where the water region begins*/
 	private final double waterBoundary;
@@ -84,9 +89,6 @@ public class Animal extends Actor {
 
 	/** Specifies the state of this instances jump animation. 0 for still. 1 for jump. */
 	private int froggerAnimCounter;
-
-	/** Counter for playing death animations. */
-	private int deathAnimCounter;
 
 	/** Specifies the DeathType of this instance. */
 	private DeathType deathType;
@@ -118,20 +120,7 @@ public class Animal extends Actor {
 			froggerAnim.add(new Image(FROGGER_PATH + "froggerJump.png", FROGGER_SIZE, FROGGER_SIZE, true, true));
 		}
 
-		// Store all death animations in a HashMap to avoid duplicate code for each animation
-		if (deathAnimHashMap == null) {
-			deathAnimHashMap = new HashMap<>(2);
-			for (DeathType deathType : DeathType.values())  {
-				if (deathType == DeathType.NONE) {
-					continue;
-				}
-				ArrayList<Image> temp = new ArrayList<>(deathType.numAnims);
-				for (int i = 0; i < deathType.numAnims; i++) {
-					temp.add(new Image(DEATH_PATH + deathType.label + i + ".png", FROGGER_SIZE, FROGGER_SIZE, true, true));
-				}
-				deathAnimHashMap.put(deathType, temp);
-			}
-		}
+		createDeathAnimationTimeline();
 
 		setOnKeyPressed(this::handleMovement);
 		setOnKeyReleased(this::handleMovement);
@@ -146,23 +135,47 @@ public class Animal extends Actor {
 	public void act(long now) {
 		outOfBoundsCheck();
 		collisionCheck();
-		// Death animation, if any
-		if (deathType != DeathType.NONE) {
-			noMove = true;
-			setRotate(0);
-			ArrayList<Image> deathAnim = deathAnimHashMap.get(deathType);
-			if ((now) % 11 == 0) {
-				deathAnimCounter++;
-			}
+	}
 
-			if (deathAnimCounter < deathAnim.size()) {
-				setImage(deathAnim.get(deathAnimCounter));
+	/**
+	 * Creates Timelines for each DeathType (excluding DeathType.NONE) and stores them in a static HashMap
+	 * only if the HashMap is null.
+	 */
+	public void createDeathAnimationTimeline() {
+		if (deathTimelineMap != null) {
+			return;
+		}
+		deathTimelineMap = new HashMap<>(DeathType.values().length - 1);
+		for (DeathType deathType : DeathType.values())  {
+			if (deathType == DeathType.NONE) {
+				continue;
 			}
-			else {
+			Timeline timeline = new Timeline(10);
+			for (int i = 0; i < deathType.numAnims; i++) {
+				Image sprite = new Image(DEATH_PATH + deathType.label + i + ".png",
+						FROGGER_SIZE, FROGGER_SIZE, true, true);
+				KeyValue keyValue = new KeyValue(imageProperty(), sprite);
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000 / ANIMATION_FRAMERATE * i), keyValue));
+			}
+			timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000 / ANIMATION_FRAMERATE * deathType.numAnims), new KeyValue(imageProperty(), froggerAnim.get(0))));
+			timeline.setCycleCount(1);
+			timeline.setOnFinished(event -> {
 				setPoints(points - 50);
 				reset();
-			}
+			});
+			deathTimelineMap.put(deathType, timeline);
 		}
+	}
+
+	/**
+	 * Plays the Animation Timeline that corresponds to the current value of deathType. Has no effect if timeline
+	 * is currently running.
+	 */
+	public void playDeathAnimation() {
+		noMove = true;
+		setRotate(0);
+		Timeline timeline = deathTimelineMap.get(deathType);
+		timeline.play();
 	}
 
 	/**
@@ -220,19 +233,21 @@ public class Animal extends Actor {
 	 * Checks whether this instance's bounds intersect with other Actor objects and handles it if so. If intersecting
 	 * with an Obstacle instance, {@link #deathType} is set to DeathType.CAR. If intersecting with a Platform instance,
 	 * move the Animal instance at the same speed as the Plaform instance. If intersected Platform is a SinkingPlatform
-	 * and isSunk(), deathType is set to DeathType.WATER. Checking for whether this instance has reached one of the
-	 * end goals is done here.
+	 * and isSunk(), deathType is set to DeathType.WATER. Calls {@link #playDeathAnimation()} if applicable.
+	 * Checking for whether this instance has reached one of the end goals is done here.
 	 */
 	private void collisionCheck() {
-		if (getIntersectingObjects(Actor.class).size() >= 1) {
+		if (getIntersectingObjects(InteractiveActor.class).size() >= 1) {
 			if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 				deathType = DeathType.CAR;
+				playDeathAnimation();
 			}
 			else if (getIntersectingObjects(Platform.class).size() >= 1 && !noMove) {
 				Platform currentPlatform = getIntersectingObjects(Platform.class).get(0);
 				move(currentPlatform.getSpeed(), 0);
 				if (currentPlatform instanceof SinkingPlatform && ((SinkingPlatform) currentPlatform).isSunk()) {
 					deathType = DeathType.WATER;
+					playDeathAnimation();
 				}
 			}
 			else if (getIntersectingObjects(End.class).size() >= 1) {
@@ -252,6 +267,7 @@ public class Animal extends Actor {
 		}
 		else if (getY() + FROGGER_SIZE < waterBoundary){
 			deathType = DeathType.WATER;
+			playDeathAnimation();
 		}
 	}
 
@@ -271,7 +287,6 @@ public class Animal extends Actor {
 	 */
 	public void reset() {
 		froggerAnimCounter = 0;
-		deathAnimCounter = 0;
 		deathType = DeathType.NONE;
 		setX(INIT_X_POS);
 		setY(INIT_Y_POS);
