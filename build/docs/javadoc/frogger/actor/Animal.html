@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -153,24 +153,24 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 </thead>
 <tbody>
 <tr class="alt-color">
+<td class="col-first"><code>private static double</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#ANIMATION_FRAMERATE">ANIMATION_FRAMERATE</a></span></code></th>
+<td class="col-last">
+<div class="block">Value of 5.0 which specifies the number of frames per second.</div>
+</td>
+</tr>
+<tr class="row-color">
 <td class="col-first"><code>private static <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#DEATH_PATH">DEATH_PATH</a></span></code></th>
 <td class="col-last">
 <div class="block">Specifies the path to the directory containing images for death animations.</div>
 </td>
 </tr>
-<tr class="row-color">
-<td class="col-first"><code>private int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#deathAnimCounter">deathAnimCounter</a></span></code></th>
-<td class="col-last">
-<div class="block">Counter for playing death animations.</div>
-</td>
-</tr>
 <tr class="alt-color">
-<td class="col-first"><code>private static <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="Animal.DeathType.html" title="enum in frogger.actor">Animal.DeathType</a>,&#8203;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html" title="class or interface in javafx.scene.image" class="external-link">Image</a>&gt;&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#deathAnimHashMap">deathAnimHashMap</a></span></code></th>
+<td class="col-first"><code>private static <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="Animal.DeathType.html" title="enum in frogger.actor">Animal.DeathType</a>,&#8203;<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html" title="class or interface in javafx.animation" class="external-link">Timeline</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#deathTimelineMap">deathTimelineMap</a></span></code></th>
 <td class="col-last">
-<div class="block">A HashMap storing references to a List of Images for the corresponding death animations</div>
+<div class="block">A HashMap to store Animation <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html" title="class or interface in javafx.animation" class="external-link">Timelines</a> for frogger death animations</div>
 </td>
 </tr>
 <tr class="row-color">
@@ -361,55 +361,70 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 </td>
 </tr>
 <tr class="row-color" id="i3">
+<td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createDeathAnimationTimeline()">createDeathAnimationTimeline</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Creates Timelines for each DeathType (excluding DeathType.NONE) and stores them in a static HashMap
+ only if the HashMap is null.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getPoints()">getPoints</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Get the current score.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="row-color" id="i5">
 <td class="col-first"><code>private void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#handleMovement(javafx.scene.input.KeyEvent)">handleMovement</a></span>&#8203;(<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/input/KeyEvent.html" title="class or interface in javafx.scene.input" class="external-link">KeyEvent</a>&nbsp;event)</code></th>
 <td class="col-last">
 <div class="block">Moves instance corresponding to key pressed and plays jump animation.</div>
 </td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#initialise()">initialise</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Initialises the default values for the instance.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>private void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#outOfBoundsCheck()">outOfBoundsCheck</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Checks whether instance has left application window bounds and resets position if so.</div>
 </td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="alt-color" id="i8">
+<td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#playDeathAnimation()">playDeathAnimation</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Plays the Animation Timeline that corresponds to the current value of deathType.</div>
+</td>
+</tr>
+<tr class="row-color" id="i9">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#removePropertyChangeListener(java.beans.PropertyChangeListener)">removePropertyChangeListener</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.desktop/java/beans/PropertyChangeListener.html" title="class or interface in java.beans" class="external-link">PropertyChangeListener</a>&nbsp;listener)</code></th>
 <td class="col-last">
 <div class="block">Removes a Listener from the list of PropertyChangeListeners.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="alt-color" id="i10">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#reset()">reset</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Resets the state and position of the instance.</div>
 </td>
 </tr>
-<tr class="row-color" id="i9">
+<tr class="row-color" id="i11">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#setEndsFilled(int)">setEndsFilled</a></span>&#8203;(int&nbsp;endsFilled)</code></th>
 <td class="col-last">
 <div class="block">Sets the number of endsFilled to a specified number and fires a PropertyChangeEvent to Listeners.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i10">
+<tr class="alt-color" id="i12">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#setPoints(int)">setPoints</a></span>&#8203;(int&nbsp;points)</code></th>
 <td class="col-last">
@@ -531,6 +546,17 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 </section>
 </li>
 <li>
+<section class="detail" id="ANIMATION_FRAMERATE">
+<h3>ANIMATION_FRAMERATE</h3>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="member-name">ANIMATION_FRAMERATE</span></div>
+<div class="block">Value of 5.0 which specifies the number of frames per second. Used in death animation timeline</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd><a href="../../constant-values.html#frogger.actor.Animal.ANIMATION_FRAMERATE">Constant Field Values</a></dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="froggerAnim">
 <h3>froggerAnim</h3>
 <div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html" title="class or interface in javafx.scene.image" class="external-link">Image</a>&gt;</span>&nbsp;<span class="member-name">froggerAnim</span></div>
@@ -538,10 +564,10 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 </section>
 </li>
 <li>
-<section class="detail" id="deathAnimHashMap">
-<h3>deathAnimHashMap</h3>
-<div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="Animal.DeathType.html" title="enum in frogger.actor">Animal.DeathType</a>,&#8203;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayList.html" title="class or interface in java.util" class="external-link">ArrayList</a>&lt;<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/Image.html" title="class or interface in javafx.scene.image" class="external-link">Image</a>&gt;&gt;</span>&nbsp;<span class="member-name">deathAnimHashMap</span></div>
-<div class="block">A HashMap storing references to a List of Images for the corresponding death animations</div>
+<section class="detail" id="deathTimelineMap">
+<h3>deathTimelineMap</h3>
+<div class="member-signature"><span class="modifiers">private static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/HashMap.html" title="class or interface in java.util" class="external-link">HashMap</a>&lt;<a href="Animal.DeathType.html" title="enum in frogger.actor">Animal.DeathType</a>,&#8203;<a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html" title="class or interface in javafx.animation" class="external-link">Timeline</a>&gt;</span>&nbsp;<span class="member-name">deathTimelineMap</span></div>
+<div class="block">A HashMap to store Animation <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html" title="class or interface in javafx.animation" class="external-link">Timelines</a> for frogger death animations</div>
 </section>
 </li>
 <li>
@@ -563,13 +589,6 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 <h3>froggerAnimCounter</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">froggerAnimCounter</span></div>
 <div class="block">Specifies the state of this instances jump animation. 0 for still. 1 for jump.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="deathAnimCounter">
-<h3>deathAnimCounter</h3>
-<div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">deathAnimCounter</span></div>
-<div class="block">Counter for playing death animations.</div>
 </section>
 </li>
 <li>
@@ -650,6 +669,22 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 </section>
 </li>
 <li>
+<section class="detail" id="createDeathAnimationTimeline()">
+<h3>createDeathAnimationTimeline</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">createDeathAnimationTimeline</span>()</div>
+<div class="block">Creates Timelines for each DeathType (excluding DeathType.NONE) and stores them in a static HashMap
+ only if the HashMap is null.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="playDeathAnimation()">
+<h3>playDeathAnimation</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">playDeathAnimation</span>()</div>
+<div class="block">Plays the Animation Timeline that corresponds to the current value of deathType. Has no effect if timeline
+ is currently running.</div>
+</section>
+</li>
+<li>
 <section class="detail" id="handleMovement(javafx.scene.input.KeyEvent)">
 <h3>handleMovement</h3>
 <div class="member-signature"><span class="modifiers">private</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">handleMovement</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/input/KeyEvent.html" title="class or interface in javafx.scene.input" class="external-link">KeyEvent</a>&nbsp;event)</span></div>
@@ -675,8 +710,8 @@ extends <a href="Actor.html" title="class in frogger.actor">Actor</a></pre>
 <div class="block">Checks whether this instance's bounds intersect with other Actor objects and handles it if so. If intersecting
  with an Obstacle instance, <a href="#deathType"><code>deathType</code></a> is set to DeathType.CAR. If intersecting with a Platform instance,
  move the Animal instance at the same speed as the Plaform instance. If intersected Platform is a SinkingPlatform
- and isSunk(), deathType is set to DeathType.WATER. Checking for whether this instance has reached one of the
- end goals is done here.</div>
+ and isSunk(), deathType is set to DeathType.WATER. Calls <a href="#playDeathAnimation()"><code>playDeathAnimation()</code></a> if applicable.
+ Checking for whether this instance has reached one of the end goals is done here.</div>
 </section>
 </li>
 <li>

@@ -172,6 +172,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">An enumeration describing various death types and the number of unique images in the corresponding animation.</div>
 </dd>
+<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#ANIMATION_FRAMERATE">ANIMATION_FRAMERATE</a></span> - Static variable in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
+<dd>
+<div class="block">Value of 5.0 which specifies the number of frames per second.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
@@ -247,6 +251,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">A static HashMap to store all controllers, each of them attached to a JavaFX scene</div>
 </dd>
+<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#createDeathAnimationTimeline()">createDeathAnimationTimeline()</a></span> - Method in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
+<dd>
+<div class="block">Creates Timelines for each DeathType (excluding DeathType.NONE) and stores them in a static HashMap
+ only if the HashMap is null.</div>
+</dd>
 <dt><span class="member-name-link"><a href="frogger/world/World.html#createTimer()">createTimer()</a></span> - Method in class frogger.world.<a href="frogger/world/World.html" title="class in frogger.world">World</a></dt>
 <dd>
 <div class="block">Instantiates an <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html" title="class or interface in javafx.animation" class="external-link"><code>AnimationTimer</code></a> to store in the private timer field.</div>
@@ -258,13 +267,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Specifies the path to the directory containing images for death animations.</div>
 </dd>
-<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#deathAnimCounter">deathAnimCounter</a></span> - Variable in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
+<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#deathTimelineMap">deathTimelineMap</a></span> - Static variable in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
 <dd>
-<div class="block">Counter for playing death animations.</div>
-</dd>
-<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#deathAnimHashMap">deathAnimHashMap</a></span> - Static variable in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
-<dd>
-<div class="block">A HashMap storing references to a List of Images for the corresponding death animations</div>
+<div class="block">A HashMap to store Animation <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html" title="class or interface in javafx.animation" class="external-link">Timelines</a> for frogger death animations</div>
 </dd>
 <dt><span class="member-name-link"><a href="frogger/actor/Animal.html#deathType">deathType</a></span> - Variable in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
 <dd>
@@ -574,6 +579,15 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="frogger/actor/Animal.html#initialise()">initialise()</a></span> - Method in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
 <dd>
 <div class="block">Initialises the default values for the instance.</div>
+</dd>
+<dt><a href="frogger/actor/InteractiveActor.html" title="class in frogger.actor"><span class="type-name-link">InteractiveActor</span></a> - Class in <a href="frogger/actor/package-summary.html">frogger.actor</a></dt>
+<dd>
+<div class="block">InteractiveActor is the abstract class for Actor objects that an <a href="frogger/actor/Actor.html" title="class in frogger.actor"><code>Actor</code></a>
+ instance can interact with.</div>
+</dd>
+<dt><span class="member-name-link"><a href="frogger/actor/InteractiveActor.html#%3Cinit%3E(double,double)">InteractiveActor(double, double)</a></span> - Constructor for class frogger.actor.<a href="frogger/actor/InteractiveActor.html" title="class in frogger.actor">InteractiveActor</a></dt>
+<dd>
+<div class="block">Create an instance of InteractiveActor at the specified x-coordinate and y-coordinate.</div>
 </dd>
 <dt><span class="member-name-link"><a href="frogger/actor/End.html#isActivated()">isActivated()</a></span> - Method in class frogger.actor.<a href="frogger/actor/End.html" title="class in frogger.actor">End</a></dt>
 <dd>
@@ -939,6 +953,10 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="frogger/actor/Platform.html#PLATFORMS_PATH">PLATFORMS_PATH</a></span> - Static variable in class frogger.actor.<a href="frogger/actor/Platform.html" title="class in frogger.actor">Platform</a></dt>
 <dd>
 <div class="block">Specifies the path to the directory containing image files for all platforms.</div>
+</dd>
+<dt><span class="member-name-link"><a href="frogger/actor/Animal.html#playDeathAnimation()">playDeathAnimation()</a></span> - Method in class frogger.actor.<a href="frogger/actor/Animal.html" title="class in frogger.actor">Animal</a></dt>
+<dd>
+<div class="block">Plays the Animation Timeline that corresponds to the current value of deathType.</div>
 </dd>
 <dt><span class="member-name-link"><a href="frogger/MusicPlayer.html#playMusic(java.lang.String)">playMusic(String)</a></span> - Method in class frogger.<a href="frogger/MusicPlayer.html" title="class in frogger">MusicPlayer</a></dt>
 <dd>
