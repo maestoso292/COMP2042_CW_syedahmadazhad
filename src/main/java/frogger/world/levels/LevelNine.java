@@ -19,11 +19,11 @@ public class LevelNine extends Level{
     protected LevelNine(int levelNumber, double waterBoundary) {
         super(levelNumber, waterBoundary);
 
-        add(new Log(Log.LogTypes.LONG, 0, Level.Section.THREE.getY(), 1.5));
-        add(new Log(Log.LogTypes.LONG, 440, Level.Section.THREE.getY(), 1.5));
+        add(new Log(Log.LogType.LONG, 0, Level.Section.THREE.getY(), 1.5));
+        add(new Log(Log.LogType.LONG, 440, Level.Section.THREE.getY(), 1.5));
 
-        add(new Log(Log.LogTypes.SHORT, 200, Level.Section.FOUR.getY(), -4));
-        add(new Log(Log.LogTypes.SHORT, 550, Level.Section.FOUR.getY(), -4));
+        add(new Log(Log.LogType.SHORT, 200, Level.Section.FOUR.getY(), -4));
+        add(new Log(Log.LogType.SHORT, 550, Level.Section.FOUR.getY(), -4));
 
         add(new Turtle(50, Level.Section.FIVE.getY(), -1.5));
         add(new WetTurtle(200, Level.Section.FIVE.getY(), -1.5, false));
@@ -34,20 +34,20 @@ public class LevelNine extends Level{
         add(new WetTurtle(360, Section.SIX.getY(), 1, true));
         add(new WetTurtle(490, Section.SIX.getY(), 1, true));
 
-        add(new Log(Log.LogTypes.MEDIUM, 200, Level.Section.SEVEN.getY(), -2.5));
-        add(new Log(Log.LogTypes.MEDIUM, 550, Level.Section.SEVEN.getY(), -2.5));
+        add(new Log(Log.LogType.MEDIUM, 200, Level.Section.SEVEN.getY(), -2.5));
+        add(new Log(Log.LogType.MEDIUM, 550, Level.Section.SEVEN.getY(), -2.5));
 
         add(new Turtle(0, Section.EIGHT.getY(), -2));
         add(new WetTurtle(130, Section.EIGHT.getY(), -2, true));
         add(new Turtle(360, Section.EIGHT.getY(), -2));
         add(new WetTurtle(490, Section.EIGHT.getY(), -2, true));
 
-        add(new Log(Log.LogTypes.SHORT, 200, Level.Section.NINE.getY(), 0.75));
-        add(new Log(Log.LogTypes.SHORT, 550, Level.Section.NINE.getY(), 0.75));
-        add(new Log(Log.LogTypes.SHORT, 550, Level.Section.NINE.getY(), 0.75));
+        add(new Log(Log.LogType.SHORT, 200, Level.Section.NINE.getY(), 0.75));
+        add(new Log(Log.LogType.SHORT, 550, Level.Section.NINE.getY(), 0.75));
+        add(new Log(Log.LogType.SHORT, 550, Level.Section.NINE.getY(), 0.75));
 
-        add(new Log(Log.LogTypes.LONG, 100, Level.Section.TEN.getY(), -0.75));
-        add(new Log(Log.LogTypes.LONG, 550, Level.Section.TEN.getY(), -0.75));
+        add(new Log(Log.LogType.LONG, 100, Level.Section.TEN.getY(), -0.75));
+        add(new Log(Log.LogType.LONG, 550, Level.Section.TEN.getY(), -0.75));
 
         add(new WetTurtle(0, Section.ELEVEN.getY(), 2.5, false));
         add(new WetTurtle(250, Section.ELEVEN.getY(), 2.5, false));
@@ -57,8 +57,8 @@ public class LevelNine extends Level{
         add(new Turtle(0, Section.TWELVE.getY(), -1.5));
         add(new WetTurtle(300, Section.TWELVE.getY(), -1.5, false));
 
-        add(new Log(Log.LogTypes.LONG, 100, Section.THIRTEEN.getY(), 1));
-        add(new Log(Log.LogTypes.LONG, 550, Section.THIRTEEN.getY(), 1));
+        add(new Log(Log.LogType.LONG, 100, Section.THIRTEEN.getY(), 1));
+        add(new Log(Log.LogType.LONG, 550, Section.THIRTEEN.getY(), 1));
 
 
         // Ensures that animal is above platforms but below obstacles

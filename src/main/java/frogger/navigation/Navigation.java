@@ -21,7 +21,7 @@ public abstract class Navigation {
      * @param scene The Scene for which the NavController is attached/will be attached to.
      * @return The NavController that can manipulate the scene graph of the scene parameter.
      */
-    public static NavController getNavigationController(Scene scene) {
+    public static NavController getNavController(Scene scene) {
         if (!controllerHashMap.containsKey(scene)) {
             controllerHashMap.put(scene, new NavController(scene));
         }

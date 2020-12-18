@@ -2,10 +2,11 @@ package frogger;
 
 import frogger.navigation.NavController;
 import frogger.navigation.Navigation;
+import frogger.world.World;
 import frogger.world.levels.*;
-import frogger.world.misc.InfoPage;
-import frogger.world.misc.LevelSelect;
-import frogger.world.misc.MainMenu;
+import frogger.world.InfoPage;
+import frogger.world.LevelSelect;
+import frogger.world.MainMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -53,11 +54,10 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		MainMenu mainMenu = new MainMenu();
-	    Scene scene  = new Scene(mainMenu, X_UPPER_BOUND, Y_UPPER_BOUND);
-	    navController = Navigation.getNavigationController(scene);
+	    Scene scene  = new Scene(new MainMenu(), X_UPPER_BOUND, Y_UPPER_BOUND);
+	    navController = Navigation.getNavController(scene);
 
-	    navController.addDestination(mainMenu);
+	    navController.addDestination(((World) scene.getRoot()));
 	    navController.addDestination(InfoPage.class);
 	    navController.addDestination(LevelSelect.class);
 

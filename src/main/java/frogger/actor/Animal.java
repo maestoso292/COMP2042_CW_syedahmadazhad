@@ -1,9 +1,11 @@
 package frogger.actor;
 
 import frogger.world.levels.Level;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,8 +16,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 
-import static frogger.Main.*;
 /**
  * The Animal class provides a playable character that can handle key inputs from the user. The Animal instance will
  * interact with other nodes that it's bounds intersect with. The Animal instance also keeps track of level
@@ -49,7 +51,7 @@ public class Animal extends Actor{
 	}
 
 	/** Specifies the path to the directory containing images for the Frogger. */
-	private static final String FROGGER_PATH = RESOURCES_PATH + "frogger/";
+	private static final String FROGGER_PATH = "file:src/main/resources/frogger/";
 
 	/** Specifies the path to the directory containing images for death animations. */
 	private static final String DEATH_PATH = FROGGER_PATH + "deathAnim/";
@@ -79,13 +81,13 @@ public class Animal extends Actor{
 	private static ArrayList<Image> froggerAnim;
 
 	/** A HashMap to store Animation {@linkplain Timeline Timelines} for frogger death animations */
-	private static HashMap<DeathType, Timeline> deathTimelineMap;
+	private HashMap<DeathType, Timeline> deathTimelineMap;
 
 	/** Specifies the y-coordinate where the water region begins*/
 	private final double waterBoundary;
 
 	/** Used for adding and removing property listeners and firing events on property change*/
-	private final PropertyChangeSupport propertyChangeSupport;
+	private PropertyChangeSupport propertyChangeSupport;
 
 	/** Specifies the state of this instances jump animation. 0 for still. 1 for jump. */
 	private int froggerAnimCounter;
@@ -142,9 +144,6 @@ public class Animal extends Actor{
 	 * only if the HashMap is null.
 	 */
 	public void createDeathAnimationTimeline() {
-		if (deathTimelineMap != null) {
-			return;
-		}
 		deathTimelineMap = new HashMap<>(DeathType.values().length - 1);
 		for (DeathType deathType : DeathType.values())  {
 			if (deathType == DeathType.NONE) {
@@ -174,8 +173,9 @@ public class Animal extends Actor{
 	public void playDeathAnimation() {
 		noMove = true;
 		setRotate(0);
-		Timeline timeline = deathTimelineMap.get(deathType);
-		timeline.play();
+		if (!deathTimelineMap.get(deathType).getStatus().equals(Animation.Status.RUNNING)) {
+			deathTimelineMap.get(deathType).playFromStart();
+		}
 	}
 
 	/**
@@ -218,14 +218,15 @@ public class Animal extends Actor{
 	 * Checks whether instance has left application window bounds and resets position if so.
 	 */
 	private void outOfBoundsCheck() {
-		if (getY() < Y_LOWER_BOUND || getY() > Y_UPPER_BOUND - FROGGER_SIZE) {
+		Bounds worldBounds = getWorld().getLayoutBounds();
+		if (getY() < worldBounds.getMinY() || getY() > worldBounds.getMaxY() - FROGGER_SIZE) {
 			setY(INIT_Y_POS);
 		}
-		if (getX() < X_LOWER_BOUND) {
-			setX(X_LOWER_BOUND);
+		if (getX() < worldBounds.getMinX()) {
+			setX(worldBounds.getMinX());
 		}
-		else if (getX() > X_UPPER_BOUND - FROGGER_SIZE) {
-			setX(X_UPPER_BOUND - FROGGER_SIZE);
+		else if (getX() > worldBounds.getMaxX() - FROGGER_SIZE) {
+			setX(worldBounds.getMaxX() - FROGGER_SIZE);
 		}
 	}
 
@@ -260,7 +261,7 @@ public class Animal extends Actor{
 				} else {
 					setPoints(points + 50);
 					setEndsFilled(endsFilled + 1);
-					furthestY = Y_UPPER_BOUND;
+					furthestY = getWorld().getLayoutBounds().getMaxY();
 					currentEnd.setEnd(true);
 				}
 			}
@@ -277,7 +278,7 @@ public class Animal extends Actor{
 	public void initialise() {
 		setPoints(0);
 		endsFilled = 0;
-		furthestY = Y_UPPER_BOUND;
+		furthestY = getWorld().getLayoutBounds().getMaxY();
 		reset();
 	}
 
@@ -303,6 +304,14 @@ public class Animal extends Actor{
 		int oldEndsFilled = this.endsFilled;
 		propertyChangeSupport.firePropertyChange("endsFilled", oldEndsFilled, endsFilled);
 		this.endsFilled = endsFilled;
+	}
+
+	/**
+	 * Get the number of end goals reached.
+	 * @return The current number of end goals reached
+	 */
+	public int getEndsFilled() {
+		return endsFilled;
 	}
 
 	/**

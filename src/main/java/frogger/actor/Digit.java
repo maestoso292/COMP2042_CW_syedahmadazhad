@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import static frogger.Main.RESOURCES_PATH;
-
 /**
  * The Digit class provides a displayable image of a digit.
  */

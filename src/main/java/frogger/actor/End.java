@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import static frogger.Main.MISC_PATH;
-
 /**
  * The End class provides a displayable image of the end goal of the Frogger game. The instance can be toggled to
  * display an empty or filled in end goal.

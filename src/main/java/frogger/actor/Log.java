@@ -11,7 +11,7 @@ public class Log extends Platform {
 	/**
 	 * An enumeration of different types of Logs and their corresponding labels and sizes.
 	 */
-	public enum LogTypes {
+	public enum LogType {
 		/**
 		 * Specifies a long log type with label 0 and size(width) 318
 		 */
@@ -39,7 +39,7 @@ public class Log extends Platform {
 		 * @param label The label of the LogType used in the name of its image file.
 		 * @param size The size(width) of images of this type. Measured in pixels.
 		 */
-		LogTypes(int label, int size) {
+		LogType(int label, int size) {
 			this.label = label;
 			this.size = size;
 		}
@@ -69,11 +69,11 @@ public class Log extends Platform {
 	 * @param speed Specifies the speed at which the instance should move across the screen. Measured in
 	 *              pixels per frame.
 	 */
-	public Log(LogTypes type, double xpos, double ypos, double speed) {
+	public Log(LogType type, double xpos, double ypos, double speed) {
 		super(xpos, ypos + LOG_PADDING, speed);
 		if (logs == null) {
-			logs = new ArrayList<>(LogTypes.values().length);
-			for (LogTypes logType : LogTypes.values()) {
+			logs = new ArrayList<>(LogType.values().length);
+			for (LogType logType : LogType.values()) {
 				logs.add(new Image(LOG_PATH + logType.label + ".png", logType.size, logType.size, true, true));
 			}
 		}

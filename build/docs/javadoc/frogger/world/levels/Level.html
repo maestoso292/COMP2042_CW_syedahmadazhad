@@ -196,6 +196,20 @@ implements <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.desk
 </td>
 </tr>
 <tr class="alt-color">
+<td class="col-first"><code>private static double</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#LAYOUT_HEIGHT">LAYOUT_HEIGHT</a></span></code></th>
+<td class="col-last">
+<div class="block">Value of 800.0 which specifies layout height of this instance.</div>
+</td>
+</tr>
+<tr class="row-color">
+<td class="col-first"><code>private static double</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#LAYOUT_WIDTH">LAYOUT_WIDTH</a></span></code></th>
+<td class="col-last">
+<div class="block">Value of 600.0 which specifies layout width of this instance.</div>
+</td>
+</tr>
+<tr class="alt-color">
 <td class="col-first"><code>static double</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#SECTION_HEIGHT">SECTION_HEIGHT</a></span></code></th>
 <td class="col-last">
@@ -352,6 +366,28 @@ double&nbsp;waterBoundary)</code></th>
 </section>
 </li>
 <li>
+<section class="detail" id="LAYOUT_WIDTH">
+<h3>LAYOUT_WIDTH</h3>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="member-name">LAYOUT_WIDTH</span></div>
+<div class="block">Value of 600.0 which specifies layout width of this instance. Measured in pixels.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd><a href="../../../constant-values.html#frogger.world.levels.Level.LAYOUT_WIDTH">Constant Field Values</a></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="LAYOUT_HEIGHT">
+<h3>LAYOUT_HEIGHT</h3>
+<div class="member-signature"><span class="modifiers">private static final</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="member-name">LAYOUT_HEIGHT</span></div>
+<div class="block">Value of 800.0 which specifies layout height of this instance. Measured in pixels.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd><a href="../../../constant-values.html#frogger.world.levels.Level.LAYOUT_HEIGHT">Constant Field Values</a></dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="animal">
 <h3>animal</h3>
 <div class="member-signature"><span class="modifiers">private final</span>&nbsp;<span class="return-type"><a href="../../actor/Animal.html" title="class in frogger.actor">Animal</a></span>&nbsp;<span class="member-name">animal</span></div>
@@ -396,7 +432,7 @@ double&nbsp;waterBoundary)</span></div>
  Images for level backgrounds must be name "background_level[levelNumber].png" in the background
  images directory. An Animal instance is also created which uses the waterBoundary parameter for it's
  collision checking. A Level instance listens to a user pressing the ESC key and will call
- <a href="../../navigation/NavController.html#navigateTo(java.lang.Class)"><code>NavController.navigateTo(Class)</code></a> to navigate to <a href="../misc/MainMenu.html" title="class in frogger.world.misc"><code>MainMenu</code></a>.</div>
+ <a href="../../navigation/NavController.html#navigateTo(java.lang.Class)"><code>NavController.navigateTo(Class)</code></a> to navigate to <a href="../MainMenu.html" title="class in frogger.world"><code>MainMenu</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>levelNumber</code> - Specifies the level number corresponding to the level.</dd>

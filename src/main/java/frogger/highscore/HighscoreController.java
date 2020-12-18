@@ -1,7 +1,5 @@
 package frogger.highscore;
 
-import frogger.world.levels.Level;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collections;
@@ -26,7 +24,7 @@ public class HighscoreController {
     /**
      * Specifies a PropertyChangeSupport object for firing events related to property changes.
      */
-    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    private PropertyChangeSupport propertyChangeSupport;
 
     /**
      * Creates a HighscoreController.
@@ -35,13 +33,14 @@ public class HighscoreController {
      */
     public HighscoreController(int levelNumber) {
         this.levelNumber = levelNumber;
+        propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     /**
-     * Creates a new Thread which calls the HighscoreLoader to read a file and stores the scores in a list.
+     * Calls the HighscoreLoader to read a file and stores the scores in a list.
      */
     public void loadHighscores() {
-        new Thread(() -> highscores = HighscoreLoader.readHighscores(levelNumber)).start();
+        highscores = HighscoreLoader.readHighscores(levelNumber);
     }
 
     /**

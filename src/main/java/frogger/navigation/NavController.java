@@ -100,4 +100,12 @@ public class NavController {
     public void stopCurrentDestination() {
         ((World) scene.getRoot()).stop();
     }
+
+    /**
+     * Get the JavaFX Scene whose scene graph can be manipulated bu this instance.
+     * @return The Scene this instance is attached to.
+     */
+    public Scene getScene() {
+        return scene;
+    }
 }

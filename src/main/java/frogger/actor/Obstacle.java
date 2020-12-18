@@ -1,7 +1,5 @@
 package frogger.actor;
 
-import static frogger.Main.*;
-
 /**
  * The Obstacle class is the abstract class which all Frogger obstacles(nodes that cannot be stood on by the Frogger)
  * must be a subclass of. All Obstacles that intersect with the Animal instance will cause the Frogger to 'die'.
@@ -40,10 +38,12 @@ public abstract class Obstacle extends InteractiveActor {
 	 */
 	@Override
 	public void act(long now) {
-		move(speed, 0);
-		if (getX() > X_UPPER_BOUND && speed > 0)
-			setX(X_LOWER_BOUND - getWidth());
-		if (getX() < X_LOWER_BOUND - getWidth() && speed <0)
-			setX(X_UPPER_BOUND);
+		move(speed , 0);
+		double lowerBound = getWorld().getLayoutBounds().getMinX();
+		double upperBound = getWorld().getLayoutBounds().getMaxX();
+		if (getX() > upperBound && speed > 0)
+			setX(lowerBound - getWidth());
+		if (getX() < lowerBound - getWidth() && speed <0)
+			setX(upperBound);
 	}
 }

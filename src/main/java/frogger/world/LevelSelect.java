@@ -1,11 +1,10 @@
-package frogger.world.misc;
+package frogger.world;
 
-import frogger.navigation.Navigation;
 import frogger.actor.BackgroundImage;
 import frogger.actor.NavButton;
-import frogger.world.levels.Level;
-import frogger.world.World;
+import frogger.navigation.Navigation;
 import frogger.world.levels.*;
+import javafx.scene.input.KeyCode;
 
 /**
  * The LevelSelect class provides a screen for which a user can click preset {@linkplain NavButton NavButtons} to navigate
@@ -17,8 +16,12 @@ public class LevelSelect extends World {
      * Creates a LevelSelect screen with preset buttons for navigating to Level destinations.
      */
     public LevelSelect() {
-        add(new BackgroundImage("background_level_select.png"));
-        setOnKeyPressed(event -> Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class));
+        add(new BackgroundImage("background_level_select.png", 600, 800));
+        setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                Navigation.getNavController(getScene()).navigateTo(MainMenu.class);
+            }
+        });
 
         add(new NavButton("1.png", 400, 100, Level.Section.FOUR.getY(), LevelOne.class));
         add(new NavButton("2.png", 400, 100, Level.Section.FIVE.getY(), LevelTwo.class));

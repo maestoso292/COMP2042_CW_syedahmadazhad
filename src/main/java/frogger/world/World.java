@@ -1,8 +1,6 @@
 package frogger.world;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import frogger.actor.Actor;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,7 +8,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import frogger.actor.Actor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * World is the base abstract class to be extended by all branch nodes in the JavaFX scene graph of the Frogger game.

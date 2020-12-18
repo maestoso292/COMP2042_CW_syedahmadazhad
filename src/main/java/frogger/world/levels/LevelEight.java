@@ -23,8 +23,8 @@ public class LevelEight extends Level {
         add(new WetTurtle(280, Section.THREE.getY(), -2.5, false));
         add(new WetTurtle(530, Section.THREE.getY(), -2.5, false));
 
-        add(new Log(Log.LogTypes.MEDIUM, 200, Section.FOUR.getY(), 1.5));
-        add(new Log(Log.LogTypes.MEDIUM, 550, Section.FOUR.getY(), 1.5));
+        add(new Log(Log.LogType.MEDIUM, 200, Section.FOUR.getY(), 1.5));
+        add(new Log(Log.LogType.MEDIUM, 550, Section.FOUR.getY(), 1.5));
 
         add(new Turtle(50, Section.FIVE.getY(), -2));
         add(new WetTurtle(200, Section.FIVE.getY(), -2, false));

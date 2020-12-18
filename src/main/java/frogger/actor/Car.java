@@ -11,7 +11,7 @@ public class Car extends Obstacle {
     /**
      * An enumeration of different types of Cars and their corresponding labels.
      */
-    public enum CarTypes {
+    public enum CarType {
         /** Specifies a red car with label 0. */
         RED (0),
         /** Specifies a white car with label 1. */
@@ -27,7 +27,7 @@ public class Car extends Obstacle {
          * Creates a CarType with the specified label.
          * @param label Specifies the label of the CarType to use in the name of the corresponding image file.
          */
-        CarTypes(int label) {
+        CarType(int label) {
             this.label = label;
         }
     }
@@ -61,11 +61,11 @@ public class Car extends Obstacle {
      * @param speed Specifies the speed at which the instance should move across the screen. Measured in
      *              pixels per frame.
      */
-    public Car(CarTypes type, double xpos, double ypos, double speed) {
+    public Car(CarType type, double xpos, double ypos, double speed) {
         super(xpos, ypos + CAR_PADDING, speed);
         if (cars == null) {
-            cars = new ArrayList<>(CarTypes.values().length);
-            for (CarTypes carType : CarTypes.values()) {
+            cars = new ArrayList<>(CarType.values().length);
+            for (CarType carType : CarType.values()) {
                 cars.add(new Image(CAR_PATH + carType.label + ".png", CAR_SIZE, CAR_SIZE, true, true));
             }
         }

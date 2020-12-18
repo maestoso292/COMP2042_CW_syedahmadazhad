@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static frogger.Main.X_LOWER_BOUND;
 import static frogger.actor.Car.CAR_SIZE;
 
 /**
@@ -96,8 +95,8 @@ public class LevelRandom extends Level {
      * @param speed Specifies the speed at which the Log instance should move at. Measured in pixels per frame.
      */
     private void generateLogsInSection(double ypos, double speed) {
-        Log.LogTypes[] logTypes = Log.LogTypes.values();
-        Log.LogTypes logType = logTypes[ThreadLocalRandom.current().nextInt(0, logTypes.length)];
+        Log.LogType[] logTypes = Log.LogType.values();
+        Log.LogType logType = logTypes[ThreadLocalRandom.current().nextInt(0, logTypes.length)];
 
         int count = ThreadLocalRandom.current().nextInt( 1, 2 + logType.label);
         double xpos = 0;
@@ -117,7 +116,7 @@ public class LevelRandom extends Level {
      */
     private void generateTurtlesInSection(double ypos, double speed) {
         int count = ThreadLocalRandom.current().nextInt(2, 4);
-        double xpos = speed > 0 ? 0 : X_LOWER_BOUND - Turtle.TURTLE_SIZE;
+        double xpos = speed > 0 ? 0 : getLayoutBounds().getMinX() - Turtle.TURTLE_SIZE;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(Turtle.TURTLE_SIZE + MIN_SPACE,Turtle.TURTLE_SIZE + MAX_SPACE);
 
@@ -134,7 +133,7 @@ public class LevelRandom extends Level {
      */
     private void generateWetTurtlesInSection(double ypos, double speed) {
         int count = ThreadLocalRandom.current().nextInt(2, 4);
-        double xpos = speed > 0 ? 0 : X_LOWER_BOUND - WetTurtle.WET_TURTLE_SIZE;
+        double xpos = speed > 0 ? 0 : getLayoutBounds().getMinX() - WetTurtle.WET_TURTLE_SIZE;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(WetTurtle.WET_TURTLE_SIZE + MIN_SPACE,WetTurtle.WET_TURTLE_SIZE + MAX_SPACE);
 
@@ -150,11 +149,11 @@ public class LevelRandom extends Level {
      * @param speed Specifies the speed at which the Truck instance should move at. Measured in pixels per frame.
      */
     private void generateTrucksInSection(double ypos, double speed) {
-        Truck.TruckTypes[] truckTypes = Truck.TruckTypes.values();
-        Truck.TruckTypes truckType = truckTypes[ThreadLocalRandom.current().nextInt(0, truckTypes.length)];
+        Truck.TruckType[] truckTypes = Truck.TruckType.values();
+        Truck.TruckType truckType = truckTypes[ThreadLocalRandom.current().nextInt(0, truckTypes.length)];
 
         int count = ThreadLocalRandom.current().nextInt(1, 3 - truckType.label);
-        double xpos = speed > 0 ? 0 : X_LOWER_BOUND - truckType.size;
+        double xpos = speed > 0 ? 0 : getLayoutBounds().getMinX() - truckType.size;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(truckType.size + MIN_SPACE, truckType.size + MAX_SPACE );
 
@@ -170,10 +169,10 @@ public class LevelRandom extends Level {
      * @param speed Specifies the speed at which the Car instance should move at. Measured in pixels per frame.
      */
     private void generateCarsInSection(double ypos, double speed) {
-        Car.CarTypes[] carTypes = Car.CarTypes.values();
+        Car.CarType[] carTypes = Car.CarType.values();
 
         int count = ThreadLocalRandom.current().nextInt(speed > 1.5 ? 1 : 3, speed > 1.5 ? 3 : 5);
-        double xpos = speed > 0 ? 0 : X_LOWER_BOUND - CAR_SIZE;
+        double xpos = speed > 0 ? 0 : getLayoutBounds().getMinX() - CAR_SIZE;
         for (int i = 0; i < count; i++) {
             xpos += ThreadLocalRandom.current().nextDouble(CAR_SIZE + MIN_SPACE, CAR_SIZE + MAX_SPACE);
 

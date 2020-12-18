@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -194,27 +194,34 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </td>
 </tr>
 <tr class="row-color" id="i3">
+<td class="col-first"><code><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getScene()">getScene</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Get the JavaFX Scene whose scene graph can be manipulated bu this instance.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#navigateTo(java.lang.Class)">navigateTo</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
 <td class="col-last">
 <div class="block">Changes to root node of the scene graph to the desired node.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="row-color" id="i5">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#removeDestination(java.lang.Class)">removeDestination</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;? extends <a href="../world/World.html" title="class in frogger.world">World</a>&gt;&nbsp;cls)</code></th>
 <td class="col-last">
 <div class="block">Removes a destination from the list of potential root nodes.</div>
 </td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#startCurrentDestination()">startCurrentDestination</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Calls the <a href="../world/World.html#start()"><code>World.start()</code></a> method of the current destination (root node of scene graph)</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#stopCurrentDestination()">stopCurrentDestination</a></span>()</code></th>
 <td class="col-last">
@@ -354,6 +361,17 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <h3>stopCurrentDestination</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">stopCurrentDestination</span>()</div>
 <div class="block">Calls the World.stop() method of the current destination (root node of scene graph)</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getScene()">
+<h3>getScene</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html" title="class or interface in javafx.scene" class="external-link">Scene</a></span>&nbsp;<span class="member-name">getScene</span>()</div>
+<div class="block">Get the JavaFX Scene whose scene graph can be manipulated bu this instance.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>The Scene this instance is attached to.</dd>
+</dl>
 </section>
 </li>
 </ul>

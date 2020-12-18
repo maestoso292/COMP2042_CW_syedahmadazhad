@@ -2,7 +2,6 @@ package frogger.actor;
 
 import javafx.scene.image.Image;
 
-import static frogger.Main.*;
 
 /**
  * BackgroundImage is a class that provides an ImageView that displays an Image with dimensions to fit the
@@ -18,9 +17,11 @@ public class BackgroundImage extends Actor{
 	 * Creates a new BackgroundImage and displays the image specified by the label. The image's aspect ratio is not
 	 * maintained and is made to fit the application window.
 	 * @param label Specifies the name of the image in the directory. File extension must be included.
+	 * @param width Specifies the desired width of the background image. Measured in pixels.
+	 * @param height Specifies the desired height of the background image. Measured in pixels.
 	 */
-	public BackgroundImage(String label) {
-		setImage(new Image(BACKGROUNDS_PATH + label, X_UPPER_BOUND, Y_UPPER_BOUND, false, true));
+	public BackgroundImage(String label, double width, double height) {
+		setImage(new Image(BACKGROUNDS_PATH + label, width, height, false, true));
 		setX(0);
 		setY(0);
 	}

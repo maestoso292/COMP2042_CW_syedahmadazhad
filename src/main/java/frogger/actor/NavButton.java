@@ -6,8 +6,6 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
-import static frogger.Main.RESOURCES_PATH;
-
 /**
  * The NavButton class provides a displayable clickable button which on click, calls {@link Navigation} to navigate
  * to a specified destination. All buttons must be inside the resources/buttons/ directory.
@@ -26,7 +24,7 @@ public class NavButton extends Actor{
      */
     public NavButton(String filename, double size, double xpos, double ypos, Class<? extends World> destination) {
         this(filename, size, xpos, ypos);
-        setOnMouseClicked((event -> Navigation.getNavigationController(getScene()).navigateTo(destination)));
+        setOnMouseClicked((event -> Navigation.getNavController(getScene()).navigateTo(destination)));
     }
 
     /**

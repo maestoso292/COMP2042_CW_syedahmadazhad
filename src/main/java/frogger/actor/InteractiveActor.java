@@ -1,7 +1,7 @@
 package frogger.actor;
 
 /**
- * InteractiveActor is the abstract class for Actor objects that an {@link Actor}
+ * InteractiveActor is the abstract class for Actor objects that an {@link Animal}
  * instance can interact with.
  */
 public abstract class InteractiveActor extends Actor{

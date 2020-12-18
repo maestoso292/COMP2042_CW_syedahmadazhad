@@ -11,7 +11,7 @@ public class Truck extends Obstacle {
     /**
      * An enumeration of different types of Trucks and their corresponding sizes.
      */
-    public enum TruckTypes{
+    public enum TruckType {
         /**
          * Specifies a TruckType with label 0 and size(width) 120.
          */
@@ -34,7 +34,7 @@ public class Truck extends Obstacle {
          * @param label Specifies the label to use in the path to the image file.
          * @param size Specifies the size(width) of the TruckType. Measured in pixels.
          */
-        TruckTypes(int label, int size) {
+        TruckType(int label, int size) {
             this.label = label;
             this.size = size;
         }
@@ -64,11 +64,11 @@ public class Truck extends Obstacle {
      * @param speed Specifies the speed at which the instance should move across the screen. Measured in
      *              pixels per frame.
      */
-    public Truck(TruckTypes type, double xpos, double ypos, double speed) {
+    public Truck(TruckType type, double xpos, double ypos, double speed) {
         super(xpos, ypos + TRUCK_PADDING, speed);
         if (trucks == null) {
-            trucks = new ArrayList<>(TruckTypes.values().length);
-            for (TruckTypes truckType : TruckTypes.values()) {
+            trucks = new ArrayList<>(TruckType.values().length);
+            for (TruckType truckType : TruckType.values()) {
                 trucks.add(new Image(TRUCK_PATH + truckType.label + ".png", truckType.size, truckType.size, true, true));
             }
         }

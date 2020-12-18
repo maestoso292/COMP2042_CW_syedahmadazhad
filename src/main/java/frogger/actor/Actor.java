@@ -1,8 +1,8 @@
 package frogger.actor;
 
+import frogger.world.World;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
-import frogger.world.World;
 
 import java.util.ArrayList;
 

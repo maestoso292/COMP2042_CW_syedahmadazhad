@@ -1,14 +1,15 @@
 package frogger.world.levels;
 
-import frogger.navigation.Navigation;
-import frogger.actor.*;
+import frogger.actor.Animal;
+import frogger.actor.BackgroundImage;
+import frogger.actor.Digit;
+import frogger.actor.End;
 import frogger.highscore.HighscoreController;
+import frogger.navigation.Navigation;
 import frogger.world.World;
-import frogger.world.misc.MainMenu;
+import frogger.world.MainMenu;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 
@@ -29,6 +30,12 @@ public abstract class Level extends World implements PropertyChangeListener {
      * A constant with value {@value #SECTION_HEIGHT} that specifies the height of every row in the Frogger game.
      */
     public static final double SECTION_HEIGHT = 800.0 / 15;
+
+    /** Value of {@value #LAYOUT_WIDTH} which specifies layout width of this instance. Measured in pixels. */
+    private static final double LAYOUT_WIDTH = 600;
+
+    /** Value of {@value #LAYOUT_HEIGHT} which specifies layout height of this instance. Measured in pixels. */
+    private static final double LAYOUT_HEIGHT = 800;
 
     /**
      * An enumeration that specifies each row of the Frogger level and its corresponding y-coordinate.
@@ -138,7 +145,7 @@ public abstract class Level extends World implements PropertyChangeListener {
         highscoreController = new HighscoreController(levelNumber);
         highscoreController.addPropertyChangeListener("highscores", this);
 
-        add(new BackgroundImage("background_level" + levelNumber + ".png"));
+        add(new BackgroundImage("background_level" + levelNumber + ".png", LAYOUT_WIDTH, LAYOUT_HEIGHT));
 
         for(int i = 0; i < 5; i++) {
             ends.add(new End(10 + 128 * i, 92));
@@ -147,7 +154,7 @@ public abstract class Level extends World implements PropertyChangeListener {
 
         setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
-                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
+                Navigation.getNavController(getScene()).navigateTo(MainMenu.class);
             }
         });
 
@@ -155,32 +162,6 @@ public abstract class Level extends World implements PropertyChangeListener {
         add(animal);
         animal.addPropertyChangeListener("points", this);
         animal.addPropertyChangeListener("endsFilled", this);
-
-        // Generate guiding lines for every row.
-        /*
-        class Temp extends Actor {
-            public Temp(double x, double y) {
-                setImage(new Image(MISC_PATH + "line.png", 600, 1, true, true));
-                setX(x);
-                setY(y);
-            }
-            @Override
-            public void act(long now) {
-
-            }
-        }
-
-        for (int i = 0; i < 15; i++) {
-            add(new Temp(0, 800 * i /15));
-        }
-         */
-
-
-        setOnKeyPressed((event -> {
-            if (event.getCode() == KeyCode.ESCAPE) {
-                Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class);
-            }
-        }));
     }
 
     /**
@@ -257,7 +238,7 @@ public abstract class Level extends World implements PropertyChangeListener {
         alert.setTitle("YOU WON!");
         alert.setHeaderText("Your Score: " + animal.getPoints());
         alert.setContentText("Current Highscores\n" + highscoreController.getHighscoresFormattedDisplay());
-        alert.setOnHidden(event -> Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class));
+        alert.setOnHidden(event -> Navigation.getNavController(getScene()).navigateTo(MainMenu.class));
         alert.show();
     }
 

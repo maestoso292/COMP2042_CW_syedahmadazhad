@@ -1,7 +1,5 @@
 package frogger.actor;
 
-import static frogger.Main.*;
-
 /**
  * The Platform class is the abstract class which all Frogger platforms(nodes that can be stood on by the Frogger)
  * must be a subclass of. All images files of Platforms must face the right direction (East).
@@ -48,9 +46,11 @@ public abstract class Platform extends InteractiveActor {
     @Override
     public void act(long now) {
         move(speed , 0);
-        if (getX()>X_UPPER_BOUND && speed > 0)
-            setX(X_LOWER_BOUND - getWidth());
-        if (getX()<X_LOWER_BOUND - getWidth() && speed <0)
-            setX(X_UPPER_BOUND);
+        double lowerBound = getWorld().getLayoutBounds().getMinX();
+        double upperBound = getWorld().getLayoutBounds().getMaxX();
+        if (getX() > upperBound && speed > 0)
+            setX(lowerBound - getWidth());
+        if (getX() < lowerBound - getWidth() && speed <0)
+            setX(upperBound);
     }
 }

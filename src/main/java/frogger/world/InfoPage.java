@@ -1,8 +1,8 @@
-package frogger.world.misc;
+package frogger.world;
 
-import frogger.navigation.Navigation;
 import frogger.actor.BackgroundImage;
-import frogger.world.World;
+import frogger.navigation.Navigation;
+import javafx.scene.input.KeyCode;
 
 /**
  * InfoPage is a class that provides a info page screen for the Frogger game. The class uses a BackgroundImage with
@@ -14,8 +14,12 @@ public class InfoPage extends World {
      * Creates an InfoPage with a preset background image that contains all the required information.
      */
     public InfoPage() {
-        add(new BackgroundImage("background_info_page.png"));
-        setOnKeyPressed(event -> Navigation.getNavigationController(getScene()).navigateTo(MainMenu.class));
+        add(new BackgroundImage("background_info_page.png", 600, 800));
+        setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                Navigation.getNavController(getScene()).navigateTo(MainMenu.class);
+            }
+        });
     }
 
     /**
