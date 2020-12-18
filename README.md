@@ -6,7 +6,7 @@ https://github.com/hirish99/Frogger-Arcade-Game
 <h6>Integrating Gradle and File Categorisation</h6>
 Gradle wrapper added to project.
 Gradle build files were added to the project to manage dependencies such as the JavaFX library.
-The original files were separated into different directories. Associated files were grouped together. 
+The original files were separated into different directories.
 <h6>Resource Management</h6>
 The original code used hardcoded Strings for paths to image resource files every time it created Actor objects. 
 This was changed to String constants which were referenced if needed. Each Actor subclass has a string constant
